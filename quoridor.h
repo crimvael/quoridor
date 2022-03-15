@@ -15,6 +15,11 @@ public:
     Quoridor(QWidget *parent = nullptr);
     ~Quoridor();
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButton_5_clicked();
+
 private:
     Ui::Quoridor *ui;
 };
