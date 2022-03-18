@@ -13,12 +13,15 @@ class Quoridor : public QMainWindow
 
 public:
     Quoridor(QWidget *parent = nullptr);
+    void mouseMoveEvent(QMouseEvent *event);
     ~Quoridor();
 
 private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_5_clicked();
+
+    void on_pushButton_3_clicked();
 
 private:
     Ui::Quoridor *ui;
