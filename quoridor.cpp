@@ -21,13 +21,6 @@ Quoridor::Quoridor(QWidget *parent)
 
 void Quoridor::mouseMoveEvent(QMouseEvent *event){
     if(start){
-        int n = event->position().x();
-        ui->label_2->setText(QString::number(n));
-        if(n > 500){
-            ui->pushButton_6->setEnabled(false);
-        }
-        else
-            ui->pushButton_6->setEnabled(true);
     }
 }
 
