@@ -23,6 +23,8 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void find_moves();
+
     void on_pushButton_0000_clicked();
     void on_pushButton_0002_clicked();
     void on_pushButton_0004_clicked();

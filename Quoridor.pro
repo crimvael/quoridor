@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     buttons.cpp \
+    find_moves.cpp \
     main.cpp \
     quoridor.cpp
 

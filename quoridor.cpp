@@ -17,6 +17,7 @@ Quoridor::Quoridor(QWidget *parent)
 {
     ui->setupUi(this);
     ui->frame_2->setVisible(false);
+    ui->pushButton_0000->setEnabled(true);
 }
 
 void Quoridor::mouseMoveEvent(QMouseEvent *event){
