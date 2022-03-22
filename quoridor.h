@@ -25,6 +25,10 @@ private slots:
 
     void find_moves();
 
+    void reset_buttons();
+
+    void game_manager();
+
     void on_pushButton_0000_clicked();
     void on_pushButton_0002_clicked();
     void on_pushButton_0004_clicked();
@@ -106,6 +110,8 @@ private slots:
     void on_pushButton_1612_clicked();
     void on_pushButton_1614_clicked();
     void on_pushButton_1616_clicked();
+
+    void on_pushButton_4_clicked();
 
 private:
     Ui::Quoridor *ui;
