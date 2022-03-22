@@ -26,6 +26,10 @@ Quoridor::Quoridor(QWidget *parent)
 {
     ui->setupUi(this);
     ui->frame_2->setVisible(false);
+    QPixmap pixmap(":/images/P1.png");
+    QIcon ButtonIcon(pixmap);
+    ui->pushButton_0000->setIcon(ButtonIcon);
+    ui->pushButton_0000->setIconSize(pixmap.rect().size());
 }
 
 void Quoridor::mouseMoveEvent(QMouseEvent *event){
