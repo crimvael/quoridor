@@ -18,6 +18,8 @@ public:
 
 private slots:
 
+    void paintEvent(QPaintEvent *);
+
     void on_pushButton_clicked();
 
     void on_pushButton_5_clicked();

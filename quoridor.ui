@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
-    <height>720</height>
+    <width>600</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>570</width>
-    <height>720</height>
+    <width>600</width>
+    <height>750</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>570</width>
-    <height>720</height>
+    <width>600</width>
+    <height>750</height>
    </size>
   </property>
   <property name="mouseTracking">
@@ -35,13 +35,16 @@
    <string>Quoridor</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
    <widget class="QFrame" name="frame_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>550</width>
-      <height>550</height>
+      <x>5</x>
+      <y>5</y>
+      <width>590</width>
+      <height>590</height>
      </rect>
     </property>
     <property name="mouseTracking">
@@ -62,6 +65,9 @@
        <height>50</height>
       </rect>
      </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
      <property name="focusPolicy">
       <enum>Qt::StrongFocus</enum>
      </property>
@@ -75,11 +81,14 @@
     <widget class="QPushButton" name="pushButton_0002">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>75</x>
        <y>10</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -88,11 +97,14 @@
     <widget class="QPushButton" name="pushButton_0004">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>140</x>
        <y>10</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -101,11 +113,14 @@
     <widget class="QPushButton" name="pushButton_0006">
      <property name="geometry">
       <rect>
-       <x>190</x>
+       <x>205</x>
        <y>10</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -114,11 +129,14 @@
     <widget class="QPushButton" name="pushButton_0008">
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>270</x>
        <y>10</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -127,11 +145,14 @@
     <widget class="QPushButton" name="pushButton_0010">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>335</x>
        <y>10</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -140,11 +161,14 @@
     <widget class="QPushButton" name="pushButton_0012">
      <property name="geometry">
       <rect>
-       <x>370</x>
+       <x>400</x>
        <y>10</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -153,11 +177,14 @@
     <widget class="QPushButton" name="pushButton_0014">
      <property name="geometry">
       <rect>
-       <x>430</x>
+       <x>465</x>
        <y>10</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -166,11 +193,14 @@
     <widget class="QPushButton" name="pushButton_0016">
      <property name="geometry">
       <rect>
-       <x>490</x>
+       <x>530</x>
        <y>10</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -180,10 +210,13 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
+       <y>75</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -192,11 +225,14 @@
     <widget class="QPushButton" name="pushButton_0212">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>70</y>
+       <x>400</x>
+       <y>75</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -205,11 +241,14 @@
     <widget class="QPushButton" name="pushButton_0214">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>70</y>
+       <x>465</x>
+       <y>75</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -218,11 +257,14 @@
     <widget class="QPushButton" name="pushButton_0208">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>70</y>
+       <x>270</x>
+       <y>75</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -231,11 +273,14 @@
     <widget class="QPushButton" name="pushButton_0204">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>70</y>
+       <x>140</x>
+       <y>75</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -244,11 +289,14 @@
     <widget class="QPushButton" name="pushButton_0210">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>70</y>
+       <x>335</x>
+       <y>75</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -257,11 +305,14 @@
     <widget class="QPushButton" name="pushButton_0202">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>70</y>
+       <x>75</x>
+       <y>75</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -270,11 +321,14 @@
     <widget class="QPushButton" name="pushButton_0216">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>70</y>
+       <x>530</x>
+       <y>75</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -283,11 +337,14 @@
     <widget class="QPushButton" name="pushButton_0206">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>70</y>
+       <x>205</x>
+       <y>75</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -297,10 +354,13 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>140</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -309,11 +369,14 @@
     <widget class="QPushButton" name="pushButton_0412">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>130</y>
+       <x>400</x>
+       <y>140</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -322,11 +385,14 @@
     <widget class="QPushButton" name="pushButton_0414">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>130</y>
+       <x>465</x>
+       <y>140</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -335,11 +401,14 @@
     <widget class="QPushButton" name="pushButton_0408">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>130</y>
+       <x>270</x>
+       <y>140</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -348,11 +417,14 @@
     <widget class="QPushButton" name="pushButton_0404">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>130</y>
+       <x>140</x>
+       <y>140</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -361,11 +433,14 @@
     <widget class="QPushButton" name="pushButton_0410">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>130</y>
+       <x>335</x>
+       <y>140</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -374,11 +449,14 @@
     <widget class="QPushButton" name="pushButton_0402">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>130</y>
+       <x>75</x>
+       <y>140</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -387,11 +465,14 @@
     <widget class="QPushButton" name="pushButton_0416">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>130</y>
+       <x>530</x>
+       <y>140</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -400,11 +481,14 @@
     <widget class="QPushButton" name="pushButton_0406">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>130</y>
+       <x>205</x>
+       <y>140</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -414,10 +498,13 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>190</y>
+       <y>205</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -426,11 +513,14 @@
     <widget class="QPushButton" name="pushButton_0612">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>190</y>
+       <x>400</x>
+       <y>205</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -439,11 +529,14 @@
     <widget class="QPushButton" name="pushButton_0614">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>190</y>
+       <x>465</x>
+       <y>205</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -452,11 +545,14 @@
     <widget class="QPushButton" name="pushButton_0608">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>190</y>
+       <x>270</x>
+       <y>205</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -465,11 +561,14 @@
     <widget class="QPushButton" name="pushButton_0604">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>190</y>
+       <x>140</x>
+       <y>205</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -478,11 +577,14 @@
     <widget class="QPushButton" name="pushButton_0610">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>190</y>
+       <x>335</x>
+       <y>205</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -491,11 +593,14 @@
     <widget class="QPushButton" name="pushButton_0602">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>190</y>
+       <x>75</x>
+       <y>205</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -504,11 +609,14 @@
     <widget class="QPushButton" name="pushButton_0616">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>190</y>
+       <x>530</x>
+       <y>205</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -517,11 +625,14 @@
     <widget class="QPushButton" name="pushButton_0606">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>190</y>
+       <x>205</x>
+       <y>205</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -531,10 +642,13 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>250</y>
+       <y>270</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -543,11 +657,14 @@
     <widget class="QPushButton" name="pushButton_0812">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>250</y>
+       <x>400</x>
+       <y>270</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -556,11 +673,14 @@
     <widget class="QPushButton" name="pushButton_0814">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>250</y>
+       <x>465</x>
+       <y>270</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -569,11 +689,14 @@
     <widget class="QPushButton" name="pushButton_0808">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>250</y>
+       <x>270</x>
+       <y>270</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -582,11 +705,14 @@
     <widget class="QPushButton" name="pushButton_0804">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>250</y>
+       <x>140</x>
+       <y>270</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -595,11 +721,14 @@
     <widget class="QPushButton" name="pushButton_0810">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>250</y>
+       <x>335</x>
+       <y>270</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -608,11 +737,14 @@
     <widget class="QPushButton" name="pushButton_0802">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>250</y>
+       <x>75</x>
+       <y>270</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -621,11 +753,14 @@
     <widget class="QPushButton" name="pushButton_0816">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>250</y>
+       <x>530</x>
+       <y>270</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -634,11 +769,14 @@
     <widget class="QPushButton" name="pushButton_0806">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>250</y>
+       <x>205</x>
+       <y>270</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -648,10 +786,13 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>310</y>
+       <y>335</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -660,11 +801,14 @@
     <widget class="QPushButton" name="pushButton_1012">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>310</y>
+       <x>400</x>
+       <y>335</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -673,11 +817,14 @@
     <widget class="QPushButton" name="pushButton_1014">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>310</y>
+       <x>465</x>
+       <y>335</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -686,11 +833,14 @@
     <widget class="QPushButton" name="pushButton_1008">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>310</y>
+       <x>270</x>
+       <y>335</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -699,11 +849,14 @@
     <widget class="QPushButton" name="pushButton_1004">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>310</y>
+       <x>140</x>
+       <y>335</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -712,11 +865,14 @@
     <widget class="QPushButton" name="pushButton_1010">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>310</y>
+       <x>335</x>
+       <y>335</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -725,11 +881,14 @@
     <widget class="QPushButton" name="pushButton_1002">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>310</y>
+       <x>75</x>
+       <y>335</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -738,11 +897,14 @@
     <widget class="QPushButton" name="pushButton_1016">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>310</y>
+       <x>530</x>
+       <y>335</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -751,11 +913,14 @@
     <widget class="QPushButton" name="pushButton_1006">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>310</y>
+       <x>205</x>
+       <y>335</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -765,10 +930,13 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>370</y>
+       <y>400</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -777,11 +945,14 @@
     <widget class="QPushButton" name="pushButton_1212">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>370</y>
+       <x>400</x>
+       <y>400</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -790,11 +961,14 @@
     <widget class="QPushButton" name="pushButton_1214">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>370</y>
+       <x>465</x>
+       <y>400</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -803,11 +977,14 @@
     <widget class="QPushButton" name="pushButton_1208">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>370</y>
+       <x>270</x>
+       <y>400</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -816,11 +993,14 @@
     <widget class="QPushButton" name="pushButton_1204">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>370</y>
+       <x>140</x>
+       <y>400</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -829,11 +1009,14 @@
     <widget class="QPushButton" name="pushButton_1210">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>370</y>
+       <x>335</x>
+       <y>400</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -842,11 +1025,14 @@
     <widget class="QPushButton" name="pushButton_1202">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>370</y>
+       <x>75</x>
+       <y>400</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -855,11 +1041,14 @@
     <widget class="QPushButton" name="pushButton_1216">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>370</y>
+       <x>530</x>
+       <y>400</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -868,11 +1057,14 @@
     <widget class="QPushButton" name="pushButton_1206">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>370</y>
+       <x>205</x>
+       <y>400</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -882,10 +1074,13 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>430</y>
+       <y>465</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -894,11 +1089,14 @@
     <widget class="QPushButton" name="pushButton_1412">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>430</y>
+       <x>400</x>
+       <y>465</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -907,11 +1105,14 @@
     <widget class="QPushButton" name="pushButton_1414">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>430</y>
+       <x>465</x>
+       <y>465</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -920,11 +1121,14 @@
     <widget class="QPushButton" name="pushButton_1408">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>430</y>
+       <x>270</x>
+       <y>465</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -933,11 +1137,14 @@
     <widget class="QPushButton" name="pushButton_1404">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>430</y>
+       <x>140</x>
+       <y>465</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -946,11 +1153,14 @@
     <widget class="QPushButton" name="pushButton_1410">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>430</y>
+       <x>335</x>
+       <y>465</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -959,11 +1169,14 @@
     <widget class="QPushButton" name="pushButton_1402">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>430</y>
+       <x>75</x>
+       <y>465</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -972,11 +1185,14 @@
     <widget class="QPushButton" name="pushButton_1416">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>430</y>
+       <x>530</x>
+       <y>465</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -985,11 +1201,14 @@
     <widget class="QPushButton" name="pushButton_1406">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>430</y>
+       <x>205</x>
+       <y>465</y>
        <width>50</width>
        <height>50</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -999,7 +1218,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>490</y>
+       <y>530</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -1021,6 +1240,9 @@
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -1029,8 +1251,8 @@
     <widget class="QPushButton" name="pushButton_1612">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>490</y>
+       <x>400</x>
+       <y>530</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -1052,6 +1274,9 @@
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -1060,8 +1285,8 @@
     <widget class="QPushButton" name="pushButton_1614">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>490</y>
+       <x>465</x>
+       <y>530</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -1083,6 +1308,9 @@
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
@@ -1094,8 +1322,8 @@
     <widget class="QPushButton" name="pushButton_1608">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>490</y>
+       <x>270</x>
+       <y>530</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -1117,6 +1345,9 @@
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -1125,8 +1356,8 @@
     <widget class="QPushButton" name="pushButton_1604">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>490</y>
+       <x>140</x>
+       <y>530</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -1148,6 +1379,9 @@
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -1156,8 +1390,8 @@
     <widget class="QPushButton" name="pushButton_1610">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>490</y>
+       <x>335</x>
+       <y>530</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -1179,6 +1413,9 @@
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -1187,8 +1424,8 @@
     <widget class="QPushButton" name="pushButton_1602">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>490</y>
+       <x>75</x>
+       <y>530</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -1210,6 +1447,9 @@
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -1218,8 +1458,8 @@
     <widget class="QPushButton" name="pushButton_1616">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>490</y>
+       <x>530</x>
+       <y>530</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -1241,6 +1481,9 @@
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string/>
@@ -1249,8 +1492,8 @@
     <widget class="QPushButton" name="pushButton_1606">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>490</y>
+       <x>205</x>
+       <y>530</y>
        <width>50</width>
        <height>50</height>
       </rect>
@@ -1272,6 +1515,9 @@
        <width>50</width>
        <height>50</height>
       </size>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
@@ -1281,69 +1527,17 @@
      </property>
     </widget>
    </widget>
-   <widget class="QFrame" name="frame">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>570</y>
-      <width>111</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>91</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Start</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>50</y>
-       <width>81</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Info</string>
-     </property>
-    </widget>
-   </widget>
    <widget class="QFrame" name="frame_4">
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>570</y>
-      <width>421</width>
-      <height>91</height>
+      <y>600</y>
+      <width>451</width>
+      <height>101</height>
      </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -1360,6 +1554,9 @@
        <height>24</height>
       </rect>
      </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
      <property name="text">
       <string>New game</string>
      </property>
@@ -1372,6 +1569,9 @@
        <width>80</width>
        <height>24</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string>Back</string>
@@ -1386,6 +1586,9 @@
        <height>24</height>
       </rect>
      </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
      <property name="text">
       <string>Undo</string>
      </property>
@@ -1399,6 +1602,25 @@
        <height>21</height>
       </rect>
      </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>50</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -1408,7 +1630,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>570</y>
+      <y>600</y>
       <width>121</width>
       <height>101</height>
      </rect>
@@ -1436,6 +1658,9 @@
        <pointsize>10</pointsize>
       </font>
      </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
      <property name="text">
       <string>1 player</string>
      </property>
@@ -1453,6 +1678,9 @@
       <font>
        <pointsize>9</pointsize>
       </font>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
      <property name="text">
       <string>2 players</string>
@@ -1472,22 +1700,86 @@
        <pointsize>9</pointsize>
       </font>
      </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
      <property name="text">
       <string>back</string>
      </property>
     </widget>
    </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>600</y>
+      <width>111</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>Start</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>Info</string>
+     </property>
+    </widget>
+   </widget>
    <zorder>frame_2</zorder>
    <zorder>frame_3</zorder>
-   <zorder>frame</zorder>
    <zorder>frame_4</zorder>
+   <zorder>frame</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>570</width>
+     <width>600</width>
      <height>21</height>
     </rect>
    </property>

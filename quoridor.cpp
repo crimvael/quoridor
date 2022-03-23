@@ -1,16 +1,17 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 #include <QMouseEvent>
-#include <QPoint>
 #include <QPainter>
 
 extern bool start;
 extern int curr_position[];
+extern int wall_position[];
 extern int player_1[];
 extern int player_2[];
 extern bool p1;
 extern bool p2;
 extern bool move_select;
+extern bool draw_flag;
 bool start = false;
 int curr_position[] = {-1, -1};
 bool move_select = false;
@@ -18,6 +19,8 @@ int player_1[] = {16, 8};
 int player_2[] = {0, 8};
 bool p1 = false;
 bool p2 = false;
+bool draw_flag = false;
+int wall_position[] = {-1, -1};
 
 
 Quoridor::Quoridor(QWidget *parent)
@@ -26,14 +29,246 @@ Quoridor::Quoridor(QWidget *parent)
 {
     ui->setupUi(this);
     ui->frame_2->setVisible(false);
-//    QPixmap pixmap(":/images/P1.png");
-//    QIcon ButtonIcon(pixmap);
-//    ui->pushButton_0000->setIcon(ButtonIcon);
-//    ui->pushButton_0000->setIconSize(pixmap.rect().size());
 }
 
 void Quoridor::mouseMoveEvent(QMouseEvent *event){
+
     if(start){
+        update();
+        if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 15 && event->pos().y() < 65)){
+            wall_position[0] = 67; wall_position[1] = 17;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 130 && event->pos().x() < 145) && (event->pos().y() > 15 && event->pos().y() < 65)){
+            wall_position[0] = 132; wall_position[1] = 17;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 195 && event->pos().x() < 210) && (event->pos().y() > 15 && event->pos().y() < 65)){
+            wall_position[0] = 197; wall_position[1] = 17;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 260 && event->pos().x() < 275) && (event->pos().y() > 15 && event->pos().y() < 65)){
+            wall_position[0] = 262; wall_position[1] = 17;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 325 && event->pos().x() < 340) && (event->pos().y() > 15 && event->pos().y() < 65)){
+            wall_position[0] = 327; wall_position[1] = 17;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 390 && event->pos().x() < 405) && (event->pos().y() > 15 && event->pos().y() < 65)){
+            wall_position[0] = 392; wall_position[1] = 17;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 455 && event->pos().x() < 470) && (event->pos().y() > 15 && event->pos().y() < 65)){
+            wall_position[0] = 457; wall_position[1] = 17;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 80 && event->pos().y() < 130)){
+            wall_position[0] = 67; wall_position[1] = 82;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 130 && event->pos().x() < 145) && (event->pos().y() > 80 && event->pos().y() < 130)){
+            wall_position[0] = 132; wall_position[1] = 82;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 195 && event->pos().x() < 210) && (event->pos().y() > 80 && event->pos().y() < 130)){
+            wall_position[0] = 197; wall_position[1] = 82;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 260 && event->pos().x() < 275) && (event->pos().y() > 80 && event->pos().y() < 130)){
+            wall_position[0] = 262; wall_position[1] = 82;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 325 && event->pos().x() < 340) && (event->pos().y() > 80 && event->pos().y() < 130)){
+            wall_position[0] = 327; wall_position[1] = 82;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 390 && event->pos().x() < 405) && (event->pos().y() > 80 && event->pos().y() < 130)){
+            wall_position[0] = 392; wall_position[1] = 82;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 455 && event->pos().x() < 470) && (event->pos().y() > 80 && event->pos().y() < 130)){
+            wall_position[0] = 457; wall_position[1] = 82;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 145 && event->pos().y() < 195)){
+            wall_position[0] = 67; wall_position[1] = 147;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 130 && event->pos().x() < 145) && (event->pos().y() > 145 && event->pos().y() < 195)){
+            wall_position[0] = 132; wall_position[1] = 147;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 195 && event->pos().x() < 210) && (event->pos().y() > 145 && event->pos().y() < 195)){
+            wall_position[0] = 197; wall_position[1] = 147;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 260 && event->pos().x() < 275) && (event->pos().y() > 145 && event->pos().y() < 195)){
+            wall_position[0] = 262; wall_position[1] = 147;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 325 && event->pos().x() < 340) && (event->pos().y() > 145 && event->pos().y() < 195)){
+            wall_position[0] = 327; wall_position[1] = 147;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 390 && event->pos().x() < 405) && (event->pos().y() > 145 && event->pos().y() < 195)){
+            wall_position[0] = 392; wall_position[1] = 147;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 455 && event->pos().x() < 470) && (event->pos().y() > 145 && event->pos().y() < 195)){
+            wall_position[0] = 457; wall_position[1] = 147;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 210 && event->pos().y() < 260)){
+            wall_position[0] = 67; wall_position[1] = 212;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 130 && event->pos().x() < 145) && (event->pos().y() > 210 && event->pos().y() < 260)){
+            wall_position[0] = 132; wall_position[1] = 212;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 195 && event->pos().x() < 210) && (event->pos().y() > 210 && event->pos().y() < 260)){
+            wall_position[0] = 197; wall_position[1] = 212;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 260 && event->pos().x() < 275) && (event->pos().y() > 210 && event->pos().y() < 260)){
+            wall_position[0] = 262; wall_position[1] = 212;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 325 && event->pos().x() < 340) && (event->pos().y() > 210 && event->pos().y() < 260)){
+            wall_position[0] = 327; wall_position[1] = 212;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 390 && event->pos().x() < 405) && (event->pos().y() > 210 && event->pos().y() < 260)){
+            wall_position[0] = 392; wall_position[1] = 212;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 455 && event->pos().x() < 470) && (event->pos().y() > 210 && event->pos().y() < 260)){
+            wall_position[0] = 457; wall_position[1] = 212;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 275 && event->pos().y() < 325)){
+            wall_position[0] = 67; wall_position[1] = 277;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 130 && event->pos().x() < 145) && (event->pos().y() > 275 && event->pos().y() < 325)){
+            wall_position[0] = 132; wall_position[1] = 277;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 195 && event->pos().x() < 210) && (event->pos().y() > 275 && event->pos().y() < 325)){
+            wall_position[0] = 197; wall_position[1] = 277;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 260 && event->pos().x() < 275) && (event->pos().y() > 275 && event->pos().y() < 325)){
+            wall_position[0] = 262; wall_position[1] = 277;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 325 && event->pos().x() < 340) && (event->pos().y() > 275 && event->pos().y() < 325)){
+            wall_position[0] = 327; wall_position[1] = 277;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 390 && event->pos().x() < 405) && (event->pos().y() > 275 && event->pos().y() < 325)){
+            wall_position[0] = 392; wall_position[1] = 277;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 455 && event->pos().x() < 470) && (event->pos().y() > 275 && event->pos().y() < 325)){
+            wall_position[0] = 457; wall_position[1] = 277;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 340 && event->pos().y() < 390)){
+            wall_position[0] = 67; wall_position[1] = 342;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 130 && event->pos().x() < 145) && (event->pos().y() > 340 && event->pos().y() < 390)){
+            wall_position[0] = 132; wall_position[1] = 342;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 195 && event->pos().x() < 210) && (event->pos().y() > 340 && event->pos().y() < 390)){
+            wall_position[0] = 197; wall_position[1] = 342;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 260 && event->pos().x() < 275) && (event->pos().y() > 340 && event->pos().y() < 390)){
+            wall_position[0] = 262; wall_position[1] = 342;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 325 && event->pos().x() < 340) && (event->pos().y() > 340 && event->pos().y() < 390)){
+            wall_position[0] = 327; wall_position[1] = 342;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 390 && event->pos().x() < 405) && (event->pos().y() > 340 && event->pos().y() < 390)){
+            wall_position[0] = 392; wall_position[1] = 342;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 455 && event->pos().x() < 470) && (event->pos().y() > 340 && event->pos().y() < 390)){
+            wall_position[0] = 457; wall_position[1] = 342;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 405 && event->pos().y() < 455)){
+            wall_position[0] = 67; wall_position[1] = 407;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 130 && event->pos().x() < 145) && (event->pos().y() > 405 && event->pos().y() < 455)){
+            wall_position[0] = 132; wall_position[1] = 407;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 195 && event->pos().x() < 210) && (event->pos().y() > 405 && event->pos().y() < 455)){
+            wall_position[0] = 197; wall_position[1] = 407;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 260 && event->pos().x() < 275) && (event->pos().y() > 405 && event->pos().y() < 455)){
+            wall_position[0] = 262; wall_position[1] = 407;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 325 && event->pos().x() < 340) && (event->pos().y() > 405 && event->pos().y() < 455)){
+            wall_position[0] = 327; wall_position[1] = 407;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 390 && event->pos().x() < 405) && (event->pos().y() > 405 && event->pos().y() < 455)){
+            wall_position[0] = 392; wall_position[1] = 407;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 455 && event->pos().x() < 470) && (event->pos().y() > 405 && event->pos().y() < 455)){
+            wall_position[0] = 457; wall_position[1] = 407;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 470 && event->pos().y() < 520)){
+            wall_position[0] = 67; wall_position[1] = 472;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 130 && event->pos().x() < 145) && (event->pos().y() > 470 && event->pos().y() < 520)){
+            wall_position[0] = 132; wall_position[1] = 472;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 195 && event->pos().x() < 210) && (event->pos().y() > 470 && event->pos().y() < 520)){
+            wall_position[0] = 197; wall_position[1] = 472;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 260 && event->pos().x() < 275) && (event->pos().y() > 470 && event->pos().y() < 520)){
+            wall_position[0] = 262; wall_position[1] = 472;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 325 && event->pos().x() < 340) && (event->pos().y() > 470 && event->pos().y() < 520)){
+            wall_position[0] = 327; wall_position[1] = 472;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 390 && event->pos().x() < 405) && (event->pos().y() > 470 && event->pos().y() < 520)){
+            wall_position[0] = 392; wall_position[1] = 472;
+            draw_flag = true; update();}
+
+        if((event->pos().x() > 455 && event->pos().x() < 470) && (event->pos().y() > 470 && event->pos().y() < 520)){
+            wall_position[0] = 457; wall_position[1] = 472;
+            draw_flag = true; update();}
+
+
+    }
+}
+
+void Quoridor::paintEvent(QPaintEvent *){
+
+    QPainter paint(this);
+    paint.eraseRect(0,0,1920,1080);
+    if(draw_flag==true){
+        paint.drawRect(wall_position[0],wall_position[1],11,111);
     }
 }
 
