@@ -17,6 +17,7 @@ public:
     ~Quoridor();
 
 private slots:
+
     void on_pushButton_clicked();
 
     void on_pushButton_5_clicked();
@@ -28,6 +29,10 @@ private slots:
     void reset_buttons();
 
     void game_manager();
+
+    void set_pawns(int, int, int);
+
+    void remove_pawn(int, int, int);
 
     void on_pushButton_0000_clicked();
     void on_pushButton_0002_clicked();
