@@ -13,6 +13,8 @@ SOURCES += \
     find_moves.cpp \
     main.cpp \
     quoridor.cpp \
+    set_pawns.cpp \
+    wall_mark.cpp
 
 HEADERS += \
     quoridor.h
