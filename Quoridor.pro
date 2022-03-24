@@ -12,6 +12,7 @@ SOURCES += \
     buttons.cpp \
     find_moves.cpp \
     main.cpp \
+    place_wall.cpp \
     quoridor.cpp \
     set_pawns.cpp \
     wall_mark.cpp

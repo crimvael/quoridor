@@ -2,27 +2,29 @@
 #include "ui_quoridor.h"
 #include <QMouseEvent>
 #include <QPainter>
+#include <QList>
 
-extern bool start;
-extern int curr_position[];
-extern int wall_position[];
-extern int player_1[];
-extern int player_2[];
-extern bool p1;
-extern bool p2;
+struct wall {
+    int x;
+    int y;
+
+    wall(int xx, int yy) : x(xx), y(yy) {}
+};
+
+extern bool start; extern bool show_wall;
+extern int curr_position[]; extern int wall_position[];
+extern int player_1[]; extern int player_2[];
+extern bool p1; extern bool p2;
 extern bool move_select;
-extern bool vertical;
-extern bool horizontal;
-bool start = false;
-int curr_position[] = {-1, -1};
+extern bool vertical; extern bool horizontal;
+extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls;
+bool start = false; bool show_wall = false;
+int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
 bool move_select = false;
-int player_1[] = {16, 8};
-int player_2[] = {0, 8};
-bool p1 = false;
-bool p2 = false;
-bool vertical = false;
-bool horizontal = false;
-int wall_position[] = {-1, -1};
+int player_1[] = {16, 8}; int player_2[] = {0, 8};
+bool p1 = false; bool p2 = false;
+bool vertical = false; bool horizontal = false;
+QList<wall> vertical_walls; QList<wall> horizontal_walls;
 
 
 Quoridor::Quoridor(QWidget *parent)
@@ -32,7 +34,6 @@ Quoridor::Quoridor(QWidget *parent)
     ui->setupUi(this);
     ui->frame_2->setVisible(false);
 }
-
 
 
 Quoridor::~Quoridor()
@@ -64,6 +65,7 @@ void Quoridor::on_pushButton_3_clicked()
 void Quoridor::on_pushButton_4_clicked()
 {
     start = true;
+    show_wall = true;
     p1 = true;
     set_pawns(player_1[0], player_1[1], 1);
     set_pawns(player_2[0], player_2[1], 2);
@@ -100,13 +102,27 @@ void Quoridor::paintEvent(QPaintEvent *){
 
     QPainter paint(this);
 
-    if(vertical==true){
-        paint.drawRect(wall_position[0],wall_position[1],11,111);
+    if(start){
+        if(show_wall){
+            if(vertical){
+                paint.drawRect(wall_position[0],wall_position[1],11,111);
+            }
+
+            if(horizontal){
+                paint.drawRect(wall_position[0],wall_position[1],111,11);
+            }
+        }
+
+        for (int i=0; i<vertical_walls.size(); i++ ) {
+            paint.fillRect(QRect(vertical_walls[i].x, vertical_walls[i].y, 11, 111), Qt::SolidPattern);
+
+        }
+
+        for (int i=0; i<horizontal_walls.size(); i++ ) {
+            paint.fillRect(QRect(horizontal_walls[i].x, horizontal_walls[i].y, 111, 11), Qt::SolidPattern);
+        }
     }
 
-    if(horizontal==true){
-        paint.drawRect(wall_position[0],wall_position[1],111,11);
-    }
 }
 
 void Quoridor::remove_pawn(int x, int y){
@@ -280,3 +296,4 @@ void Quoridor::reset_buttons()
     ui->pushButton_1614->setEnabled(true);
     ui->pushButton_1616->setEnabled(true);
 }
+
