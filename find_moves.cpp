@@ -3,6 +3,7 @@
 
 extern int curr_position[];
 extern bool move_select;
+extern int board_matrix[17][17];
 
 
 void Quoridor::find_moves()
@@ -14,14 +15,21 @@ void Quoridor::find_moves()
     int left[] = {-1,-1};
     int right[] = {-1,-1};
 
-    if(curr_position[1] > 0 /*&& curr_position[1] -1 != 1*/){
+
+
+    if(curr_position[1] > 0 && board_matrix[curr_position[0]][curr_position[1]-1] != 1){
         left[0] = curr_position[0]; left[1] = curr_position[1] -2;}
-    if(curr_position[0] > 0  /*&& curr_position[0] -1 != 1*/){
+
+    if(curr_position[0] > 0  && board_matrix[curr_position[0]-1][curr_position[1]] != 1){
         up[0] = curr_position[0] -2; up[1] = curr_position[1];}
-    if(curr_position[1] < 16 /*&& curr_position[1] -1 != 1*/){
+
+    if(curr_position[1] < 16 && board_matrix[curr_position[0]][curr_position[1]+1] != 1){
         right[0] = curr_position[0]; right[1] = curr_position[1] +2;}
-    if(curr_position[0] < 16 /*&& curr_position[0] -1 != 1*/){
+
+    if(curr_position[0] < 16 && board_matrix[curr_position[0]+1][curr_position[1]] != 1){
         down[0] = curr_position[0] +2; down[1] = curr_position[1];}
+
+
 
 
     if ((curr_position[0] == 0 && curr_position[1] == 0) || (left[0] == 0 && left[1] == 0) || (up[0] == 0 && up[1] == 0) || (right[0] == 0 && right[1] == 0) || (down[0] == 0 && down[1] == 0))

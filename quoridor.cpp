@@ -11,20 +11,24 @@ struct wall {
     wall(int xx, int yy) : x(xx), y(yy) {}
 };
 
-extern bool start; extern bool show_wall;
+extern bool start; extern bool show_wall; extern bool wall_enabled;
 extern int curr_position[]; extern int wall_position[];
 extern int player_1[]; extern int player_2[];
 extern bool p1; extern bool p2;
 extern bool move_select;
 extern bool vertical; extern bool horizontal;
 extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls;
-bool start = false; bool show_wall = false;
+extern QList<wall> matrix_walls;
+extern int board_matrix[17][17];
+bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
 bool move_select = false;
 int player_1[] = {16, 8}; int player_2[] = {0, 8};
 bool p1 = false; bool p2 = false;
 bool vertical = false; bool horizontal = false;
 QList<wall> vertical_walls; QList<wall> horizontal_walls;
+QList<wall> matrix_walls;
+int board_matrix[17][17];
 
 
 Quoridor::Quoridor(QWidget *parent)
@@ -33,6 +37,13 @@ Quoridor::Quoridor(QWidget *parent)
 {
     ui->setupUi(this);
     ui->frame_2->setVisible(false);
+
+    for (int i=0; i < 17; i++) {
+        for (int j=0; j < 17; j++) {
+            board_matrix[i][j] = 0;
+        }
+    }
+
 }
 
 
@@ -66,6 +77,7 @@ void Quoridor::on_pushButton_4_clicked()
 {
     start = true;
     show_wall = true;
+    wall_enabled = true;
     p1 = true;
     set_pawns(player_1[0], player_1[1], 1);
     set_pawns(player_2[0], player_2[1], 2);
