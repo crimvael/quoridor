@@ -10,6 +10,7 @@ struct wall {
 };
 
 extern bool wall_enabled;
+extern bool p1; extern bool p2;
 extern bool vertical; extern bool horizontal;
 extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls;
 extern QList<wall> matrix_walls;
@@ -788,6 +789,21 @@ void Quoridor::mousePressEvent(QMouseEvent *event){
                     if(board_matrix[15][14] == 1 || board_matrix[15][14+1] == 1 || board_matrix[15][14+2] == 1) return;
                     horizontal_walls.append(wall(470+2, 520+2)); update();
                     board_matrix[15][14] = 1; board_matrix[15][14+1] = 1; board_matrix[15][14+2] = 1;}
+
+
+            if(p1){
+                p1 = false;
+                p2 = true;
+                game_manager();
+                return;
+            }
+
+            if(p2){
+                p1 = true;
+                p2 = false;
+                game_manager();
+                return;
+            }
         }
     }
 }
