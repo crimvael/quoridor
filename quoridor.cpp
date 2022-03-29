@@ -19,7 +19,7 @@ extern bool move_select; extern bool placeble;
 extern bool vertical; extern bool horizontal;
 extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls;
 extern QList<wall> matrix_walls;
-extern int board_matrix[17][17];
+extern int board_matrix[17][17]; extern int board_copy[17][17];
 bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
 bool move_select = false; bool placeble = false;
@@ -28,7 +28,7 @@ bool p1 = false; bool p2 = false;
 bool vertical = false; bool horizontal = false;
 QList<wall> vertical_walls; QList<wall> horizontal_walls;
 QList<wall> matrix_walls;
-int board_matrix[17][17];
+int board_matrix[17][17]; int board_copy[17][17];
 
 
 Quoridor::Quoridor(QWidget *parent)
@@ -110,9 +110,9 @@ void Quoridor::game_manager()
     }
 }
 
-void Quoridor::if_placeble(int x, int y, int board[17][17]){
+void Quoridor::if_placeble(int x, int y){
 
-    board[y][x] = 1;
+    //board_copy[y][x] = 1;
 
     if(p1 && y == 0){
         placeble = true;
@@ -125,26 +125,28 @@ void Quoridor::if_placeble(int x, int y, int board[17][17]){
     }
 
     if(y > 0 && y < 16 && x > 0 && x < 16){
-        if(board[y-1][x] == 0 && board[-2][x] == 0){
-            board[y-2][x] = 1;
-            if_placeble(y-2, x, board);
+        if(board_copy[y-1][x] == 0 && board_copy[y-2][x] == 0){
+            board_copy[y-2][x] = 1;
+            if_placeble(y-2, x);
         }
 
-        if(board[y+1][x] == 0 && board[+2][x] == 0){
-            board[y+2][x] = 1;
-            if_placeble(y+2, x, board);
+        if(board_copy[y+1][x] == 0 && board_copy[y+2][x] == 0){
+            board_copy[y+2][x] = 1;
+            if_placeble(y+2, x);
         }
 
-        if(board[y][x-1] == 0 && board[y][x-2] == 0){
-            board[y][x-2] = 1;
-            if_placeble(y, x-2, board);
+        if(board_copy[y][x-1] == 0 && board_copy[y][x-2] == 0){
+            board_copy[y][x-2] = 1;
+            if_placeble(y, x-2);
         }
 
-        if(board[y][x+1] == 0 && board[y][x+2] == 0){
-            board[y][x+2] = 1;
-            if_placeble(y, x+2, board);
+        if(board_copy[y][x+1] == 0 && board_copy[y][x+2] == 0){
+            board_copy[y][x+2] = 1;
+            if_placeble(y, x+2);
         }
     }
+
+    return;
 }
 
 void Quoridor::paintEvent(QPaintEvent *){
