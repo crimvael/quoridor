@@ -18,6 +18,8 @@ public:
 
 private slots:
 
+    void if_placeble(int, int, int[][17]);
+
     void paintEvent(QPaintEvent *);
 
     void mousePressEvent(QMouseEvent *event);
