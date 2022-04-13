@@ -19,16 +19,16 @@ extern bool move_select; extern bool placeble;
 extern bool vertical; extern bool horizontal;
 extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls;
 extern QList<wall> matrix_walls;
-extern int board_matrix[17][17]; extern int board_copy[17][17];
+extern int board_matrix[17][17]; extern int board_copy_1[17][17];
 bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
-bool move_select = false; bool placeble = false;
+bool move_select = false; bool placeble_1 = false; bool placeble_2 = false;
 int player_1[] = {16, 8}; int player_2[] = {0, 8};
 bool p1 = false; bool p2 = false;
 bool vertical = false; bool horizontal = false;
 QList<wall> vertical_walls; QList<wall> horizontal_walls;
 QList<wall> matrix_walls;
-int board_matrix[17][17]; int board_copy[17][17];
+int board_matrix[17][17]; int board_copy_1[17][17]; int board_copy_2[17][17];
 
 
 Quoridor::Quoridor(QWidget *parent)
@@ -100,49 +100,97 @@ void Quoridor::game_manager()
     if(p1){
         curr_position[0] = player_1[0];
         curr_position[1] = player_1[1];
+        ui->label->setText("current player: p1");
         return;
     }
 
     if(p2){
         curr_position[0] = player_2[0];
         curr_position[1] = player_2[1];
+        ui->label->setText("current player: p2");
         return;
     }
+
 }
 
-void Quoridor::if_placeble(int x, int y){
+void Quoridor::check_placeble_1(int y, int x){
 
-    //board_copy[y][x] = 1;
-
-    if(p1 && y == 0){
-        placeble = true;
+    if(y == 0){
+        placeble_1 = true;
         return;
     }
 
-    if(p2 && y == 16){
-        placeble = true;
+    if(y < 17 && y != 0){
+
+        if(board_copy_1[y-1][x] == 0 && board_copy_1[y-2][x] == 0){
+            board_copy_1[y-2][x] = 1;
+            check_placeble_1(y-2, x);
+        }
+    }
+
+    if(y >= 0 && y != 16){
+
+        if(board_copy_1[y+1][x] == 0 && board_copy_1[y+2][x] == 0){
+            board_copy_1[y+2][x] = 1;
+            check_placeble_1(y+2, x);
+        }
+    }
+
+    if(x < 17&& x != 0){
+
+        if(board_copy_1[y][x-1] == 0 && board_copy_1[y][x-2] == 0){
+            board_copy_1[y][x-2] = 1;
+            check_placeble_1(y, x-2);
+        }
+    }
+
+    if(x >= 0 && x != 16){
+
+        if(board_copy_1[y][x+1] == 0 && board_copy_1[y][x+2] == 0){
+            board_copy_1[y][x+2] = 1;
+            check_placeble_1(y, x+2);
+        }
+    }
+
+    return;
+}
+
+void Quoridor::check_placeble_2(int y, int x){
+
+    if(y == 16){
+        placeble_2 = true;
         return;
     }
 
-    if(y > 0 && y < 16 && x > 0 && x < 16){
-        if(board_copy[y-1][x] == 0 && board_copy[y-2][x] == 0){
-            board_copy[y-2][x] = 1;
-            if_placeble(y-2, x);
-        }
+    if(y < 17 && y != 0){
 
-        if(board_copy[y+1][x] == 0 && board_copy[y+2][x] == 0){
-            board_copy[y+2][x] = 1;
-            if_placeble(y+2, x);
+        if(board_copy_2[y-1][x] == 0 && board_copy_2[y-2][x] == 0){
+            board_copy_2[y-2][x] = 1;
+            check_placeble_2(y-2, x);
         }
+    }
 
-        if(board_copy[y][x-1] == 0 && board_copy[y][x-2] == 0){
-            board_copy[y][x-2] = 1;
-            if_placeble(y, x-2);
+    if(y >= 0 && y != 16){
+
+        if(board_copy_2[y+1][x] == 0 && board_copy_2[y+2][x] == 0){
+            board_copy_2[y+2][x] = 1;
+            check_placeble_2(y+2, x);
         }
+    }
 
-        if(board_copy[y][x+1] == 0 && board_copy[y][x+2] == 0){
-            board_copy[y][x+2] = 1;
-            if_placeble(y, x+2);
+    if(x < 17 && x != 0){
+
+        if(board_copy_2[y][x-1] == 0 && board_copy_2[y][x-2] == 0){
+            board_copy_2[y][x-2] = 1;
+            check_placeble_2(y, x-2);
+        }
+    }
+
+    if(x >= 0 && x != 16){
+
+        if(board_copy_2[y][x+1] == 0 && board_copy_2[y][x+2] == 0){
+            board_copy_2[y][x+2] = 1;
+            check_placeble_2(y, x+2);
         }
     }
 

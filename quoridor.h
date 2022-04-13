@@ -18,7 +18,9 @@ public:
 
 private slots:
 
-    void if_placeble(int, int);
+    void check_placeble_1(int, int);
+
+    void check_placeble_2(int, int);
 
     void paintEvent(QPaintEvent *);
 
