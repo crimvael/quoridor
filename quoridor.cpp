@@ -395,4 +395,3 @@ void Quoridor::reset_buttons()
     ui->pushButton_1614->setEnabled(true);
     ui->pushButton_1616->setEnabled(true);
 }
-
