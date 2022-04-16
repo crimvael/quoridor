@@ -126,6 +126,8 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_pushButton_89_clicked();
+
 private:
     Ui::Quoridor *ui;
 };

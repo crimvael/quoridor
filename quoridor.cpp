@@ -17,8 +17,7 @@ extern int player_1[]; extern int player_2[];
 extern bool p1; extern bool p2;
 extern bool move_select; extern bool placeble;
 extern bool vertical; extern bool horizontal;
-extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls;
-extern QList<wall> matrix_walls;
+extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls; extern QList<QString> moves;
 extern int board_matrix[17][17]; extern int board_copy_1[17][17];
 bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
@@ -26,8 +25,7 @@ bool move_select = false; bool placeble_1 = false; bool placeble_2 = false;
 int player_1[] = {16, 8}; int player_2[] = {0, 8};
 bool p1 = false; bool p2 = false;
 bool vertical = false; bool horizontal = false;
-QList<wall> vertical_walls; QList<wall> horizontal_walls;
-QList<wall> matrix_walls;
+QList<wall> vertical_walls; QList<wall> horizontal_walls; QList<QString> moves;
 int board_matrix[17][17]; int board_copy_1[17][17]; int board_copy_2[17][17];
 
 
@@ -43,7 +41,6 @@ Quoridor::Quoridor(QWidget *parent)
             board_matrix[i][j] = 0;
         }
     }
-
 }
 
 
@@ -81,6 +78,8 @@ void Quoridor::on_pushButton_4_clicked()
     p1 = true;
     set_pawns(player_1[0], player_1[1], 1);
     set_pawns(player_2[0], player_2[1], 2);
+    moves.append("m 00 08 1");
+    moves.append("m 16 08 1");
     game_manager();
 }
 
@@ -222,6 +221,28 @@ void Quoridor::paintEvent(QPaintEvent *){
         }
     }
 
+}
+
+void Quoridor::on_pushButton_89_clicked()
+{
+    if(moves.length() > 2){
+
+        int y = moves.last().split(QChar(' ')).at(1).toInt();
+        int x = moves.last().split(QChar(' ')).at(2).toInt();
+
+        if(moves.last().at(0) == 'v'){
+            board_matrix[y][x] = 0; board_matrix[y+1][x] = 0; board_matrix[y+2][x] = 0;
+            vertical_walls.removeLast(); update();}
+        if(moves.last().at(0) == 'h'){
+            board_matrix[y][x] = 0; board_matrix[y][x+1] = 0; board_matrix[y][x+2] = 0;
+            horizontal_walls.removeLast(); update();}
+        if(moves.last().at(0) == 'm'){
+            set_pawns(y, x, QString(moves.last().at(8)).toInt()); update();}
+
+        moves.removeLast();
+    }
+
+    return;
 }
 
 void Quoridor::remove_pawn(int x, int y){
@@ -395,3 +416,4 @@ void Quoridor::reset_buttons()
     ui->pushButton_1614->setEnabled(true);
     ui->pushButton_1616->setEnabled(true);
 }
+
