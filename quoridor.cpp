@@ -11,9 +11,16 @@ struct wall {
     wall(int xx, int yy) : x(xx), y(yy) {}
 };
 
+struct move {
+    int y;
+    int x;
+
+    move(int yy, int xx) : y(yy), x(xx) {}
+};
+
 extern bool start; extern bool show_wall; extern bool wall_enabled;
 extern int curr_position[]; extern int wall_position[];
-extern int player_1[]; extern int player_2[];
+extern QList<move> player_1; extern QList<move> player_2;
 extern bool p1; extern bool p2;
 extern bool move_select; extern bool placeble;
 extern bool vertical; extern bool horizontal;
@@ -22,7 +29,7 @@ extern int board_matrix[17][17]; extern int board_copy_1[17][17];
 bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
 bool move_select = false; bool placeble_1 = false; bool placeble_2 = false;
-int player_1[] = {16, 8}; int player_2[] = {0, 8};
+QList<move> player_1; QList<move> player_2;
 bool p1 = false; bool p2 = false;
 bool vertical = false; bool horizontal = false;
 QList<wall> vertical_walls; QList<wall> horizontal_walls; QList<QString> moves;
@@ -76,8 +83,8 @@ void Quoridor::on_pushButton_4_clicked()
     show_wall = true;
     wall_enabled = true;
     p1 = true;
-    set_pawns(player_1[0], player_1[1], 1);
-    set_pawns(player_2[0], player_2[1], 2);
+    set_pawns(16, 8, 1);
+    set_pawns(0, 8, 2);
     moves.append("m 00 08 1");
     moves.append("m 16 08 1");
     game_manager();
@@ -86,12 +93,12 @@ void Quoridor::on_pushButton_4_clicked()
 void Quoridor::game_manager()
 {
 
-    if(player_1[0] == 0){
+    if(player_1.last().y == 0){
         ui->label->setText("Player 1 wins");
         return;
     }
 
-    if(player_2[0] == 16){
+    if(player_2.last().y == 16){
         ui->label->setText("Player 2 wins");
         return;
     }
