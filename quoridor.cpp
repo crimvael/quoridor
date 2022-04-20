@@ -11,16 +11,16 @@ struct wall {
     wall(int xx, int yy) : x(xx), y(yy) {}
 };
 
-struct move {
+struct place {
     int y;
     int x;
 
-    move(int yy, int xx) : y(yy), x(xx) {}
+    place(int yy, int xx) : y(yy), x(xx) {}
 };
 
 extern bool start; extern bool show_wall; extern bool wall_enabled;
 extern int curr_position[]; extern int wall_position[];
-extern QList<move> player_1; extern QList<move> player_2;
+extern QList<place> player_1; extern QList<place> player_2;
 extern bool p1; extern bool p2;
 extern bool move_select; extern bool placeble;
 extern bool vertical; extern bool horizontal;
@@ -29,7 +29,7 @@ extern int board_matrix[17][17]; extern int board_copy_1[17][17];
 bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
 bool move_select = false; bool placeble_1 = false; bool placeble_2 = false;
-QList<move> player_1; QList<move> player_2;
+QList<place> player_1; QList<place> player_2;
 bool p1 = false; bool p2 = false;
 bool vertical = false; bool horizontal = false;
 QList<wall> vertical_walls; QList<wall> horizontal_walls; QList<QString> moves;
@@ -83,10 +83,12 @@ void Quoridor::on_pushButton_4_clicked()
     show_wall = true;
     wall_enabled = true;
     p1 = true;
-    set_pawns(16, 8, 1);
     set_pawns(0, 8, 2);
-    moves.append("m 00 08 1");
-    moves.append("m 16 08 1");
+    set_pawns(16, 8, 1);
+    player_2.append(place(0, 8));
+    player_1.append(place(16, 8));
+    moves.append("m 1");
+    moves.append("m 2");
     game_manager();
 }
 
@@ -104,15 +106,15 @@ void Quoridor::game_manager()
     }
 
     if(p1){
-        curr_position[0] = player_1[0];
-        curr_position[1] = player_1[1];
+        curr_position[0] = player_1.last().y;
+        curr_position[1] = player_1.last().x;
         ui->label->setText("current player: p1");
         return;
     }
 
     if(p2){
-        curr_position[0] = player_2[0];
-        curr_position[1] = player_2[1];
+        curr_position[0] = player_2.last().y;
+        curr_position[1] = player_2.last().x;
         ui->label->setText("current player: p2");
         return;
     }
@@ -127,36 +129,24 @@ void Quoridor::check_placeble_1(int y, int x){
     }
 
     if(y < 17 && y != 0){
-
         if(board_copy_1[y-1][x] == 0 && board_copy_1[y-2][x] == 0){
             board_copy_1[y-2][x] = 1;
-            check_placeble_1(y-2, x);
-        }
-    }
+            check_placeble_1(y-2, x);}}
 
     if(y >= 0 && y != 16){
-
         if(board_copy_1[y+1][x] == 0 && board_copy_1[y+2][x] == 0){
             board_copy_1[y+2][x] = 1;
-            check_placeble_1(y+2, x);
-        }
-    }
+            check_placeble_1(y+2, x);}}
 
     if(x < 17&& x != 0){
-
         if(board_copy_1[y][x-1] == 0 && board_copy_1[y][x-2] == 0){
             board_copy_1[y][x-2] = 1;
-            check_placeble_1(y, x-2);
-        }
-    }
+            check_placeble_1(y, x-2);}}
 
     if(x >= 0 && x != 16){
-
         if(board_copy_1[y][x+1] == 0 && board_copy_1[y][x+2] == 0){
             board_copy_1[y][x+2] = 1;
-            check_placeble_1(y, x+2);
-        }
-    }
+            check_placeble_1(y, x+2);}}
 
     return;
 }
@@ -172,33 +162,22 @@ void Quoridor::check_placeble_2(int y, int x){
 
         if(board_copy_2[y-1][x] == 0 && board_copy_2[y-2][x] == 0){
             board_copy_2[y-2][x] = 1;
-            check_placeble_2(y-2, x);
-        }
-    }
+            check_placeble_2(y-2, x);}}
 
     if(y >= 0 && y != 16){
-
         if(board_copy_2[y+1][x] == 0 && board_copy_2[y+2][x] == 0){
             board_copy_2[y+2][x] = 1;
-            check_placeble_2(y+2, x);
-        }
-    }
+            check_placeble_2(y+2, x);}}
 
     if(x < 17 && x != 0){
-
         if(board_copy_2[y][x-1] == 0 && board_copy_2[y][x-2] == 0){
             board_copy_2[y][x-2] = 1;
-            check_placeble_2(y, x-2);
-        }
-    }
+            check_placeble_2(y, x-2);}}
 
     if(x >= 0 && x != 16){
-
         if(board_copy_2[y][x+1] == 0 && board_copy_2[y][x+2] == 0){
             board_copy_2[y][x+2] = 1;
-            check_placeble_2(y, x+2);
-        }
-    }
+            check_placeble_2(y, x+2);}}
 
     return;
 }
@@ -210,23 +189,16 @@ void Quoridor::paintEvent(QPaintEvent *){
     if(start){
         if(show_wall){
             if(vertical){
-                paint.drawRect(wall_position[0],wall_position[1],11,111);
-            }
+                paint.drawRect(wall_position[0],wall_position[1],11,111);}
 
             if(horizontal){
-                paint.drawRect(wall_position[0],wall_position[1],111,11);
-            }
-        }
+                paint.drawRect(wall_position[0],wall_position[1],111,11);}}
 
         for (int i=0; i<vertical_walls.size(); i++ ) {
-            paint.fillRect(QRect(vertical_walls[i].x, vertical_walls[i].y, 11, 111), Qt::SolidPattern);
-
-        }
+            paint.fillRect(QRect(vertical_walls[i].x, vertical_walls[i].y, 11, 111), Qt::SolidPattern);}
 
         for (int i=0; i<horizontal_walls.size(); i++ ) {
-            paint.fillRect(QRect(horizontal_walls[i].x, horizontal_walls[i].y, 111, 11), Qt::SolidPattern);
-        }
-    }
+            paint.fillRect(QRect(horizontal_walls[i].x, horizontal_walls[i].y, 111, 11), Qt::SolidPattern);}}
 
 }
 
@@ -239,12 +211,25 @@ void Quoridor::on_pushButton_89_clicked()
 
         if(moves.last().at(0) == 'v'){
             board_matrix[y][x] = 0; board_matrix[y+1][x] = 0; board_matrix[y+2][x] = 0;
-            vertical_walls.removeLast(); update();}
+            vertical_walls.removeLast(); update();
+            if(p1){p1 = false; p2 = true;} if(p2){p1 = true; p2 = false;} game_manager();}
         if(moves.last().at(0) == 'h'){
             board_matrix[y][x] = 0; board_matrix[y][x+1] = 0; board_matrix[y][x+2] = 0;
-            horizontal_walls.removeLast(); update();}
+            horizontal_walls.removeLast(); update();
+            if(p1){p1 = false; p2 = true;} if(p2){p1 = true; p2 = false;} game_manager();}
         if(moves.last().at(0) == 'm'){
-            set_pawns(y, x, QString(moves.last().at(8)).toInt()); update();}
+            if(moves.last().at(2) == '1'){
+                remove_pawn(player_1.last().y, player_1.last().x);
+                set_pawns(player_1[player_1.length()-1].y, player_1[player_1.length()-1].x, 1);
+                p1 = false; p2 = true;
+                player_1.removeLast();
+                game_manager(); return;}
+            if(moves.last().at(2) == '2'){
+                remove_pawn(player_2.last().y, player_2.last().x);
+                set_pawns(player_2[player_2.length()-1].y, player_2[player_2.length()-1].x, 2);
+                p1 = true; p2 = false;
+                player_2.removeLast();
+                game_manager(); return;}}
 
         moves.removeLast();
     }
@@ -252,89 +237,89 @@ void Quoridor::on_pushButton_89_clicked()
     return;
 }
 
-void Quoridor::remove_pawn(int x, int y){
+void Quoridor::remove_pawn(int y, int x){
 
-    if(x == 0 && y == 0) ui->pushButton_0000->setIcon(QIcon());
-    if(x == 0 && y == 2) ui->pushButton_0002->setIcon(QIcon());
-    if(x == 0 && y == 4) ui->pushButton_0004->setIcon(QIcon());
-    if(x == 0 && y == 6) ui->pushButton_0006->setIcon(QIcon());
-    if(x == 0 && y == 8) ui->pushButton_0008->setIcon(QIcon());
-    if(x == 0 && y == 10) ui->pushButton_0010->setIcon(QIcon());
-    if(x == 0 && y == 12) ui->pushButton_0012->setIcon(QIcon());
-    if(x == 0 && y == 14) ui->pushButton_0014->setIcon(QIcon());
-    if(x == 0 && y == 16) ui->pushButton_0016->setIcon(QIcon());
-    if(x == 2 && y == 0) ui->pushButton_0200->setIcon(QIcon());
-    if(x == 2 && y == 2) ui->pushButton_0202->setIcon(QIcon());
-    if(x == 2 && y == 4) ui->pushButton_0204->setIcon(QIcon());
-    if(x == 2 && y == 6) ui->pushButton_0206->setIcon(QIcon());
-    if(x == 2 && y == 8) ui->pushButton_0208->setIcon(QIcon());
-    if(x == 2 && y == 10) ui->pushButton_0210->setIcon(QIcon());
-    if(x == 2 && y == 12) ui->pushButton_0212->setIcon(QIcon());
-    if(x == 2 && y == 14) ui->pushButton_0214->setIcon(QIcon());
-    if(x == 2 && y == 16) ui->pushButton_0216->setIcon(QIcon());
-    if(x == 4 && y == 0) ui->pushButton_0400->setIcon(QIcon());
-    if(x == 4 && y == 2) ui->pushButton_0402->setIcon(QIcon());
-    if(x == 4 && y == 4) ui->pushButton_0404->setIcon(QIcon());
-    if(x == 4 && y == 6) ui->pushButton_0406->setIcon(QIcon());
-    if(x == 4 && y == 8) ui->pushButton_0408->setIcon(QIcon());
-    if(x == 4 && y == 10) ui->pushButton_0410->setIcon(QIcon());
-    if(x == 4 && y == 12) ui->pushButton_0412->setIcon(QIcon());
-    if(x == 4 && y == 14) ui->pushButton_0414->setIcon(QIcon());
-    if(x == 4 && y == 16) ui->pushButton_0416->setIcon(QIcon());
-    if(x == 6 && y == 0) ui->pushButton_0600->setIcon(QIcon());
-    if(x == 6 && y == 2) ui->pushButton_0602->setIcon(QIcon());
-    if(x == 6 && y == 4) ui->pushButton_0604->setIcon(QIcon());
-    if(x == 6 && y == 6) ui->pushButton_0606->setIcon(QIcon());
-    if(x == 6 && y == 8) ui->pushButton_0608->setIcon(QIcon());
-    if(x == 6 && y == 10) ui->pushButton_0610->setIcon(QIcon());
-    if(x == 6 && y == 12) ui->pushButton_0612->setIcon(QIcon());
-    if(x == 6 && y == 14) ui->pushButton_0614->setIcon(QIcon());
-    if(x == 6 && y == 16) ui->pushButton_0616->setIcon(QIcon());
-    if(x == 8 && y == 0) ui->pushButton_0800->setIcon(QIcon());
-    if(x == 8 && y == 2) ui->pushButton_0802->setIcon(QIcon());
-    if(x == 8 && y == 4) ui->pushButton_0804->setIcon(QIcon());
-    if(x == 8 && y == 6) ui->pushButton_0806->setIcon(QIcon());
-    if(x == 8 && y == 8) ui->pushButton_0808->setIcon(QIcon());
-    if(x == 8 && y == 10) ui->pushButton_0810->setIcon(QIcon());
-    if(x == 8 && y == 12) ui->pushButton_0812->setIcon(QIcon());
-    if(x == 8 && y == 14) ui->pushButton_0814->setIcon(QIcon());
-    if(x == 8 && y == 16) ui->pushButton_0816->setIcon(QIcon());
-    if(x == 10 && y == 0) ui->pushButton_1000->setIcon(QIcon());
-    if(x == 10 && y == 2) ui->pushButton_1002->setIcon(QIcon());
-    if(x == 10 && y == 4) ui->pushButton_1004->setIcon(QIcon());
-    if(x == 10 && y == 6) ui->pushButton_1006->setIcon(QIcon());
-    if(x == 10 && y == 8) ui->pushButton_1008->setIcon(QIcon());
-    if(x == 10 && y == 10) ui->pushButton_1010->setIcon(QIcon());
-    if(x == 10 && y == 12) ui->pushButton_1012->setIcon(QIcon());
-    if(x == 10 && y == 14) ui->pushButton_1014->setIcon(QIcon());
-    if(x == 10 && y == 16) ui->pushButton_1016->setIcon(QIcon());
-    if(x == 12 && y == 0) ui->pushButton_1200->setIcon(QIcon());
-    if(x == 12 && y == 2) ui->pushButton_1202->setIcon(QIcon());
-    if(x == 12 && y == 4) ui->pushButton_1204->setIcon(QIcon());
-    if(x == 12 && y == 6) ui->pushButton_1206->setIcon(QIcon());
-    if(x == 12 && y == 8) ui->pushButton_1208->setIcon(QIcon());
-    if(x == 12 && y == 10) ui->pushButton_1210->setIcon(QIcon());
-    if(x == 12 && y == 12) ui->pushButton_1212->setIcon(QIcon());
-    if(x == 12 && y == 14) ui->pushButton_1214->setIcon(QIcon());
-    if(x == 12 && y == 16) ui->pushButton_1216->setIcon(QIcon());
-    if(x == 14 && y == 0) ui->pushButton_1400->setIcon(QIcon());
-    if(x == 14 && y == 2) ui->pushButton_1402->setIcon(QIcon());
-    if(x == 14 && y == 4) ui->pushButton_1404->setIcon(QIcon());
-    if(x == 14 && y == 6) ui->pushButton_1406->setIcon(QIcon());
-    if(x == 14 && y == 8) ui->pushButton_1408->setIcon(QIcon());
-    if(x == 14 && y == 10) ui->pushButton_1410->setIcon(QIcon());
-    if(x == 14 && y == 12) ui->pushButton_1412->setIcon(QIcon());
-    if(x == 14 && y == 14) ui->pushButton_1414->setIcon(QIcon());
-    if(x == 14 && y == 16) ui->pushButton_1416->setIcon(QIcon());
-    if(x == 16 && y == 0) ui->pushButton_1600->setIcon(QIcon());
-    if(x == 16 && y == 2) ui->pushButton_1602->setIcon(QIcon());
-    if(x == 16 && y == 4) ui->pushButton_1604->setIcon(QIcon());
-    if(x == 16 && y == 6) ui->pushButton_1606->setIcon(QIcon());
-    if(x == 16 && y == 8) ui->pushButton_1608->setIcon(QIcon());
-    if(x == 16 && y == 10) ui->pushButton_1610->setIcon(QIcon());
-    if(x == 16 && y == 12) ui->pushButton_1612->setIcon(QIcon());
-    if(x == 16 && y == 14) ui->pushButton_1614->setIcon(QIcon());
-    if(x == 16 && y == 16) ui->pushButton_1616->setIcon(QIcon());
+    if(y == 0 && x == 0) ui->pushButton_0000->setIcon(QIcon());
+    if(y == 0 && x == 2) ui->pushButton_0002->setIcon(QIcon());
+    if(y == 0 && x == 4) ui->pushButton_0004->setIcon(QIcon());
+    if(y == 0 && x == 6) ui->pushButton_0006->setIcon(QIcon());
+    if(y == 0 && x == 8) ui->pushButton_0008->setIcon(QIcon());
+    if(y == 0 && x == 10) ui->pushButton_0010->setIcon(QIcon());
+    if(y == 0 && x == 12) ui->pushButton_0012->setIcon(QIcon());
+    if(y == 0 && x == 14) ui->pushButton_0014->setIcon(QIcon());
+    if(y == 0 && x == 16) ui->pushButton_0016->setIcon(QIcon());
+    if(y == 2 && x == 0) ui->pushButton_0200->setIcon(QIcon());
+    if(y == 2 && x == 2) ui->pushButton_0202->setIcon(QIcon());
+    if(y == 2 && x == 4) ui->pushButton_0204->setIcon(QIcon());
+    if(y == 2 && x == 6) ui->pushButton_0206->setIcon(QIcon());
+    if(y == 2 && x == 8) ui->pushButton_0208->setIcon(QIcon());
+    if(y == 2 && x == 10) ui->pushButton_0210->setIcon(QIcon());
+    if(y == 2 && x == 12) ui->pushButton_0212->setIcon(QIcon());
+    if(y == 2 && x == 14) ui->pushButton_0214->setIcon(QIcon());
+    if(y == 2 && x == 16) ui->pushButton_0216->setIcon(QIcon());
+    if(y == 4 && x == 0) ui->pushButton_0400->setIcon(QIcon());
+    if(y == 4 && x == 2) ui->pushButton_0402->setIcon(QIcon());
+    if(y == 4 && x == 4) ui->pushButton_0404->setIcon(QIcon());
+    if(y == 4 && x == 6) ui->pushButton_0406->setIcon(QIcon());
+    if(y == 4 && x == 8) ui->pushButton_0408->setIcon(QIcon());
+    if(y == 4 && x == 10) ui->pushButton_0410->setIcon(QIcon());
+    if(y == 4 && x == 12) ui->pushButton_0412->setIcon(QIcon());
+    if(y == 4 && x == 14) ui->pushButton_0414->setIcon(QIcon());
+    if(y == 4 && x == 16) ui->pushButton_0416->setIcon(QIcon());
+    if(y == 6 && x == 0) ui->pushButton_0600->setIcon(QIcon());
+    if(y == 6 && x == 2) ui->pushButton_0602->setIcon(QIcon());
+    if(y == 6 && x == 4) ui->pushButton_0604->setIcon(QIcon());
+    if(y == 6 && x == 6) ui->pushButton_0606->setIcon(QIcon());
+    if(y == 6 && x == 8) ui->pushButton_0608->setIcon(QIcon());
+    if(y == 6 && x == 10) ui->pushButton_0610->setIcon(QIcon());
+    if(y == 6 && x == 12) ui->pushButton_0612->setIcon(QIcon());
+    if(y == 6 && x == 14) ui->pushButton_0614->setIcon(QIcon());
+    if(y == 6 && x == 16) ui->pushButton_0616->setIcon(QIcon());
+    if(y == 8 && x == 0) ui->pushButton_0800->setIcon(QIcon());
+    if(y == 8 && x == 2) ui->pushButton_0802->setIcon(QIcon());
+    if(y == 8 && x == 4) ui->pushButton_0804->setIcon(QIcon());
+    if(y == 8 && x == 6) ui->pushButton_0806->setIcon(QIcon());
+    if(y == 8 && x == 8) ui->pushButton_0808->setIcon(QIcon());
+    if(y == 8 && x == 10) ui->pushButton_0810->setIcon(QIcon());
+    if(y == 8 && x == 12) ui->pushButton_0812->setIcon(QIcon());
+    if(y == 8 && x == 14) ui->pushButton_0814->setIcon(QIcon());
+    if(y == 8 && x == 16) ui->pushButton_0816->setIcon(QIcon());
+    if(y == 10 && x == 0) ui->pushButton_1000->setIcon(QIcon());
+    if(y == 10 && x == 2) ui->pushButton_1002->setIcon(QIcon());
+    if(y == 10 && x == 4) ui->pushButton_1004->setIcon(QIcon());
+    if(y == 10 && x == 6) ui->pushButton_1006->setIcon(QIcon());
+    if(y == 10 && x == 8) ui->pushButton_1008->setIcon(QIcon());
+    if(y == 10 && x == 10) ui->pushButton_1010->setIcon(QIcon());
+    if(y == 10 && x == 12) ui->pushButton_1012->setIcon(QIcon());
+    if(y == 10 && x == 14) ui->pushButton_1014->setIcon(QIcon());
+    if(y == 10 && x == 16) ui->pushButton_1016->setIcon(QIcon());
+    if(y == 12 && x == 0) ui->pushButton_1200->setIcon(QIcon());
+    if(y == 12 && x == 2) ui->pushButton_1202->setIcon(QIcon());
+    if(y == 12 && x == 4) ui->pushButton_1204->setIcon(QIcon());
+    if(y == 12 && x == 6) ui->pushButton_1206->setIcon(QIcon());
+    if(y == 12 && x == 8) ui->pushButton_1208->setIcon(QIcon());
+    if(y == 12 && x == 10) ui->pushButton_1210->setIcon(QIcon());
+    if(y == 12 && x == 12) ui->pushButton_1212->setIcon(QIcon());
+    if(y == 12 && x == 14) ui->pushButton_1214->setIcon(QIcon());
+    if(y == 12 && x == 16) ui->pushButton_1216->setIcon(QIcon());
+    if(y == 14 && x == 0) ui->pushButton_1400->setIcon(QIcon());
+    if(y == 14 && x == 2) ui->pushButton_1402->setIcon(QIcon());
+    if(y == 14 && x == 4) ui->pushButton_1404->setIcon(QIcon());
+    if(y == 14 && x == 6) ui->pushButton_1406->setIcon(QIcon());
+    if(y == 14 && x == 8) ui->pushButton_1408->setIcon(QIcon());
+    if(y == 14 && x == 10) ui->pushButton_1410->setIcon(QIcon());
+    if(y == 14 && x == 12) ui->pushButton_1412->setIcon(QIcon());
+    if(y == 14 && x == 14) ui->pushButton_1414->setIcon(QIcon());
+    if(y == 14 && x == 16) ui->pushButton_1416->setIcon(QIcon());
+    if(y == 16 && x == 0) ui->pushButton_1600->setIcon(QIcon());
+    if(y == 16 && x == 2) ui->pushButton_1602->setIcon(QIcon());
+    if(y == 16 && x == 4) ui->pushButton_1604->setIcon(QIcon());
+    if(y == 16 && x == 6) ui->pushButton_1606->setIcon(QIcon());
+    if(y == 16 && x == 8) ui->pushButton_1608->setIcon(QIcon());
+    if(y == 16 && x == 10) ui->pushButton_1610->setIcon(QIcon());
+    if(y == 16 && x == 12) ui->pushButton_1612->setIcon(QIcon());
+    if(y == 16 && x == 14) ui->pushButton_1614->setIcon(QIcon());
+    if(y == 16 && x == 16) ui->pushButton_1616->setIcon(QIcon());
 }
 
 void Quoridor::reset_buttons()
