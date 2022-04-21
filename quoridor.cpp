@@ -204,34 +204,37 @@ void Quoridor::paintEvent(QPaintEvent *){
 
 void Quoridor::on_pushButton_89_clicked()
 {
-    if(moves.length() > 2){
+    if(start){
+        if(moves.length() > 2){
 
-        int y = moves.last().split(QChar(' ')).at(1).toInt();
-        int x = moves.last().split(QChar(' ')).at(2).toInt();
+            if(moves.last().at(0) == 'v'){
+                int y = moves.last().split(QChar(' ')).at(1).toInt();
+                int x = moves.last().split(QChar(' ')).at(2).toInt();
+                board_matrix[y][x] = 0; board_matrix[y+1][x] = 0; board_matrix[y+2][x] = 0;
+                vertical_walls.removeLast(); update();
+                if(p1){p1 = false; p2 = true;} if(p2){p1 = true; p2 = false;} game_manager();}
+            if(moves.last().at(0) == 'h'){
+                int y = moves.last().split(QChar(' ')).at(1).toInt();
+                int x = moves.last().split(QChar(' ')).at(2).toInt();
+                board_matrix[y][x] = 0; board_matrix[y][x+1] = 0; board_matrix[y][x+2] = 0;
+                horizontal_walls.removeLast(); update();
+                if(p1){p1 = false; p2 = true;} if(p2){p1 = true; p2 = false;} game_manager();}
+            if(moves.last().at(0) == 'm'){
+                if(moves.last().at(2) == '1'){
+                    remove_pawn(player_1.last().y, player_1.last().x);
+                    set_pawns(player_1[player_1.length()-2].y, player_1[player_1.length()-2].x, 1);
+                    p1 = false; p2 = true;
+                    player_1.removeLast();
+                    game_manager(); return;}
+                if(moves.last().at(2) == '2'){
+                    remove_pawn(player_2.last().y, player_2.last().x);
+                    set_pawns(player_2[player_2.length()-2].y, player_2[player_2.length()-2].x, 2);
+                    p1 = true; p2 = false;
+                    player_2.removeLast();
+                    game_manager(); return;}}
 
-        if(moves.last().at(0) == 'v'){
-            board_matrix[y][x] = 0; board_matrix[y+1][x] = 0; board_matrix[y+2][x] = 0;
-            vertical_walls.removeLast(); update();
-            if(p1){p1 = false; p2 = true;} if(p2){p1 = true; p2 = false;} game_manager();}
-        if(moves.last().at(0) == 'h'){
-            board_matrix[y][x] = 0; board_matrix[y][x+1] = 0; board_matrix[y][x+2] = 0;
-            horizontal_walls.removeLast(); update();
-            if(p1){p1 = false; p2 = true;} if(p2){p1 = true; p2 = false;} game_manager();}
-        if(moves.last().at(0) == 'm'){
-            if(moves.last().at(2) == '1'){
-                remove_pawn(player_1.last().y, player_1.last().x);
-                set_pawns(player_1[player_1.length()-1].y, player_1[player_1.length()-1].x, 1);
-                p1 = false; p2 = true;
-                player_1.removeLast();
-                game_manager(); return;}
-            if(moves.last().at(2) == '2'){
-                remove_pawn(player_2.last().y, player_2.last().x);
-                set_pawns(player_2[player_2.length()-1].y, player_2[player_2.length()-1].x, 2);
-                p1 = true; p2 = false;
-                player_2.removeLast();
-                game_manager(); return;}}
-
-        moves.removeLast();
+            moves.removeLast();
+        }
     }
 
     return;
