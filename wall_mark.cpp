@@ -3,15 +3,30 @@
 #include <QMouseEvent>
 
 extern bool start;
+extern bool p1; extern bool p2;
+extern int walls_p1; extern int walls_p2;
 extern int wall_position[];
 extern bool vertical;
 extern bool horizontal;
 extern int board_matrix[17][17];
 
 
+bool Quoridor::check(){
+
+    if(p1 && walls_p1 > 0)
+        return true;
+
+    if(p2 && walls_p2 > 0)
+        return true;
+
+    return false;
+
+}
+
 void Quoridor::mouseMoveEvent(QMouseEvent *event){
 
-    if(start){
+    if(start && check()){
+
         if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 15 && event->pos().y() < 65)){
             if(board_matrix[0][1] == 1 || board_matrix[0+1][1] == 1 || board_matrix[0+2][1] == 1) return;
                 wall_position[0] = 65+2; wall_position[1] = 15+2;

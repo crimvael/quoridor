@@ -18,6 +18,8 @@ public:
 
 private slots:
 
+    bool check();
+
     void check_placeble_1(int, int);
 
     void check_placeble_2(int, int);
