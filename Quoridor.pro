@@ -14,8 +14,8 @@ SOURCES += \
     main.cpp \
     place_wall.cpp \
     quoridor.cpp \
-    set_pawns.cpp \
-    wall_mark.cpp
+    set_player.cpp \
+    wall_highlight.cpp
 
 HEADERS += \
     quoridor.h

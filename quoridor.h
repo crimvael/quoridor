@@ -40,7 +40,7 @@ private slots:
 
     void game_manager();
 
-    void set_pawns(int, int, int);
+    void set_players(int, int, int);
 
     void remove_pawn(int, int);
 

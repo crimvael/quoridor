@@ -85,8 +85,8 @@ void Quoridor::on_pushButton_4_clicked()
     show_wall = true;
     wall_enabled = true;
     p1 = true;
-    set_pawns(0, 8, 2);
-    set_pawns(16, 8, 1);
+    set_players(0, 8, 2);
+    set_players(16, 8, 1);
     player_2.append(place(0, 8));
     player_1.append(place(16, 8));
     moves.append("m 1");
@@ -226,13 +226,13 @@ void Quoridor::on_pushButton_89_clicked()
             if(moves.last().at(0) == 'm'){
                 if(moves.last().at(2) == '1'){
                     remove_pawn(player_1.last().y, player_1.last().x);
-                    set_pawns(player_1[player_1.length()-2].y, player_1[player_1.length()-2].x, 1);
+                    set_players(player_1[player_1.length()-2].y, player_1[player_1.length()-2].x, 1);
                     p1 = true; p2 = false;
                     player_1.removeLast();
                     game_manager();}
                 if(moves.last().at(2) == '2'){
                     remove_pawn(player_2.last().y, player_2.last().x);
-                    set_pawns(player_2[player_2.length()-2].y, player_2[player_2.length()-2].x, 2);
+                    set_players(player_2[player_2.length()-2].y, player_2[player_2.length()-2].x, 2);
                     p1 = false; p2 = true;
                     player_2.removeLast();
                     game_manager();}}
