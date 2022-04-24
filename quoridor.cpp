@@ -43,7 +43,6 @@ Quoridor::Quoridor(QWidget *parent)
     , ui(new Ui::Quoridor)
 {
     ui->setupUi(this);
-    ui->frame_2->setVisible(false);
 
     for (int i=0; i < 17; i++) {
         for (int j=0; j < 17; j++) {
@@ -58,41 +57,37 @@ Quoridor::~Quoridor()
     delete ui;
 }
 
+void Quoridor::on_radioButton_clicked()
+{
+    ui->radioButton_2->setChecked(false);
+}
+
+
+void Quoridor::on_radioButton_2_clicked()
+{
+    ui->radioButton->setChecked(false);
+}
+
 
 void Quoridor::on_pushButton_clicked()
 {
-    ui->frame->setVisible(false);
-    ui->frame_2->setVisible(true);
+    if(ui->radioButton->isChecked())
+    {}
+    if(ui->radioButton_2->isChecked()){
+        start = true;
+        show_wall = true;
+        wall_enabled = true;
+        p1 = true;
+        set_players(0, 8, 2);
+        set_players(16, 8, 1);
+        player_2.append(place(0, 8));
+        player_1.append(place(16, 8));
+        moves.append("m 1");
+        moves.append("m 2");
+        game_manager();
+    }
 }
 
-
-void Quoridor::on_pushButton_5_clicked()
-{
-    ui->frame->setVisible(true);
-    ui->frame_2->setVisible(false);
-    start = false;
-}
-
-
-void Quoridor::on_pushButton_3_clicked()
-{
-    start = true;
-}
-
-void Quoridor::on_pushButton_4_clicked()
-{
-    start = true;
-    show_wall = true;
-    wall_enabled = true;
-    p1 = true;
-    set_players(0, 8, 2);
-    set_players(16, 8, 1);
-    player_2.append(place(0, 8));
-    player_1.append(place(16, 8));
-    moves.append("m 1");
-    moves.append("m 2");
-    game_manager();
-}
 
 void Quoridor::game_manager()
 {
@@ -204,7 +199,7 @@ void Quoridor::paintEvent(QPaintEvent *){
 
 }
 
-void Quoridor::on_pushButton_89_clicked()
+void Quoridor::on_pushButton_2_clicked()
 {
     if(start){
         if(moves.length() > 2){
@@ -415,4 +410,5 @@ void Quoridor::reset_buttons()
     ui->pushButton_1614->setEnabled(true);
     ui->pushButton_1616->setEnabled(true);
 }
+
 

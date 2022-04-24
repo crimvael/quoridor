@@ -30,10 +30,6 @@ private slots:
 
     void on_pushButton_clicked();
 
-    void on_pushButton_5_clicked();
-
-    void on_pushButton_3_clicked();
-
     void find_moves();
 
     void reset_buttons();
@@ -126,9 +122,11 @@ private slots:
     void on_pushButton_1614_clicked();
     void on_pushButton_1616_clicked();
 
-    void on_pushButton_4_clicked();
+    void on_pushButton_2_clicked();
 
-    void on_pushButton_89_clicked();
+    void on_radioButton_clicked();
+
+    void on_radioButton_2_clicked();
 
 private:
     Ui::Quoridor *ui;
