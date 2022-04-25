@@ -27,7 +27,6 @@ extern bool move_select; extern bool placeble;
 extern bool vertical; extern bool horizontal;
 extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls; extern QList<QString> moves;
 extern int board_matrix[17][17]; extern int board_copy_1[17][17];
-extern QString msg;
 bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
 bool move_select = false; bool placeble_1 = false; bool placeble_2 = false;
@@ -37,7 +36,6 @@ int walls_blue = 10; int walls_red = 10;
 bool vertical = false; bool horizontal = false;
 QList<wall> vertical_walls; QList<wall> horizontal_walls; QList<QString> moves;
 int board_matrix[17][17]; int board_copy_1[17][17]; int board_copy_2[17][17];
-QString msg = "";
 
 
 Quoridor::Quoridor(QWidget *parent)
@@ -95,12 +93,12 @@ void Quoridor::game_manager()
 {
 
     QString status = "";
-    QString walls_r = "\n<span style='color: red'>RED</span> walls: ";
-    QString walls_b = "\n<span style='color: blue'>BLUE</span> walls: ";
+    QString walls_b = "<br><span style='color: blue'>BLUE</span> walls: ";
+    QString walls_r = "<br><span style='color: red'>RED</span> walls: ";
     QString winner = "";
 
-    walls_b += QString(QString::number(walls_blue));
-    walls_r += QString(QString::number(walls_red));
+    walls_b += QString(QString::number(walls_blue)) += "</br>";
+    walls_r += QString(QString::number(walls_red)) += "</br>";
 
 
     if(BLUE){
@@ -116,12 +114,12 @@ void Quoridor::game_manager()
     }
 
     if(player_blue.last().y == 0){
-        winner = "\n<span style='color: blue'>BLUE</span> wins!";
+        winner = "<br><span style='color: blue'>BLUE</span> wins!</br>";
         start = false;
     }
 
     if(player_red.last().y == 16){
-        winner = "\n<span style='color: blue'>RED</span> wins!";
+        winner = "<br><span style='color: red'>RED</span> wins!</br>";
         start = false;
     }
 
@@ -220,15 +218,15 @@ void Quoridor::on_pushButton_2_clicked()
                 int x = moves.last().split(QChar(' ')).at(2).toInt();
                 board_matrix[y][x] = 0; board_matrix[y+1][x] = 0; board_matrix[y+2][x] = 0;
                 vertical_walls.removeLast(); update();
-                if(BLUE){BLUE = false; RED = true; game_manager(); moves.removeLast(); return;}
-                if(RED){BLUE = true; RED = false; game_manager(); moves.removeLast(); return;}}
+                if(BLUE){BLUE = false; RED = true; walls_red++; game_manager(); moves.removeLast(); return;}
+                if(RED){BLUE = true; RED = false; walls_blue++; game_manager(); moves.removeLast(); return;}}
             if(moves.last().at(0) == 'h'){
                 int y = moves.last().split(QChar(' ')).at(1).toInt();
                 int x = moves.last().split(QChar(' ')).at(2).toInt();
                 board_matrix[y][x] = 0; board_matrix[y][x+1] = 0; board_matrix[y][x+2] = 0;
                 horizontal_walls.removeLast(); update();
-                if(BLUE){BLUE = false; RED = true; game_manager(); moves.removeLast(); return;}
-                if(RED){BLUE = true; RED = false; game_manager(); moves.removeLast(); return;}}
+                if(BLUE){BLUE = false; RED = true; walls_red++; game_manager(); moves.removeLast(); return;}
+                if(RED){BLUE = true; RED = false; walls_blue++; game_manager(); moves.removeLast(); return;}}
             if(moves.last().at(0) == 'm'){
                 if(moves.last().at(2) == '1'){
                     remove_pawn(player_blue.last().y, player_blue.last().x);
