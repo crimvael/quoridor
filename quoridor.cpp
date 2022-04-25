@@ -116,12 +116,12 @@ void Quoridor::game_manager()
     }
 
     if(player_blue.last().y == 0){
-        winner = "\n<span style='color: blue'>BLUE</span> wins";
+        winner = "\n<span style='color: blue'>BLUE</span> wins!";
         start = false;
     }
 
     if(player_red.last().y == 16){
-        winner = "\n<span style='color: blue'>RED</span> wins";
+        winner = "\n<span style='color: blue'>RED</span> wins!";
         start = false;
     }
 
