@@ -5,8 +5,8 @@ extern bool show_wall;
 
 void Quoridor::set_players(int y, int x, int p){
 
-    QPixmap pixmap1(":/images/P1.png");
-    QPixmap pixmap2(":/images/P2.png");
+    QPixmap pixmap1(":/images/BLUE.png");
+    QPixmap pixmap2(":/images/RED.png");
     QIcon ButtonIcon1(pixmap1);
     QIcon ButtonIcon2(pixmap2);
 

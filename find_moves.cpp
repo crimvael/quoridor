@@ -11,8 +11,8 @@ struct place {
 extern int curr_position[];
 extern bool move_select;
 extern int board_matrix[17][17];
-extern QList<place> player_1; extern QList<place> player_2;
-extern bool p1; extern bool p2;
+extern QList<place> player_blue; extern QList<place>player_red;
+extern bool BLUE; extern bool RED;
 
 
 void Quoridor::find_moves()
@@ -43,8 +43,8 @@ void Quoridor::find_moves()
 
 
 
-    if(p1){
-        if(curr_position[0] == player_2.last().y && curr_position[1]-2 == player_2.last().x){
+    if(BLUE){
+        if(curr_position[0] == player_red.last().y && curr_position[1]-2 == player_red.last().x){
             left[0] = -1; left[1] = -1;
             if(board_matrix[curr_position[0]][curr_position[1] -3] != 1 && curr_position[1] > 2){
                 left[0] = curr_position[0]; left[1] = curr_position[1] -4;}
@@ -55,7 +55,7 @@ void Quoridor::find_moves()
                     jump_left[0] = curr_position[0]+2; jump_left[1] = curr_position[1]-2;}}}
 
 
-        if(curr_position[0]-2 == player_2.last().y && curr_position[1] == player_2.last().x){
+        if(curr_position[0]-2 == player_red.last().y && curr_position[1] == player_red.last().x){
             up[0] = -1; up[1] = -1;
             if(board_matrix[curr_position[0]-3][curr_position[1]] != 1 && curr_position[0] > 2){
                 up[0] = curr_position[0]-4; up[1] = curr_position[1];}
@@ -66,7 +66,7 @@ void Quoridor::find_moves()
                     jump_left[0] = curr_position[0]-2; jump_left[1] = curr_position[1]-2;}}}
 
 
-        if(curr_position[0] == player_2.last().y && curr_position[1]+2 == player_2.last().x){
+        if(curr_position[0] == player_red.last().y && curr_position[1]+2 == player_red.last().x){
             right[0] = -1; right[1] = -1;
             if(board_matrix[curr_position[0]][curr_position[1] +3] != 1 && curr_position[1] < 14){
                 right[0] = curr_position[0]; right[1] = curr_position[1] +4;}
@@ -77,7 +77,7 @@ void Quoridor::find_moves()
                     jump_left[0] = curr_position[0]-2; jump_left[1] = curr_position[1]+2;}}}
 
 
-        if(curr_position[0]+2 == player_2.last().y && curr_position[1] == player_2.last().x){
+        if(curr_position[0]+2 == player_red.last().y && curr_position[1] == player_red.last().x){
             down[0] = -1; down[1] = -1;
             if(board_matrix[curr_position[0]+3][curr_position[1]] != 1 && curr_position[0] < 14){
                 down[0] = curr_position[0]+4; down[1] = curr_position[1];}
@@ -87,8 +87,8 @@ void Quoridor::find_moves()
                 if(board_matrix[curr_position[0]+2][curr_position[1]+1] != 1){
                     jump_left[0] = curr_position[0]+2; jump_left[1] = curr_position[1]+2;}}}}
 
-    if(p2){
-        if(curr_position[0] == player_1.last().y && curr_position[1]-2 == player_1.last().x){
+    if(RED){
+        if(curr_position[0] == player_blue.last().y && curr_position[1]-2 == player_blue.last().x){
             left[0] = -1; left[1] = -1;
             if(board_matrix[curr_position[0]][curr_position[1] -3] != 1 && curr_position[1] > 2){
                 left[0] = curr_position[0]; left[1] = curr_position[1] -4;}
@@ -99,7 +99,7 @@ void Quoridor::find_moves()
                     jump_left[0] = curr_position[0]+2; jump_left[1] = curr_position[1]-2;}}}
 
 
-        if(curr_position[0]-2 == player_1.last().y && curr_position[1] == player_1.last().x){
+        if(curr_position[0]-2 == player_blue.last().y && curr_position[1] == player_blue.last().x){
             up[0] = -1; up[1] = -1;
             if(board_matrix[curr_position[0]-3][curr_position[1]] != 1 && curr_position[0] > 2){
                 up[0] = curr_position[0]-4; up[1] = curr_position[1];}
@@ -110,7 +110,7 @@ void Quoridor::find_moves()
                     jump_left[0] = curr_position[0]-2; jump_left[1] = curr_position[1]-2;}}}
 
 
-        if(curr_position[0] == player_1.last().y && curr_position[1]+2 == player_1.last().x){
+        if(curr_position[0] == player_blue.last().y && curr_position[1]+2 == player_blue.last().x){
             right[0] = -1; right[1] = -1;
             if(board_matrix[curr_position[0]][curr_position[1] +3] != 1 && curr_position[1] < 14){
                 right[0] = curr_position[0]; right[1] = curr_position[1] +4;}
@@ -121,7 +121,7 @@ void Quoridor::find_moves()
                     jump_left[0] = curr_position[0]-2; jump_left[1] = curr_position[1]+2;}}}
 
 
-        if(curr_position[0]+2 == player_1.last().y && curr_position[1] == player_1.last().x){
+        if(curr_position[0]+2 == player_blue.last().y && curr_position[1] == player_blue.last().x){
             down[0] = -1; down[1] = -1;
             if(board_matrix[curr_position[0]+3][curr_position[1]] != 1 && curr_position[0] < 14){
                 down[0] = curr_position[0]+4; down[1] = curr_position[1];}

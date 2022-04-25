@@ -3,8 +3,8 @@
 #include <QMouseEvent>
 
 extern bool start;
-extern bool p1; extern bool p2;
-extern int walls_p1; extern int walls_p2;
+extern bool BLUE; extern bool RED;
+extern int walls_blue; extern int walls_red;
 extern int wall_position[];
 extern bool vertical;
 extern bool horizontal;
@@ -13,10 +13,10 @@ extern int board_matrix[17][17];
 
 bool Quoridor::check(){
 
-    if(p1 && walls_p1 > 0)
+    if(BLUE && walls_blue > 0)
         return true;
 
-    if(p2 && walls_p2 > 0)
+    if(RED && walls_red > 0)
         return true;
 
     return false;

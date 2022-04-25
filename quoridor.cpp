@@ -20,22 +20,24 @@ struct place {
 
 extern bool start; extern bool show_wall; extern bool wall_enabled;
 extern int curr_position[]; extern int wall_position[];
-extern QList<place> player_1; extern QList<place> player_2;
-extern bool p1; extern bool p2;
-extern int walls_p1; extern int walls_p2;
+extern QList<place> player_blue; extern QList<place> player_red;
+extern bool BLUE; extern bool RED;
+extern int walls_blue; extern int walls_red;
 extern bool move_select; extern bool placeble;
 extern bool vertical; extern bool horizontal;
 extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls; extern QList<QString> moves;
 extern int board_matrix[17][17]; extern int board_copy_1[17][17];
+extern QString msg;
 bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
 bool move_select = false; bool placeble_1 = false; bool placeble_2 = false;
-QList<place> player_1; QList<place> player_2;
-bool p1 = false; bool p2 = false;
-int walls_p1 = 10; int walls_p2 = 10;
+QList<place> player_blue; QList<place> player_red;
+bool BLUE = false; bool RED = false;
+int walls_blue = 10; int walls_red = 10;
 bool vertical = false; bool horizontal = false;
 QList<wall> vertical_walls; QList<wall> horizontal_walls; QList<QString> moves;
 int board_matrix[17][17]; int board_copy_1[17][17]; int board_copy_2[17][17];
+QString msg = "";
 
 
 Quoridor::Quoridor(QWidget *parent)
@@ -77,11 +79,11 @@ void Quoridor::on_pushButton_clicked()
         start = true;
         show_wall = true;
         wall_enabled = true;
-        p1 = true;
+        BLUE = true;
         set_players(0, 8, 2);
         set_players(16, 8, 1);
-        player_2.append(place(0, 8));
-        player_1.append(place(16, 8));
+        player_red.append(place(0, 8));
+        player_blue.append(place(16, 8));
         moves.append("m 1");
         moves.append("m 2");
         game_manager();
@@ -92,29 +94,38 @@ void Quoridor::on_pushButton_clicked()
 void Quoridor::game_manager()
 {
 
-    if(player_1.last().y == 0){
-        ui->label->setText("Player 1 wins");
-        return;
+    QString status = "";
+    QString walls_r = "\n<span style='color: red'>RED</span> walls: ";
+    QString walls_b = "\n<span style='color: blue'>BLUE</span> walls: ";
+    QString winner = "";
+
+    walls_b += QString(QString::number(walls_blue));
+    walls_r += QString(QString::number(walls_red));
+
+
+    if(BLUE){
+        curr_position[0] = player_blue.last().y;
+        curr_position[1] = player_blue.last().x;
+        status = "Current player: <span style='color: blue'>BLUE</span>";
     }
 
-    if(player_2.last().y == 16){
-        ui->label->setText("Player 2 wins");
-        return;
+    if(RED){
+        curr_position[0] = player_red.last().y;
+        curr_position[1] = player_red.last().x;
+        status = "Current player: <span style='color: red'>RED</span>";
     }
 
-    if(p1){
-        curr_position[0] = player_1.last().y;
-        curr_position[1] = player_1.last().x;
-        ui->label->setText("current player: p1");
-        return;
+    if(player_blue.last().y == 0){
+        winner = "\n<span style='color: blue'>BLUE</span> wins";
+        start = false;
     }
 
-    if(p2){
-        curr_position[0] = player_2.last().y;
-        curr_position[1] = player_2.last().x;
-        ui->label->setText("current player: p2");
-        return;
+    if(player_red.last().y == 16){
+        winner = "\n<span style='color: blue'>RED</span> wins";
+        start = false;
     }
+
+    ui->textBrowser->setText(status + walls_r + walls_b + winner);
 
 }
 
@@ -209,27 +220,27 @@ void Quoridor::on_pushButton_2_clicked()
                 int x = moves.last().split(QChar(' ')).at(2).toInt();
                 board_matrix[y][x] = 0; board_matrix[y+1][x] = 0; board_matrix[y+2][x] = 0;
                 vertical_walls.removeLast(); update();
-                if(p1){p1 = false; p2 = true; game_manager(); moves.removeLast(); return;}
-                if(p2){p1 = true; p2 = false; game_manager(); moves.removeLast(); return;}}
+                if(BLUE){BLUE = false; RED = true; game_manager(); moves.removeLast(); return;}
+                if(RED){BLUE = true; RED = false; game_manager(); moves.removeLast(); return;}}
             if(moves.last().at(0) == 'h'){
                 int y = moves.last().split(QChar(' ')).at(1).toInt();
                 int x = moves.last().split(QChar(' ')).at(2).toInt();
                 board_matrix[y][x] = 0; board_matrix[y][x+1] = 0; board_matrix[y][x+2] = 0;
                 horizontal_walls.removeLast(); update();
-                if(p1){p1 = false; p2 = true; game_manager(); moves.removeLast(); return;}
-                if(p2){p1 = true; p2 = false; game_manager(); moves.removeLast(); return;}}
+                if(BLUE){BLUE = false; RED = true; game_manager(); moves.removeLast(); return;}
+                if(RED){BLUE = true; RED = false; game_manager(); moves.removeLast(); return;}}
             if(moves.last().at(0) == 'm'){
                 if(moves.last().at(2) == '1'){
-                    remove_pawn(player_1.last().y, player_1.last().x);
-                    set_players(player_1[player_1.length()-2].y, player_1[player_1.length()-2].x, 1);
-                    p1 = true; p2 = false;
-                    player_1.removeLast();
+                    remove_pawn(player_blue.last().y, player_blue.last().x);
+                    set_players(player_blue[player_blue.length()-2].y, player_blue[player_blue.length()-2].x, 1);
+                    BLUE = true; RED = false;
+                    player_blue.removeLast();
                     game_manager();}
                 if(moves.last().at(2) == '2'){
-                    remove_pawn(player_2.last().y, player_2.last().x);
-                    set_players(player_2[player_2.length()-2].y, player_2[player_2.length()-2].x, 2);
-                    p1 = false; p2 = true;
-                    player_2.removeLast();
+                    remove_pawn(player_red.last().y, player_red.last().x);
+                    set_players(player_red[player_red.length()-2].y, player_red[player_red.length()-2].x, 2);
+                    BLUE = false; RED = true;
+                    player_red.removeLast();
                     game_manager();}}
 
             moves.removeLast();
