@@ -74,6 +74,32 @@ void Quoridor::on_pushButton_clicked()
     if(ui->radioButton->isChecked())
     {}
     if(ui->radioButton_2->isChecked()){
+
+        if(!player_blue.isEmpty()){
+            remove_pawn(player_blue.last().y, player_blue.last().x);
+            player_blue.clear();
+        }
+        if(!player_red.isEmpty()){
+            remove_pawn(player_red.last().y, player_red.last().x);
+            player_red.clear();
+        }
+        if(!vertical_walls.isEmpty())
+            vertical_walls.clear();
+        if(!horizontal_walls.isEmpty())
+            horizontal_walls.clear();
+        if(!moves.isEmpty())
+            moves.clear();
+
+        walls_blue = 10;
+        walls_red = 10;
+
+        for (int i=0; i < 17; i++) {
+            for (int j=0; j < 17; j++) {
+                board_matrix[i][j] = 0;
+            }
+        }
+
+
         start = true;
         show_wall = true;
         wall_enabled = true;
@@ -337,6 +363,8 @@ void Quoridor::reset_buttons()
 {
     move_select = false;
 
+    ui->pushButton->setEnabled(true);
+    ui->pushButton_2->setEnabled(true);
     ui->pushButton_0000->setEnabled(true);
     ui->pushButton_0002->setEnabled(true);
     ui->pushButton_0004->setEnabled(true);
