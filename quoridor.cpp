@@ -26,7 +26,7 @@ extern int walls_blue; extern int walls_red;
 extern bool move_select; extern bool placeble;
 extern bool vertical; extern bool horizontal;
 extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls; extern QList<QString> moves;
-extern int board_matrix[17][17]; extern int board_copy_1[17][17];
+extern int board_matrix[17][17]; extern int board_copy_1[17][17]; extern int board_copy_2[17][17];
 bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
 bool move_select = false; bool placeble_1 = false; bool placeble_2 = false;

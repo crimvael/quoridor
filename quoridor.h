@@ -20,6 +20,8 @@ private slots:
 
     bool check();
 
+    void check_placeble(int, int, int);
+
     void check_placeble_1(int, int);
 
     void check_placeble_2(int, int);
@@ -127,6 +129,8 @@ private slots:
     void on_radioButton_clicked();
 
     void on_radioButton_2_clicked();
+
+    void on_pushButton_3_clicked();
 
 private:
     Ui::Quoridor *ui;
