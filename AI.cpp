@@ -23,7 +23,7 @@ void Quoridor::on_pushButton_3_clicked()
         }
     }
 
-    check_placeble(curr_position[0], curr_position[1], 0);
+    check_placeble(curr_position[1], curr_position[0], 0);
 
     ui->textBrowser->setText("Shortest path: " + QString::number(num));
 
