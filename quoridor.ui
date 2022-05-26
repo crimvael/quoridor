@@ -6,25 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>900</width>
     <height>750</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
+    <width>900</width>
     <height>750</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>600</width>
+    <width>900</width>
     <height>750</height>
    </size>
   </property>
@@ -1610,10 +1610,10 @@
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>610</y>
+      <x>640</x>
+      <y>30</y>
       <width>210</width>
-      <height>80</height>
+      <height>481</height>
      </rect>
     </property>
     <property name="font">
@@ -1649,7 +1649,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>900</width>
      <height>21</height>
     </rect>
    </property>

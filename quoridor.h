@@ -20,7 +20,13 @@ private slots:
 
     bool check();
 
-    void check_placeble(int, int, int);
+    void check_place1(int, int, int);
+    void check_place2(int, int, int);
+    void check_place3(int, int, int);
+    void check_place4(int, int, int);
+    void check_place5(int, int, int);
+    void check_place6(int, int, int);
+    void check_place7(int, int, int);
 
     void check_placeble_1(int, int);
 

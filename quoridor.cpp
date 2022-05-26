@@ -104,6 +104,7 @@ void Quoridor::on_pushButton_clicked()
         show_wall = true;
         wall_enabled = true;
         BLUE = true;
+        RED = false;
         set_players(0, 8, 2);
         set_players(16, 8, 1);
         player_red.append(place(0, 8));
