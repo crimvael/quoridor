@@ -7,6 +7,20 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class Quoridor; }
 QT_END_NAMESPACE
 
+struct place {
+    int y;
+    int x;
+
+    place(int yy, int xx) : y(yy), x(xx) {}
+};
+
+struct wall {
+    int x;
+    int y;
+
+    wall(int xx, int yy) : x(xx), y(yy) {}
+};
+
 class Quoridor : public QMainWindow
 {
     Q_OBJECT
@@ -20,7 +34,9 @@ private slots:
 
     bool check();
 
-    void check_place1(int, int, int);
+    void bfs(QList<place>, int);
+
+    void find_near(place, QList<place>*);
 
     void check_placeble_1(int, int);
 

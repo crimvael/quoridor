@@ -4,20 +4,6 @@
 #include <QPainter>
 #include <QList>
 
-struct wall {
-    int x;
-    int y;
-
-    wall(int xx, int yy) : x(xx), y(yy) {}
-};
-
-struct place {
-    int y;
-    int x;
-
-    place(int yy, int xx) : y(yy), x(xx) {}
-};
-
 extern bool start; extern bool show_wall; extern bool wall_enabled;
 extern int curr_position[]; extern int wall_position[];
 extern QList<place> player_blue; extern QList<place> player_red;

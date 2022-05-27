@@ -2,20 +2,6 @@
 #include "ui_quoridor.h"
 #include <QMouseEvent>
 
-struct wall {
-    int x;
-    int y;
-
-    wall(int xx, int yy) : x(xx), y(yy) {}
-};
-
-struct place {
-    int y;
-    int x;
-
-    place(int yy, int xx) : y(yy), x(xx) {}
-};
-
 extern int curr_position[];
 extern bool wall_enabled; extern bool placeble_1; extern bool placeble_2;
 extern QList<place> player_blue; extern QList<place>player_red;

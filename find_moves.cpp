@@ -1,13 +1,6 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-struct place {
-    int y;
-    int x;
-
-    place(int yy, int xx) : y(yy), x(xx) {}
-};
-
 extern int curr_position[];
 extern bool move_select;
 extern int board_matrix[17][17];
