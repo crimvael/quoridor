@@ -2,14 +2,6 @@
 #include "ui_quoridor.h"
 #include <QMouseEvent>
 
-extern bool start;
-extern bool BLUE; extern bool RED;
-extern int walls_blue; extern int walls_red;
-extern int wall_position[];
-extern bool vertical;
-extern bool horizontal;
-extern int board_matrix[17][17];
-
 
 bool Quoridor::check(){
 

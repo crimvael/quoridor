@@ -21,6 +21,19 @@ struct wall {
     wall(int xx, int yy) : x(xx), y(yy) {}
 };
 
+extern bool start; extern bool show_wall; extern bool wall_enabled;
+extern bool placeble_1; extern bool placeble_2;
+extern int curr_position[]; extern int wall_position[];
+extern QList<place> player_blue; extern QList<place> player_red;
+extern bool BLUE; extern bool RED;
+extern int walls_blue; extern int walls_red;
+extern bool move_select; extern bool placeble;
+extern bool vertical; extern bool horizontal;
+extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls; extern QList<QString> moves;
+extern int board_matrix[17][17]; extern int board_copy_1[17][17]; extern int board_copy_2[17][17];
+extern int board_copy_3[17][17];
+extern int distance; extern int final_y; extern int final_x;
+
 class Quoridor : public QMainWindow
 {
     Q_OBJECT
@@ -32,11 +45,21 @@ public:
 
 private slots:
 
+    void next_move();
+
+    place best_move(int, int, int);
+
+    place best_wall(int, int, int);
+
+    void minimax(place, place, int);
+
     bool check();
 
-    void bfs(QList<place>, int);
+    void shortest_path(int, int, int);
 
-    void find_near(place, QList<place>*);
+    void find_nodes(QList<place>, int, int);
+
+    QList<place> find_near(place, int);
 
     void check_placeble_1(int, int);
 

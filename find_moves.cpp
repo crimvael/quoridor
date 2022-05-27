@@ -1,12 +1,6 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-extern int curr_position[];
-extern bool move_select;
-extern int board_matrix[17][17];
-extern QList<place> player_blue; extern QList<place>player_red;
-extern bool BLUE; extern bool RED;
-
 
 void Quoridor::find_moves()
 {

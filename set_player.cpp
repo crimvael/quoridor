@@ -1,6 +1,5 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
-extern bool show_wall;
 
 
 void Quoridor::set_players(int y, int x, int p){
