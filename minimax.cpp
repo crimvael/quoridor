@@ -31,9 +31,12 @@ void Quoridor::minimax(place move, place wall, int n){
     if(v){
         board_copy_4[wall.y][wall.x] = 1; board_copy_4[wall.y+1][wall.x] = 1; board_copy_4[wall.y+2][wall.x] = 1;}
 
+    // calculate shortest path with wall and give score
+    // calculate shortest path with move and give score
 
+    // repeat minimax for both player
 
-    //minimax(next_move, next_wall, --n);
+    // minimax(next_move, next_wall, --n);
 
 }
 
