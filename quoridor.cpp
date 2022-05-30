@@ -167,6 +167,9 @@ void Quoridor::game_manager()
         start = false;
     }
 
+
+    ui->textBrowser->setText(status + walls_r + walls_b + winner);
+
     if(RED && ai){
         next_move();
         int y = next_m.split(QChar(' ')).at(1).toInt();
@@ -191,8 +194,6 @@ void Quoridor::game_manager()
         RED = false; BLUE = true;
         update(); game_manager();
     }
-
-    ui->textBrowser->setText(status + walls_r + walls_b + winner);
 
 }
 
