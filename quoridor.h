@@ -47,11 +47,11 @@ private slots:
 
     void next_move();
 
-    place best_move(int, int, int);
+    QString best_move(int[][17], int);
 
-    place best_wall(int, int, int);
+    QString best_wall(int[][17], int);
 
-    int minimax(QList<QString>, place, bool, int);
+    int minimax(QList<QString>, QString, bool, int);
 
     bool check();
 

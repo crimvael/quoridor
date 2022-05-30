@@ -6,17 +6,12 @@ bool h = false; bool v = false;
 
 void Quoridor::next_move(){
 
-    for (int y=0; y < 17; y++) {
-        for (int x=0; x < 17; x++) {
-            board_copy_3[y][x] = board_matrix[y][x];
-        }
-    }
-
-    place next_move = best_move(player_red.last().y, player_red.last().x, 16);
-    place next_wall = best_wall(player_blue.last().y, player_blue.last().x, 0);
-
     QList<QString> moves1;
     QList<QString> moves2;
+
+    QString next_move = best_move(board_matrix, 16);
+    QString next_wall = best_wall(board_matrix, 0);
+
 
     int result1 = minimax(moves1, next_move, true, 5);
     int result2 = minimax(moves2, next_wall, true, 5);
@@ -26,52 +21,54 @@ void Quoridor::next_move(){
 
 }
 
-int Quoridor::minimax(QList<QString> moves, place move, bool max, int level){
+int Quoridor::minimax(QList<QString> moves, QString curr_move, bool max, int level){
 
     if(level == 0)
         return 0;
 
-    QList<QString> moves1;
-    QList<QString> moves2;
 
-    place next_move = best_move(move.y, move.x, 16);
-    place next_wall = best_wall(move.y, move.x, 0);
+    int board_copy[17][17];
 
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {
-            board_copy_3[y][x] = board_matrix[y][x];
+            board_copy[y][x] = board_matrix[y][x];
         }
     }
 
     if(!moves.isEmpty())
-        for(int i=0; i < moves.size(); i++){}
+        for(int i=0; i < moves.size(); i++){
+            // copy moves to matrix
+        }
 
-    if(max){
-        if(h){
-            board_copy_3[move.y][move.x] = 1; board_copy_3[move.y][move.x+1] = 1; board_copy_3[move.y][move.x+2] = 0;
-            shortest_path(player_red.last().y, player_red.last().x, 16);
-            board_copy_3[move.y][move.x] = 0; board_copy_3[move.y][move.x+1] = 0; board_copy_3[move.y][move.x+2] = 0;}
-        if(v){
-            board_copy_3[move.y][move.x] = 1; board_copy_3[move.y+1][move.x] = 1; board_copy_3[move.y+2][move.x] = 1;
-            shortest_path(player_red.last().y, player_red.last().x, 16);
-            board_copy_3[move.y][move.x] = 0; board_copy_3[move.y+1][move.x] = 0; board_copy_3[move.y+2][move.x] = 0;}
-        return std::max(minimax(moves1, next_move, false, level-1), minimax(moves2, next_wall, false, level-1));
-    }
-    else{
-        if(h){
-            board_copy_3[move.y][move.x] = 1; board_copy_3[move.y][move.x+1] = 1; board_copy_3[move.y][move.x+2] = 0;
-            shortest_path(player_blue.last().y, player_blue.last().x, 0);
-            board_copy_3[move.y][move.x] = 0; board_copy_3[move.y][move.x+1] = 0; board_copy_3[move.y][move.x+2] = 0;}
-        if(v){
-            board_copy_3[move.y][move.x] = 1; board_copy_3[move.y+1][move.x] = 1; board_copy_3[move.y+2][move.x] = 1;
-            shortest_path(player_blue.last().y, player_blue.last().x, 0);
-            board_copy_3[move.y][move.x] = 0; board_copy_3[move.y+1][move.x] = 0; board_copy_3[move.y+2][move.x] = 0;}
-        return std::min(minimax(moves1, next_move, true, level-1), minimax(moves2, next_wall, true, level-1));
-    }
+    QString next_move = best_move(board_copy, 16);
+    QString next_wall = best_wall(board_copy, 0);
+
+//    if(max){
+//        if(h){
+//            board_copy[move.y][move.x] = 1; board_copy[move.y][move.x+1] = 1; board_copy[move.y][move.x+2] = 0;
+//            shortest_path(player_red.last().y, player_red.last().x, 16);
+//            board_copy[move.y][move.x] = 0; board_copy[move.y][move.x+1] = 0; board_copy[move.y][move.x+2] = 0;}
+//        if(v){
+//            board_copy[move.y][move.x] = 1; board_copy[move.y+1][move.x] = 1; board_copy[move.y+2][move.x] = 1;
+//            shortest_path(player_red.last().y, player_red.last().x, 16);
+//            board_copy[move.y][move.x] = 0; board_copy[move.y+1][move.x] = 0; board_copy[move.y+2][move.x] = 0;}
+//        return std::max(minimax(moves1, next_move, false, level-1), minimax(moves2, next_wall, false, level-1));
+//    }
+//    else{
+//        if(h){
+//            board_copy[move.y][move.x] = 1; board_copy[move.y][move.x+1] = 1; board_copy[move.y][move.x+2] = 0;
+//            shortest_path(player_blue.last().y, player_blue.last().x, 0);
+//            board_copy[move.y][move.x] = 0; board_copy[move.y][move.x+1] = 0; board_copy[move.y][move.x+2] = 0;}
+//        if(v){
+//            board_copy[move.y][move.x] = 1; board_copy[move.y+1][move.x] = 1; board_copy[move.y+2][move.x] = 1;
+//            shortest_path(player_blue.last().y, player_blue.last().x, 0);
+//            board_copy[move.y][move.x] = 0; board_copy[move.y+1][move.x] = 0; board_copy[move.y+2][move.x] = 0;}
+//        return std::min(minimax(moves1, next_move, true, level-1), minimax(moves2, next_wall, true, level-1));
+//    }
 
 }
 
-place Quoridor::best_move(int y, int x, int goal){
+QString Quoridor::best_move(int board_copy[][17], int goal){
 
     QList<place> near_nodes;
     int shortest = 999;
@@ -86,21 +83,24 @@ place Quoridor::best_move(int y, int x, int goal){
     int jump_left[] = {-1,-1};
     int jump_right[] = {-1,-1};
 
-
-    if(x > 0 && board_copy_3[y][x-1] != 1){
-        left[0] = y; left[1] = x -2;}
-
-    if(y > 0 && board_copy_3[y-1][x] != 1){
-        up[0] = y -2; up[1] = x;}
-
-    if(x < 16 && board_copy_3[y][x+1] != 1){
-        right[0] = y; right[1] = x +2;}
-
-    if(y < 16 && board_copy_3[y+1][x] != 1){
-        down[0] = y +2; down[1] = x;}
-
-
     if(goal == 0){
+
+        int y = player_blue.last().y;
+        int x = player_blue.last().x;
+
+        if(x > 0 && board_copy_3[y][x-1] != 1){
+            left[0] = y; left[1] = x -2;}
+
+        if(y > 0 && board_copy_3[y-1][x] != 1){
+            up[0] = y -2; up[1] = x;}
+
+        if(x < 16 && board_copy_3[y][x+1] != 1){
+            right[0] = y; right[1] = x +2;}
+
+        if(y < 16 && board_copy_3[y+1][x] != 1){
+            down[0] = y +2; down[1] = x;}
+
+
         if(y == player_red.last().y && x-2 == player_red.last().x){
             left[0] = -1; left[1] = -1;
             if(board_copy_3[y][x -3] != 1 && x > 2){
@@ -145,6 +145,23 @@ place Quoridor::best_move(int y, int x, int goal){
                     jump_left[0] = y+2; jump_left[1] = x+2;}}}}
 
     if(goal == 16){
+
+        int y = player_red.last().y;
+        int x = player_red.last().x;
+
+        if(x > 0 && board_copy_3[y][x-1] != 1){
+            left[0] = y; left[1] = x -2;}
+
+        if(y > 0 && board_copy_3[y-1][x] != 1){
+            up[0] = y -2; up[1] = x;}
+
+        if(x < 16 && board_copy_3[y][x+1] != 1){
+            right[0] = y; right[1] = x +2;}
+
+        if(y < 16 && board_copy_3[y+1][x] != 1){
+            down[0] = y +2; down[1] = x;}
+
+
         if(y == player_blue.last().y && x-2 == player_blue.last().x){
             left[0] = -1; left[1] = -1;
             if(board_matrix[y][x -3] != 1 && x > 2){
@@ -219,21 +236,19 @@ place Quoridor::best_move(int y, int x, int goal){
         }
     }
 
-    return place(yy, xx);
+    return "";
 }
 
-place Quoridor::best_wall(int y, int x, int goal){
+QString Quoridor::best_wall(int board_copy[][17], int goal){
 
     int longest = 0;
     int yy = 0;
     int xx = 0;
     int hv = 0;
 
-    for (int y=0; y<17; y++) {
-        for (int x=0; x<17; x++) {
-            board_copy_3[y][x] = board_copy_3[y][x];
-        }
-    }
+    int y = player_blue.last().y;
+    int x = player_blue.last().x;
+
 
     if(y > 0 && x > 0 && board_copy_3[y-2][x-1] != 1 && board_copy_3[y-1][x-1] != 1 && board_copy_3[y][x-1] != 1){
         check_placeble_1(y-2, x-1); check_placeble_2(y-2, x-1);
@@ -363,6 +378,6 @@ place Quoridor::best_wall(int y, int x, int goal){
         h = false; v = true;
     }
 
-    return place(yy, xx);
+    return "";
 
 }
