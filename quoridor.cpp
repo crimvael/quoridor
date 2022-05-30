@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QList>
 
+extern bool ai;
 bool start = false; bool show_wall = false; bool wall_enabled = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
 bool move_select = false; bool placeble_1 = false; bool placeble_2 = false;
@@ -13,7 +14,7 @@ int walls_blue = 10; int walls_red = 10;
 bool vertical = false; bool horizontal = false;
 QList<wall> vertical_walls; QList<wall> horizontal_walls; QList<QString> moves;
 int board_matrix[17][17]; int board_copy_1[17][17]; int board_copy_2[17][17];
-
+bool ai = false;
 
 Quoridor::Quoridor(QWidget *parent)
     : QMainWindow(parent)
@@ -48,8 +49,47 @@ void Quoridor::on_radioButton_2_clicked()
 
 void Quoridor::on_pushButton_clicked()
 {
-    if(ui->radioButton->isChecked())
-    {}
+    if(ui->radioButton->isChecked()){
+        if(!player_blue.isEmpty()){
+            remove_pawn(player_blue.last().y, player_blue.last().x);
+            player_blue.clear();
+        }
+        if(!player_red.isEmpty()){
+            remove_pawn(player_red.last().y, player_red.last().x);
+            player_red.clear();
+        }
+        if(!vertical_walls.isEmpty())
+            vertical_walls.clear();
+        if(!horizontal_walls.isEmpty())
+            horizontal_walls.clear();
+        if(!moves.isEmpty())
+            moves.clear();
+
+        walls_blue = 10;
+        walls_red = 10;
+
+        for (int i=0; i < 17; i++) {
+            for (int j=0; j < 17; j++) {
+                board_matrix[i][j] = 0;
+            }
+        }
+
+        ai = true;
+        start = true;
+        show_wall = true;
+        wall_enabled = true;
+        BLUE = true;
+        RED = false;
+        set_players(0, 8, 2);
+        set_players(16, 8, 1);
+        player_red.append(place(0, 8));
+        player_blue.append(place(16, 8));
+        moves.append("m 1");
+        moves.append("m 2");
+        game_manager();
+
+    }
+
     if(ui->radioButton_2->isChecked()){
 
         if(!player_blue.isEmpty()){
@@ -125,6 +165,31 @@ void Quoridor::game_manager()
     if(player_red.last().y == 16){
         winner = "<br><span style='color: red'>RED</span> wins!</br>";
         start = false;
+    }
+
+    if(RED && ai){
+        next_move();
+        int y = next_m.split(QChar(' ')).at(1).toInt();
+        int x = next_m.split(QChar(' ')).at(2).toInt();
+
+        if(next_m.at(0) == 'm'){
+            board_matrix[y][x] = 1;
+        }
+
+        if(next_m.at(0) == 'v'){
+            board_matrix[y][x] = 1; board_matrix[y+1][x] = 1; board_matrix[y+2][x] = 1;
+        }
+
+        if(next_m.at(0) == 'h'){
+            board_matrix[y][x] = 1; board_matrix[y][x+1] = 1; board_matrix[y][x+2] = 1;
+        }
+
+        player_red.append(place(y, x));
+        remove_pawn(curr_position[0], curr_position[1]);
+        set_players(y, x, 2);
+        moves.append("m 2");
+        RED = false; BLUE = true;
+        update(); game_manager();
     }
 
     ui->textBrowser->setText(status + walls_r + walls_b + winner);

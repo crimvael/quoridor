@@ -33,6 +33,7 @@ extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls; extern Q
 extern int board_matrix[17][17]; extern int board_copy_1[17][17]; extern int board_copy_2[17][17];
 extern int board_copy_3[17][17];
 extern int distance; extern int final_y; extern int final_x;
+extern QString next_m;
 
 class Quoridor : public QMainWindow
 {
@@ -47,11 +48,11 @@ private slots:
 
     void next_move();
 
-    QString best_move(int[][17], int);
+    QString best_move(int[][17], int, int, int);
 
-    QString best_wall(int[][17], int);
+    QString best_wall(int[][17],int, int, int);
 
-    int minimax(QList<QString>, QString, bool, int);
+    int minimax(QList<QString>, bool, int);
 
     bool check();
 
