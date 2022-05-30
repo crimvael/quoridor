@@ -51,7 +51,7 @@ private slots:
 
     place best_wall(int, int, int);
 
-    void minimax(place, place, int);
+    int minimax(QList<QString>, place, bool, int);
 
     bool check();
 
