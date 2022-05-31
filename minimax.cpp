@@ -14,10 +14,10 @@ void Quoridor::next_move(){
     moves1.append(move1);
     moves2.append(move2);
 
-    if(minimax(moves1, false, 5) >= minimax(moves2, false, 5))
-        next_m = move1;
-    else
+    if(minimax(moves1, false, 0) >= minimax(moves2, false, 0))
         next_m = move2;
+    else
+        next_m = move1;
 
 }
 
@@ -40,19 +40,19 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
     if(!moves.isEmpty())
         for(int i=0; i < moves.size(); i++){
 
-            moves1.append(moves[1]);
-            moves2.append(moves[1]);
-            int y = moves.last().split(QChar(' ')).at(1).toInt();
-            int x = moves.last().split(QChar(' ')).at(2).toInt();
+            moves1.append(moves[i]);
+            moves2.append(moves[i]);
+            int y = moves[i].split(QChar(' ')).at(1).toInt();
+            int x = moves[i].split(QChar(' ')).at(2).toInt();
 
             if(moves[i].at(0) == 'm'){
-                if(moves[i].at(8) == 'r'){
+                if(moves[i].split(QChar(' ')).at(3) == "r"){
                     board_copy[y][x] = 1;
                     curr_red_y = y;
                     curr_red_x = x;
                 }
 
-                if(moves[i].at(8) == 'b'){
+                if(moves[i].split(QChar(' ')).at(3) == "b"){
                     board_copy[y][x] = 1;
                     curr_blue_y = y;
                     curr_blue_x = x;
@@ -67,9 +67,9 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
         }
 
     if(level == 0){
-        shortest_path(curr_red_y, curr_red_x, 16);
-        int score = 1000 - distance;
-        return score;
+        //shortest_path(curr_red_y, curr_red_x, 16);
+        //int score = 1000 - distance;
+        return 1;//score;
     }
 
     if(max){

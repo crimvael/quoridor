@@ -480,20 +480,21 @@ void Quoridor::on_pushButton_4_clicked()
             board_matrix[y][x] = 1;
             remove_pawn(curr_position[0], curr_position[1]);
             set_players(y, x, 2);
-            moves.append("m 2");
+//            moves.append("m 2");
         }
 
         if(next_m.at(0) == 'v'){
-            board_matrix[y][x] = 1; board_matrix[y+1][x] = 1; board_matrix[y+2][x] = 1;
+            board_matrix[y][x] = 1; board_matrix[y+1][x] = 1; board_matrix[y+2][x] = 1; update();
         }
 
-        if(next_m.at(0) == 'h'){
-            board_matrix[y][x] = 1; board_matrix[y][x+1] = 1; board_matrix[y][x+2] = 1;
-        }
+//        if(next_m.at(0) == 'h'){
+//            board_matrix[y][x] = 1; board_matrix[y][x+1] = 1; board_matrix[y][x+2] = 1;
+//        }
 
-        player_red.append(place(y, x));
-        RED = false; BLUE = true;
-        update(); game_manager();
+//        player_red.append(place(y, x));
+        RED = false; BLUE = true; game_manager();
+
+        ui->textBrowser->setText("Next move: " + next_m);
     }
 }
 
