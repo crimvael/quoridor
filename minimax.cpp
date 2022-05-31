@@ -8,16 +8,18 @@ void Quoridor::next_move(){
     QList<QString> moves1;
     QList<QString> moves2;
 
-    QString move1 = best_move(board_matrix, player_blue.last().y, player_blue.last().x, 16);
-    QString move2 = best_wall(board_matrix, player_red.last().y, player_red.last().x, 0);
+    next_m = best_move(board_matrix, player_red.last().y, player_red.last().x, 16);
+    QString move2 = best_wall(board_matrix, player_blue.last().y, player_blue.last().x, 0);
 
-    moves1.append(move1);
+    //moves1.append(move1);
     moves2.append(move2);
 
+    return;
+
     if(minimax(moves1, false, 0) >= minimax(moves2, false, 0))
-        next_m = move2;
+        next_m = "";
     else
-        next_m = move1;
+        next_m = move2;
 
 }
 
