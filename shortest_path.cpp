@@ -6,11 +6,6 @@ int distance = 999; int final_y = 99; int final_x = 99;
 
 void Quoridor::on_pushButton_3_clicked()
 {
-    for (int y=0; y < 17; y++) {
-        for (int x=0; x < 17; x++) {
-            board_copy_3[y][x] = board_matrix[y][x];
-        }
-    }
 
     if(BLUE)
         shortest_path(player_blue.last().y, player_blue.last().x, 0);
@@ -27,6 +22,12 @@ void Quoridor::shortest_path(int y, int x, int goal){
     distance = 999;
     final_y = 99;
     final_x = 99;
+
+    for (int y=0; y < 17; y++) {
+        for (int x=0; x < 17; x++) {
+            board_copy_3[y][x] = board_matrix[y][x];
+        }
+    }
 
     QList<place> path;
     path.append(place(y, x));
@@ -52,16 +53,14 @@ void Quoridor::find_nodes(QList<place> path, int n, int goal){
                         near_nodes.removeAt(i);
 
             // update new_nodes
-            for(int i=0; i < near_nodes.size(); i++)
+            for(int i=0; i < near_nodes.size(); i++){
+                // check if reached goal
+                if(near_nodes[i].y == goal){
+                    final_y = near_nodes[i].y; final_x = near_nodes[i].x;
+                    distance = n+1; return;}
                 new_nodes.append(near_nodes[i]);
+            }
         }
-    }
-
-    if(!new_nodes.isEmpty()){
-        for(int i=0; i < new_nodes.size(); i++)
-            if(new_nodes[i].y == goal){
-                final_y = new_nodes[i].y; final_x = new_nodes[i].x;
-                distance = n+1; return;}
     }
 
     find_nodes(new_nodes, ++n, goal);
@@ -72,6 +71,11 @@ QList<place> Quoridor::find_near(place node, int goal){
     board_copy_3[node.y][node.x] = 1;
     QList<place> near_nodes;
 
+    int y = node.y;
+    int x = node.x;
+    int opp_y = 99;
+    int opp_x = 99;
+
     int up[] = {-1,-1};
     int down[] = {-1,-1};
     int left[] = {-1,-1};
@@ -81,106 +85,72 @@ QList<place> Quoridor::find_near(place node, int goal){
     int jump_right[] = {-1,-1};
 
 
-    if(node.x > 0 && board_copy_3[node.y][node.x-1] != 1){
-        left[0] = node.y; left[1] = node.x -2;}
-
-    if(node.y > 0 && board_copy_3[node.y-1][node.x] != 1){
-        up[0] = node.y -2; up[1] = node.x;}
-
-    if(node.x < 16 && board_copy_3[node.y][node.x+1] != 1){
-        right[0] = node.y; right[1] = node.x +2;}
-
-    if(node.y < 16 && board_copy_3[node.y+1][node.x] != 1){
-        down[0] = node.y +2; down[1] = node.x;}
-
-
     if(goal == 0){
-        if(node.y == player_red.last().y && node.x-2 == player_red.last().x){
-            left[0] = -1; left[1] = -1;
-            if(board_copy_3[node.y][node.x -3] != 1 && node.x > 2){
-                left[0] = node.y; left[1] = node.x -4;}
-            if(board_copy_3[node.y][node.x -3] == 1 && node.y > 0 && node.y < 16){
-                if(board_copy_3[node.y-1][node.x-2] != 1){
-                    jump_right[0] = node.y-2; jump_right[1] = node.x-2;}
-                if(board_copy_3[node.y+1][node.x-2] != 1){
-                    jump_left[0] = node.y+2; jump_left[1] = node.x-2;}}}
-
-
-        if(node.y-2 == player_red.last().y && node.x == player_red.last().x){
-            up[0] = -1; up[1] = -1;
-            if(board_copy_3[node.y-3][node.x] != 1 && node.y > 2){
-                up[0] = node.y-4; up[1] = node.x;}
-            if(board_copy_3[node.y-3][node.x] == 1 && node.x > 0 && node.x < 16){
-                if(board_copy_3[node.y-2][node.x+1] != 1){
-                    jump_right[0] = node.y-2; jump_right[1] = node.x+2;}
-                if(board_copy_3[node.y-2][node.x-1] != 1){
-                    jump_left[0] = node.y-2; jump_left[1] = node.x-2;}}}
-
-
-        if(node.y == player_red.last().y && node.x+2 == player_red.last().x){
-            right[0] = -1; right[1] = -1;
-            if(board_copy_3[node.y][node.x +3] != 1 && node.x < 14){
-                right[0] = node.y; right[1] = node.x +4;}
-            if(board_copy_3[node.y][node.x +3] == 1 && node.y > 0 && node.y < 16){
-                if(board_copy_3[node.y+1][node.x+2] != 1){
-                    jump_right[0] = node.y+2; jump_right[1] = node.x+2;}
-                if(board_copy_3[node.y-1][node.x+2] != 1){
-                    jump_left[0] = node.y-2; jump_left[1] = node.x+2;}}}
-
-
-        if(node.y+2 == player_red.last().y && node.x == player_red.last().x){
-            down[0] = -1; down[1] = -1;
-            if(board_copy_3[node.y+3][node.x] != 1 && node.y < 14){
-                down[0] = node.y+4; down[1] = node.x;}
-            if(board_copy_3[node.y+3][node.x] == 1 && node.x > 0 && node.x < 16){
-                if(board_copy_3[node.y+2][node.x-1] != 1){
-                    jump_right[0] = node.y+2; jump_right[1] = node.x-2;}
-                if(board_copy_3[node.y+2][node.x+1] != 1){
-                    jump_left[0] = node.y+2; jump_left[1] = node.x+2;}}}}
+        opp_y = player_red.last().y;
+        opp_x = player_red.last().x;
+    }
 
     if(goal == 16){
-        if(node.y == player_blue.last().y && node.x-2 == player_blue.last().x){
-            left[0] = -1; left[1] = -1;
-            if(board_matrix[node.y][node.x -3] != 1 && node.x > 2){
-                left[0] = node.y; left[1] = node.x -4;}
-            if(board_matrix[node.y][node.x -3] == 1 && node.y > 0 && node.y < 16){
-                if(board_matrix[node.y-1][node.x-2] != 1){
-                    jump_right[0] = node.y-2; jump_right[1] = node.x-2;}
-                if(board_matrix[node.y+1][node.x-2] != 1){
-                    jump_left[0] = node.y+2; jump_left[1] = node.x-2;}}}
+        opp_y = player_blue.last().y;
+        opp_x = player_blue.last().x;
+    }
+
+    if(x > 0 && board_matrix[y][x-1] != 1){
+        left[0] = y; left[1] = x -2;}
+
+    if(y > 0  && board_matrix[y-1][x] != 1){
+        up[0] = y -2; up[1] = x;}
+
+    if(x < 16 && board_matrix[y][x+1] != 1){
+        right[0] = y; right[1] = x +2;}
+
+    if(y < 16 && board_matrix[y+1][x] != 1){
+        down[0] = y +2; down[1] = x;}
 
 
-        if(node.y-2 == player_blue.last().y && node.x == player_blue.last().x){
-            up[0] = -1; up[1] = -1;
-            if(board_matrix[node.y-3][node.x] != 1 && node.y > 2){
-                up[0] = node.y-4; up[1] = node.x;}
-            if(board_matrix[node.y-3][node.x] == 1 && node.x > 0 && node.x < 16){
-                if(board_matrix[node.y-2][node.x+1] != 1){
-                    jump_right[0] = node.y-2; jump_right[1] = node.x+2;}
-                if(board_matrix[node.y-2][node.x-1] != 1){
-                    jump_left[0] = node.y-2; jump_left[1] = node.x-2;}}}
+
+    if(y == opp_y && x-2 == opp_x && board_matrix[y][x-1] != 1){
+        left[0] = -1; left[1] = -1;
+        if(board_matrix[y][x-3] != 1 && x > 2){
+            left[0] = y; left[1] = x-4;}
+        if(board_matrix[y][x-3] == 1 && y > 0 && y < 16){
+            if(board_matrix[y-1][x-2] != 1){
+                jump_right[0] = y-2; jump_right[1] = x-2;}
+            if(board_matrix[y+1][x-2] != 1){
+                jump_left[0] = y+2; jump_left[1] = x-2;}}}
 
 
-        if(node.y == player_blue.last().y && node.x+2 == player_blue.last().x){
-            right[0] = -1; right[1] = -1;
-            if(board_matrix[node.y][node.x +3] != 1 && node.x < 14){
-                right[0] = node.y; right[1] = node.x +4;}
-            if(board_matrix[node.y][node.x +3] == 1 && node.y > 0 && node.y < 16){
-                if(board_matrix[node.y+1][node.x+2] != 1){
-                    jump_right[0] = node.y+2; jump_right[1] = node.x+2;}
-                if(board_matrix[node.y-1][node.x+2] != 1){
-                    jump_left[0] = node.y-2; jump_left[1] = node.x+2;}}}
+    if(y-2 == opp_y && x == opp_x && board_matrix[y-1][x] != 1){
+        up[0] = -1; up[1] = -1;
+        if(board_matrix[y-3][x] != 1 && y > 2 && board_matrix[y-1][x] != 1){
+            up[0] = y-4; up[1] = x;}
+        if(board_matrix[y-3][x] == 1 && x > 0 && x < 16){
+            if(board_matrix[y-2][x+1] != 1){
+                jump_right[0] = y-2; jump_right[1] = x+2;}
+            if(board_matrix[y-2][x-1] != 1){
+                jump_left[0] = y-2; jump_left[1] = x-2;}}}
 
 
-        if(node.y+2 == player_blue.last().y && node.x == player_blue.last().x){
-            down[0] = -1; down[1] = -1;
-            if(board_matrix[node.y+3][node.x] != 1 && node.y < 14){
-                down[0] = node.y+4; down[1] = node.x;}
-            if(board_matrix[node.y+3][node.x] == 1 && node.x > 0 && node.x < 16){
-                if(board_matrix[node.y+2][node.x-1] != 1){
-                    jump_right[0] = node.y+2; jump_right[1] = node.x-2;}
-                if(board_matrix[node.y+2][node.x+1] != 1){
-                    jump_left[0] = node.y+2; jump_left[1] = node.x+2;}}}}
+    if(y == opp_y && x+2 == opp_x && board_matrix[y][x+1] != 1){
+        right[0] = -1; right[1] = -1;
+        if(board_matrix[y][x+3] != 1 && x < 14){
+            right[0] = y; right[1] = x+4;}
+        if(board_matrix[y][x+3] == 1 && y > 0 && y < 16){
+            if(board_matrix[y+1][x+2] != 1){
+                jump_right[0] = y+2; jump_right[1] = x+2;}
+            if(board_matrix[y-1][x+2] != 1){
+                jump_left[0] = y-2; jump_left[1] = x+2;}}}
+
+
+    if(y+2 == opp_y && x == opp_x && board_matrix[y+1][x] != 1){
+        down[0] = -1; down[1] = -1;
+        if(board_matrix[y+3][x] != 1 && y < 14){
+            down[0] = y+4; down[1] = x;}
+        if(board_matrix[y+3][x] == 1 && x > 0 && x < 16){
+            if(board_matrix[y+2][x-1] != 1){
+                jump_right[0] = y+2; jump_right[1] = x-2;}
+            if(board_matrix[y+2][x+1] != 1){
+                jump_left[0] = y+2; jump_left[1] = x+2;}}}
 
 
     if(up[0] != -1 && board_copy_3[up[0]][up[1]] != 1){

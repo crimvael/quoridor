@@ -8,18 +8,19 @@ void Quoridor::next_move(){
     QList<QString> moves1;
     QList<QString> moves2;
 
-    next_m = best_move(board_matrix, player_red.last().y, player_red.last().x, 16);
-    QString move2 = best_wall(board_matrix, player_blue.last().y, player_blue.last().x, 0);
-
-    //moves1.append(move1);
-    moves2.append(move2);
-
+    QString move1 = best_move(board_matrix, player_red.last().y, player_red.last().x, 16);
+    next_m = best_wall(board_matrix, player_blue.last().y, player_blue.last().x, 0);
     return;
+//    QString move2 = best_wall(board_matrix, player_blue.last().y, player_blue.last().x, 0);
 
-    if(minimax(moves1, false, 0) >= minimax(moves2, false, 0))
-        next_m = "";
-    else
-        next_m = move2;
+//    moves1.append(move1);
+//    moves2.append(move2);
+
+
+//    if(minimax(moves1, false, 0) >= minimax(moves2, false, 0))
+//        next_m = move1;
+//    else
+//        next_m = move2;
 
 }
 
@@ -91,9 +92,11 @@ QString Quoridor::best_move(int board_copy[][17], int y, int x, int goal){
 
     QList<place> near_nodes;
     int shortest = 999;
-    int yy = 99;
-    int xx = 99;
+    int yy = 99; int xx = 99;
     QString ggg;
+
+    int opp_y = 99;
+    int opp_x = 99;
 
     int up[] = {-1,-1};
     int down[] = {-1,-1};
@@ -103,121 +106,73 @@ QString Quoridor::best_move(int board_copy[][17], int y, int x, int goal){
     int jump_left[] = {-1,-1};
     int jump_right[] = {-1,-1};
 
+
     if(goal == 0){
-
-        if(x > 0 && board_copy[y][x-1] != 1){
-            left[0] = y; left[1] = x -2;}
-
-        if(y > 0 && board_copy[y-1][x] != 1){
-            up[0] = y -2; up[1] = x;}
-
-        if(x < 16 && board_copy[y][x+1] != 1){
-            right[0] = y; right[1] = x +2;}
-
-        if(y < 16 && board_copy[y+1][x] != 1){
-            down[0] = y +2; down[1] = x;}
-
-
-        if(y == player_red.last().y && x-2 == player_red.last().x){
-            left[0] = -1; left[1] = -1;
-            if(board_copy[y][x -3] != 1 && x > 2){
-                left[0] = y; left[1] = x -4;}
-            if(board_copy[y][x -3] == 1 && y > 0 && y < 16){
-                if(board_copy[y-1][x-2] != 1){
-                    jump_right[0] = y-2; jump_right[1] = x-2;}
-                if(board_copy[y+1][x-2] != 1){
-                    jump_left[0] = y+2; jump_left[1] = x-2;}}}
-
-
-        if(y-2 == player_red.last().y && x == player_red.last().x){
-            up[0] = -1; up[1] = -1;
-            if(board_copy[y-3][x] != 1 && y > 2){
-                up[0] = y-4; up[1] = x;}
-            if(board_copy[y-3][x] == 1 && x > 0 && x < 16){
-                if(board_copy[y-2][x+1] != 1){
-                    jump_right[0] = y-2; jump_right[1] = x+2;}
-                if(board_copy[y-2][x-1] != 1){
-                    jump_left[0] = y-2; jump_left[1] = x-2;}}}
-
-
-        if(y == player_red.last().y && x+2 == player_red.last().x){
-            right[0] = -1; right[1] = -1;
-            if(board_copy[y][x +3] != 1 && x < 14){
-                right[0] = y; right[1] = x +4;}
-            if(board_copy[y][x +3] == 1 && y > 0 && y < 16){
-                if(board_copy[y+1][x+2] != 1){
-                    jump_right[0] = y+2; jump_right[1] = x+2;}
-                if(board_copy[y-1][x+2] != 1){
-                    jump_left[0] = y-2; jump_left[1] = x+2;}}}
-
-
-        if(y+2 == player_red.last().y && x == player_red.last().x){
-            down[0] = -1; down[1] = -1;
-            if(board_copy[y+3][x] != 1 && y < 14){
-                down[0] = y+4; down[1] = x;}
-            if(board_copy[y+3][x] == 1 && x > 0 && x < 16){
-                if(board_copy[y+2][x-1] != 1){
-                    jump_right[0] = y+2; jump_right[1] = x-2;}
-                if(board_copy[y+2][x+1] != 1){
-                    jump_left[0] = y+2; jump_left[1] = x+2;}}}}
+        opp_y = player_red.last().y;
+        opp_x = player_red.last().x;
+    }
 
     if(goal == 16){
+        opp_y = player_blue.last().y;
+        opp_x = player_blue.last().x;
+    }
 
-        if(x > 0 && board_copy[y][x-1] != 1){
-            left[0] = y; left[1] = x -2;}
+    if(x > 0 && board_copy[y][x-1] != 1){
+        left[0] = y; left[1] = x -2;}
 
-        if(y > 0 && board_copy[y-1][x] != 1){
-            up[0] = y -2; up[1] = x;}
+    if(y > 0  && board_copy[y-1][x] != 1){
+        up[0] = y -2; up[1] = x;}
 
-        if(x < 16 && board_copy[y][x+1] != 1){
-            right[0] = y; right[1] = x +2;}
+    if(x < 16 && board_copy[y][x+1] != 1){
+        right[0] = y; right[1] = x +2;}
 
-        if(y < 16 && board_copy[y+1][x] != 1){
-            down[0] = y +2; down[1] = x;}
-
-
-        if(y == player_blue.last().y && x-2 == player_blue.last().x){
-            left[0] = -1; left[1] = -1;
-            if(board_matrix[y][x -3] != 1 && x > 2){
-                left[0] = y; left[1] = x -4;}
-            if(board_matrix[y][x -3] == 1 && y > 0 && y < 16){
-                if(board_matrix[y-1][x-2] != 1){
-                    jump_right[0] = y-2; jump_right[1] = x-2;}
-                if(board_matrix[y+1][x-2] != 1){
-                    jump_left[0] = y+2; jump_left[1] = x-2;}}}
+    if(y < 16 && board_copy[y+1][x] != 1){
+        down[0] = y +2; down[1] = x;}
 
 
-        if(y-2 == player_blue.last().y && x == player_blue.last().x){
-            up[0] = -1; up[1] = -1;
-            if(board_matrix[y-3][x] != 1 && y > 2){
-                up[0] = y-4; up[1] = x;}
-            if(board_matrix[y-3][x] == 1 && x > 0 && x < 16){
-                if(board_matrix[y-2][x+1] != 1){
-                    jump_right[0] = y-2; jump_right[1] = x+2;}
-                if(board_matrix[y-2][x-1] != 1){
-                    jump_left[0] = y-2; jump_left[1] = x-2;}}}
+
+    if(y == opp_y && x-2 == opp_x && board_copy[y][x-1] != 1){
+        left[0] = -1; left[1] = -1;
+        if(board_copy[y][x-3] != 1 && x > 2){
+            left[0] = y; left[1] = x-4;}
+        if(board_copy[y][x-3] == 1 && y > 0 && y < 16){
+            if(board_copy[y-1][x-2] != 1){
+                jump_right[0] = y-2; jump_right[1] = x-2;}
+            if(board_copy[y+1][x-2] != 1){
+                jump_left[0] = y+2; jump_left[1] = x-2;}}}
 
 
-        if(y == player_blue.last().y && x+2 == player_blue.last().x){
-            right[0] = -1; right[1] = -1;
-            if(board_matrix[y][x +3] != 1 && x < 14){
-                right[0] = y; right[1] = x +4;}
-            if(board_matrix[y][x +3] == 1 && y > 0 && y < 16){
-                if(board_matrix[y+1][x+2] != 1){
-                    jump_right[0] = y+2; jump_right[1] = x+2;}
-                if(board_matrix[y-1][x+2] != 1){
-                    jump_left[0] = y-2; jump_left[1] = x+2;}}}
+    if(y-2 == opp_y && x == opp_x && board_copy[y-1][x] != 1){
+        up[0] = -1; up[1] = -1;
+        if(board_copy[y-3][x] != 1 && y > 2 && board_copy[y-1][x] != 1){
+            up[0] = y-4; up[1] = x;}
+        if(board_copy[y-3][x] == 1 && x > 0 && x < 16){
+            if(board_copy[y-2][x+1] != 1){
+                jump_right[0] = y-2; jump_right[1] = x+2;}
+            if(board_copy[y-2][x-1] != 1){
+                jump_left[0] = y-2; jump_left[1] = x-2;}}}
 
 
-        if(y+2 == player_blue.last().y && x == player_blue.last().x){
-            down[0] = -1; down[1] = -1;
-            if(board_matrix[y+3][x] != 1 && y < 14){
-                down[0] = y+4; down[1] = x;}
-            if(board_matrix[y+3][x] == 1 && x > 0 && x < 16){
-                if(board_matrix[y+2][x-1] != 1){
-                    jump_right[0] = y+2; jump_right[1] = x-2;}
-                if(board_matrix[y+2][x+1] != 1){
-                    jump_left[0] = y+2; jump_left[1] = x+2;}}}}
+    if(y == opp_y && x+2 == opp_x && board_copy[y][x+1] != 1){
+        right[0] = -1; right[1] = -1;
+        if(board_copy[y][x+3] != 1 && x < 14){
+            right[0] = y; right[1] = x+4;}
+        if(board_copy[y][x+3] == 1 && y > 0 && y < 16){
+            if(board_copy[y+1][x+2] != 1){
+                jump_right[0] = y+2; jump_right[1] = x+2;}
+            if(board_copy[y-1][x+2] != 1){
+                jump_left[0] = y-2; jump_left[1] = x+2;}}}
+
+
+    if(y+2 == opp_y && x == opp_x && board_copy[y+1][x] != 1){
+        down[0] = -1; down[1] = -1;
+        if(board_copy[y+3][x] != 1 && y < 14){
+            down[0] = y+4; down[1] = x;}
+        if(board_copy[y+3][x] == 1 && x > 0 && x < 16){
+            if(board_copy[y+2][x-1] != 1){
+                jump_right[0] = y+2; jump_right[1] = x-2;}
+            if(board_copy[y+2][x+1] != 1){
+                jump_left[0] = y+2; jump_left[1] = x+2;}}}
 
 
     if(up[0] != -1 && board_copy[up[0]][up[1]] != 1){
@@ -253,6 +208,7 @@ QString Quoridor::best_move(int board_copy[][17], int y, int x, int goal){
 
     if(goal == 16)
         ggg = "r";
+
     if(goal == 0)
         ggg = "b";
 
