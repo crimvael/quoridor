@@ -488,7 +488,7 @@ void Quoridor::on_pushButton_4_clicked()
         }
 
         if(next_m.at(0) == 'h'){
-            board_matrix[y][x] = 1; board_matrix[y][x+1] = 1; board_matrix[y][x+2] = 1;
+            board_matrix[y][x] = 1; board_matrix[y][x+1] = 1; board_matrix[y][x+2] = 1; update();
         }
 
         RED = false; BLUE = true; game_manager();

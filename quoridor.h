@@ -54,7 +54,7 @@ private slots:
 
     int minimax(QList<QString>, bool, int);
 
-    bool check();
+    bool check_wall_number();
 
     void shortest_path(int, int, int);
 
