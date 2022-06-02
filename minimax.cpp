@@ -222,7 +222,8 @@ QString Quoridor::best_wall(int board_copy[][17], int y, int x, int goal){
     int yy = 99;
     int xx = 99;
     QString hv;
-    QString ara = "";
+    int red_y = player_red.last().y;
+    int red_x = player_red.last().x;
 
 
     if(y > 0 && x > 0 && board_copy[y-2][x-1] != 1 && board_copy[y-1][x-1] != 1 && board_copy[y][x-1] != 1){
@@ -232,180 +233,172 @@ QString Quoridor::best_wall(int board_copy[][17], int y, int x, int goal){
                 board_copy_2[y][x] = board_matrix[y][x];
             }
         }
-        check_placeble_1(y-2, x-1); check_placeble_2(y-2, x-1);
+        board_copy_1[y-2][x-1] = 1; board_copy_1[y-1][x-1] = 1; board_copy_1[y][x-1] = 1;
+        board_copy_2[y-2][x-1] = 1; board_copy_2[y-1][x-1] = 1; board_copy_2[y][x-1] = 1;
+        check_placeble_1(y, x); check_placeble_2(red_y, red_x);
         if(placeble_1 && placeble_2){
-            ara+="ciao";
-            board_copy[y-2][x-1] = 1; board_copy[y-1][x-1] = 1; board_copy[y][x-1] = 1;
             shortest_path(y, x, goal);
             if(distance > longest){
                 longest = distance;
                 yy = y-2;
                 xx = x-1;
                 hv += "v";
-                ara+= hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n";
-
             }
             board_copy[y-2][x-1] = 0; board_copy[y-1][x-1] = 0; board_copy[y][x-1] = 0;
             placeble_1 = false; placeble_2 = false;
         }
     }
-//    if(y > 0 && x < 16 && board_copy[y-2][x+1] != 1 && board_copy[y-1][x+1] != 1 && board_copy[y][x+1] != 1){
-//        for (int y=0; y<17; y++) {
-//            for (int x=0; x<17; x++) {
-//                board_copy_1[y][x] = board_matrix[y][x];
-//                board_copy_2[y][x] = board_matrix[y][x];
-//            }
-//        }
-//        check_placeble_1(y-2, x+1); check_placeble_2(y-2, x+1);
-//        if(placeble_1 && placeble_2){
-//            board_copy[y-2][x+1] = 1; board_copy[y-1][x+1] = 1; board_copy[y][x+1] = 1;
-//            shortest_path(y, x, goal);
-//            if(distance > longest){
-//                longest = distance;
-//                yy = y-2;
-//                xx = x+1;
-//                hv = "v";
-//                ara+= hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n";
-//            }
-//            board_copy[y-2][x+1] = 1; board_copy[y-1][x+1] = 1; board_copy[y][x+1] = 1;
-//            placeble_1 = false; placeble_2 = false;
-//        }
-//    }
-//    if(y < 16 && x > 0 && board_copy[y][x-1] != 1 && board_copy[y+1][x-1] != 1 && board_copy[y+2][x-1] != 1){
-//        for (int y=0; y<17; y++) {
-//            for (int x=0; x<17; x++) {
-//                board_copy_1[y][x] = board_matrix[y][x];
-//                board_copy_2[y][x] = board_matrix[y][x];
-//            }
-//        }
-//        check_placeble_1(y, x-1); check_placeble_2(y, x-1);
-//        if(placeble_1 && placeble_2){
-//            board_copy[y][x-1] = 1; board_copy[y+1][x-1] = 1; board_copy[y+2][x-1] = 1;
-//            shortest_path(y, x, goal);
-//            if(distance > longest){
-//                longest = distance;
-//                yy = y;
-//                xx = x-1;
-//                hv = "v";
-//                ara+= hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n";
-//            }
-//            board_copy[y][x-1] = 0; board_copy[y+1][x-1] = 0; board_copy[y+2][x-1] = 0;
-//            placeble_1 = false; placeble_2 = false;
-//        }
-//    }
-//    if(y < 16 && x < 16 && board_copy[y][x+1] != 1 && board_copy[y+1][x+1] != 1 && board_copy[y+2][x+1] != 1){
-//        for (int y=0; y<17; y++) {
-//            for (int x=0; x<17; x++) {
-//                board_copy_1[y][x] = board_matrix[y][x];
-//                board_copy_2[y][x] = board_matrix[y][x];
-//            }
-//        }
-//        check_placeble_1(y, x+1); check_placeble_2(y, x+1);
-//        if(placeble_1 && placeble_2){
-//            board_copy[y][x+1] = 1; board_copy[y+1][x+1] = 1; board_copy[y+2][x+1] = 1;
-//            shortest_path(y, x, goal);
-//            if(distance > longest){
-//                longest = distance;
-//                yy = y;
-//                xx = x+1;
-//                hv = "v";
-//                ara+= hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n";
-//            }
-//            board_copy[y][x+1] = 0; board_copy[y+1][x+1] = 0; board_copy[y+2][x+1] = 0;
-//            placeble_1 = false; placeble_2 = false;
-//        }
-//    }
+    if(y > 0 && x < 16 && board_copy[y-2][x+1] != 1 && board_copy[y-1][x+1] != 1 && board_copy[y][x+1] != 1){
+        for (int y=0; y<17; y++) {
+            for (int x=0; x<17; x++) {
+                board_copy_1[y][x] = board_matrix[y][x];
+                board_copy_2[y][x] = board_matrix[y][x];
+            }
+        }
+        board_copy_1[y-2][x-1] = 1; board_copy_1[y-1][x-1] = 1; board_copy_1[y][x-1] = 1;
+        board_copy_2[y-2][x-1] = 1; board_copy_2[y-1][x-1] = 1; board_copy_2[y][x-1] = 1;
+        check_placeble_1(y, x); check_placeble_2(red_y, red_x);
+        if(placeble_1 && placeble_2){
+            board_copy[y-2][x+1] = 1; board_copy[y-1][x+1] = 1; board_copy[y][x+1] = 1;
+            shortest_path(y, x, goal);
+            if(distance > longest){
+                longest = distance;
+                yy = y-2;
+                xx = x+1;
+                hv = "v";
+            }
+            board_copy[y-2][x+1] = 1; board_copy[y-1][x+1] = 1; board_copy[y][x+1] = 1;
+            placeble_1 = false; placeble_2 = false;
+        }
+    }
+    if(y < 16 && x > 0 && board_copy[y][x-1] != 1 && board_copy[y+1][x-1] != 1 && board_copy[y+2][x-1] != 1){
+        for (int y=0; y<17; y++) {
+            for (int x=0; x<17; x++) {
+                board_copy_1[y][x] = board_matrix[y][x];
+                board_copy_2[y][x] = board_matrix[y][x];
+            }
+        }
+        board_copy_1[y][x-1] = 1; board_copy_1[y+1][x-1] = 1; board_copy_1[y][x-2] = 1;
+        board_copy_2[y][x-1] = 1; board_copy_2[y+1][x-1] = 1; board_copy_2[y][x-2] = 1;
+        check_placeble_1(y, x); check_placeble_2(red_y, red_x);
+        if(placeble_1 && placeble_2){
+            shortest_path(y, x, goal);
+            if(distance > longest){
+                longest = distance;
+                yy = y;
+                xx = x-1;
+                hv = "v";
+            }
+            board_copy[y][x-1] = 0; board_copy[y+1][x-1] = 0; board_copy[y+2][x-1] = 0;
+            placeble_1 = false; placeble_2 = false;
+        }
+    }
+    if(y < 16 && x < 16 && board_copy[y][x+1] != 1 && board_copy[y+1][x+1] != 1 && board_copy[y+2][x+1] != 1){
+        for (int y=0; y<17; y++) {
+            for (int x=0; x<17; x++) {
+                board_copy_1[y][x] = board_matrix[y][x];
+                board_copy_2[y][x] = board_matrix[y][x];
+            }
+        }
+        board_copy_1[y][x-1] = 1; board_copy_1[y+1][x-1] = 1; board_copy_1[y][x-2] = 1;
+        board_copy_2[y][x-1] = 1; board_copy_2[y+1][x-1] = 1; board_copy_2[y][x-2] = 1;
+        check_placeble_1(y, x); check_placeble_2(red_y, red_x);
+        if(placeble_1 && placeble_2){
+            shortest_path(y, x, goal);
+            if(distance > longest){
+                longest = distance;
+                yy = y;
+                xx = x+1;
+                hv = "v";
+            }
+            placeble_1 = false; placeble_2 = false;
+        }
+    }
 
-//    if(y > 0 && x > 0 && board_copy[y-1][x-2] != 1 && board_copy[y-1][x-1] != 1 && board_copy[y-1][x] != 1){
-//        for (int y=0; y<17; y++) {
-//            for (int x=0; x<17; x++) {
-//                board_copy_1[y][x] = board_matrix[y][x];
-//                board_copy_2[y][x] = board_matrix[y][x];
-//            }
-//        }
-//        check_placeble_1(y-1, x-2); check_placeble_2(y-1, x-2);
-//        if(placeble_1 && placeble_2){
-//            board_copy[y-1][x-2] = 1; board_copy[y-1][x-1] = 1; board_copy[y-1][x] = 1;
-//            shortest_path(y, x, goal);
-//            if(distance > longest){
-//                longest = distance;
-//                yy = y-1;
-//                xx = x-2;
-//                hv = "h";
-//                ara+= hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n";
-//            }
-//            board_copy[y-1][x-2] = 0; board_copy[y-1][x-1] = 0; board_copy[y-1][x] = 0;
-//            placeble_1 = false; placeble_2 = false;
-//        }
-//    }
-//    if(y < 16 && x > 0 && board_copy[y+1][x-2] != 1 && board_copy[y+1][x-1] != 1 && board_copy[y+1][x] != 1){
-//        for (int y=0; y<17; y++) {
-//            for (int x=0; x<17; x++) {
-//                board_copy_1[y][x] = board_matrix[y][x];
-//                board_copy_2[y][x] = board_matrix[y][x];
-//            }
-//        }
-//        check_placeble_1(y+1, x-2); check_placeble_2(y+1, x-2);
-//        if(placeble_1 && placeble_2){
-//            board_copy[y+1][x-2] = 1; board_copy[y+1][x-1] = 1; board_copy[y+1][x] = 1;
-//            shortest_path(y, x, goal);
-//            if(distance > longest){
-//                longest = distance;
-//                yy = y+1;
-//                xx = x-2;
-//                hv = "h";
-//                ara+= hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n";
-//            }
-//            board_copy[y+1][x-2] = 0; board_copy[y+1][x-1] = 0; board_copy[y+1][x] = 0;
-//            placeble_1 = false; placeble_2 = false;
-//        }
-//    }
-//    if(y > 0 && x < 16 && board_copy[y-1][x] != 1 && board_copy[y-1][x+1] != 1 && board_copy[y-1][x+2] != 1){
-//        for (int y=0; y<17; y++) {
-//            for (int x=0; x<17; x++) {
-//                board_copy_1[y][x] = board_matrix[y][x];
-//                board_copy_2[y][x] = board_matrix[y][x];
-//            }
-//        }
-//        check_placeble_1(y-1, x); check_placeble_2(y-1, x);
-//        if(placeble_1 && placeble_2){
-//            board_copy[y-1][x] = 1; board_copy[y-1][x+1] = 1; board_copy[y-1][x+2] = 1;
-//            shortest_path(y, x, goal);
-//            if(distance > longest){
-//                longest = distance;
-//                yy = y-1;
-//                xx = x;
-//                hv = "h";
-//                ara+= hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n";
-//            }
-//            board_copy[y-1][x] = 0; board_copy[y-1][x+1] = 0; board_copy[y-1][x+2] = 0;
-//            placeble_1 = false; placeble_2 = false;
-//        }
-//    }
-//    if(y < 16 && x < 16 &&  board_copy[y+1][x] != 1 && board_copy[y+1][x+1] != 1 && board_copy[y+1][x+2] != 1){
-//        for (int y=0; y<17; y++) {
-//            for (int x=0; x<17; x++) {
-//                board_copy_1[y][x] = board_matrix[y][x];
-//                board_copy_2[y][x] = board_matrix[y][x];
-//            }
-//        }
-//        check_placeble_1(y+1, x); check_placeble_2(y+1, x);
-//        if(placeble_1 && placeble_2){
-//            board_copy[y+1][x] = 1; board_copy[y+1][x+1] = 1; board_copy[y+1][x+2] = 1;
-//            shortest_path(y, x, goal);
-//            if(distance > longest){
-//                longest = distance;
-//                yy = y+1;
-//                xx = x;
-//                hv = "h";
-//                ara+= hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n";
-//            }
-//            board_copy[y+1][x] = 0; board_copy[y+1][x+1] = 0; board_copy[y+1][x+2] = 0;
-//            placeble_1 = false; placeble_2 = false;
-//        }
-//    }
+    if(y > 0 && x > 0 && board_copy[y-1][x-2] != 1 && board_copy[y-1][x-1] != 1 && board_copy[y-1][x] != 1){
+        for (int y=0; y<17; y++) {
+            for (int x=0; x<17; x++) {
+                board_copy_1[y][x] = board_matrix[y][x];
+                board_copy_2[y][x] = board_matrix[y][x];
+            }
+        }
+        board_copy_1[y-1][x-2] = 1; board_copy_1[y-1][x-1] = 1; board_copy_1[y-1][x] = 1;
+        board_copy_2[y-1][x-2] = 1; board_copy_2[y-1][x-1] = 1; board_copy_2[y-1][x] = 1;
+        check_placeble_1(y, x); check_placeble_2(red_y, red_x);
+        if(placeble_1 && placeble_2){
+            shortest_path(y, x, goal);
+            if(distance > longest){
+                longest = distance;
+                yy = y-1;
+                xx = x-2;
+                hv = "h";
+            }
+            placeble_1 = false; placeble_2 = false;
+        }
+    }
+    if(y < 16 && x > 0 && board_copy[y+1][x-2] != 1 && board_copy[y+1][x-1] != 1 && board_copy[y+1][x] != 1){
+        for (int y=0; y<17; y++) {
+            for (int x=0; x<17; x++) {
+            }
+        }
+        board_copy_1[y-1][x-2] = 1; board_copy_1[y-1][x-1] = 1; board_copy_1[y-1][x] = 1;
+        board_copy_2[y-1][x-2] = 1; board_copy_2[y-1][x-1] = 1; board_copy_2[y-1][x] = 1;
+        check_placeble_1(y, x); check_placeble_2(red_y, red_x);
+        if(placeble_1 && placeble_2){
+            shortest_path(y, x, goal);
+            if(distance > longest){
+                longest = distance;
+                yy = y+1;
+                xx = x-2;
+                hv = "h";
+            }
+            placeble_1 = false; placeble_2 = false;
+        }
+    }
+    if(y > 0 && x < 16 && board_copy[y-1][x] != 1 && board_copy[y-1][x+1] != 1 && board_copy[y-1][x+2] != 1){
+        for (int y=0; y<17; y++) {
+            for (int x=0; x<17; x++) {
+                board_copy_1[y][x] = board_matrix[y][x];
+                board_copy_2[y][x] = board_matrix[y][x];
+            }
+        }
+        board_copy_1[y-1][x] = 1; board_copy_1[y-1][x+1] = 1; board_copy_1[y-1][x+2] = 1;
+        board_copy_2[y-1][x] = 1; board_copy_2[y-1][x+1] = 1; board_copy_2[y-1][x+2] = 1;
+        check_placeble_1(y, x); check_placeble_2(red_y, red_x);
+        if(placeble_1 && placeble_2){
+            shortest_path(y, x, goal);
+            if(distance > longest){
+                longest = distance;
+                yy = y-1;
+                xx = x;
+                hv = "h";
+            }
+            placeble_1 = false; placeble_2 = false;
+        }
+    }
+    if(y < 16 && x < 16 &&  board_copy[y+1][x] != 1 && board_copy[y+1][x+1] != 1 && board_copy[y+1][x+2] != 1){
+        for (int y=0; y<17; y++) {
+            for (int x=0; x<17; x++) {
+                board_copy_1[y][x] = board_matrix[y][x];
+                board_copy_2[y][x] = board_matrix[y][x];
+            }
+        }
+        board_copy_1[y-1][x] = 1; board_copy_1[y-1][x-1] = 1; board_copy_1[y-1][x] = 1;
+        board_copy_2[y-1][x] = 1; board_copy_2[y-1][x-1] = 1; board_copy_2[y-1][x] = 1;
+        check_placeble_1(y, x); check_placeble_2(red_y, red_x);
+        if(placeble_1 && placeble_2){
+            shortest_path(y, x, goal);
+            if(distance > longest){
+                longest = distance;
+                yy = y+1;
+                xx = x;
+                hv = "h";
+            }
+            placeble_1 = false; placeble_2 = false;
+        }
+    }
 
-    ui->textBrowser_2->setText(ara+ hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n");
+    ui->textBrowser_2->setText(hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx))+"\n");
     return hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx));
 
 }
