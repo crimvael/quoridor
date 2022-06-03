@@ -46,6 +46,8 @@ public:
 
 private slots:
 
+    void add_wall(QString);
+
     void next_move();
 
     QString best_move(int[][17], int, int, int);
