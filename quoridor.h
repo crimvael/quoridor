@@ -31,7 +31,7 @@ extern bool move_select; extern bool placeble;
 extern bool vertical; extern bool horizontal;
 extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls; extern QList<QString> moves;
 extern int board_matrix[17][17]; extern int board_copy_1[17][17]; extern int board_copy_2[17][17];
-extern int board_copy_3[17][17];
+extern int board_copy_s[17][17];
 extern int distance; extern int final_y; extern int final_x;
 extern QString next_m;
 

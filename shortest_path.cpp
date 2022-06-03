@@ -1,11 +1,17 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-int board_copy_3[17][17];
+int board_copy_s[17][17];
 int distance = 999; int final_y = 99; int final_x = 99;
 
 void Quoridor::on_pushButton_3_clicked()
 {
+
+    for (int y=0; y < 17; y++) {
+        for (int x=0; x < 17; x++) {
+            board_copy_s[y][x] = board_matrix[y][x];
+        }
+    }
 
     if(BLUE)
         shortest_path(player_blue.last().y, player_blue.last().x, 0);
@@ -22,12 +28,6 @@ void Quoridor::shortest_path(int y, int x, int goal){
     distance = 999;
     final_y = 99;
     final_x = 99;
-
-    for (int y=0; y < 17; y++) {
-        for (int x=0; x < 17; x++) {
-            board_copy_3[y][x] = board_matrix[y][x];
-        }
-    }
 
     QList<place> path;
     path.append(place(y, x));
@@ -68,7 +68,7 @@ void Quoridor::find_nodes(QList<place> path, int n, int goal){
 
 QList<place> Quoridor::find_near(place node, int goal){
 
-    board_copy_3[node.y][node.x] = 1;
+    board_copy_s[node.y][node.x] = 1;
     QList<place> near_nodes;
 
     int y = node.y;
@@ -153,22 +153,22 @@ QList<place> Quoridor::find_near(place node, int goal){
                 jump_left[0] = y+2; jump_left[1] = x+2;}}}
 
 
-    if(up[0] != -1 && board_copy_3[up[0]][up[1]] != 1){
+    if(up[0] != -1 && board_copy_s[up[0]][up[1]] != 1){
         near_nodes.append(place(up[0], up[1]));
     }
-    if(down[0] != -1 && board_copy_3[down[0]][down[1]] != 1){
+    if(down[0] != -1 && board_copy_s[down[0]][down[1]] != 1){
         near_nodes.append(place(down[0], down[1]));
     }
-    if(left[0] != -1 && board_copy_3[left[0]][left[1]] != 1){
+    if(left[0] != -1 && board_copy_s[left[0]][left[1]] != 1){
         near_nodes.append(place(left[0], left[1]));
     }
-    if(right[0] != -1 && board_copy_3[right[0]][right[1]] != 1){
+    if(right[0] != -1 && board_copy_s[right[0]][right[1]] != 1){
         near_nodes.append(place(right[0], right[1]));
     }
-    if(jump_left[0] != -1 && board_copy_3[jump_left[0]][jump_right[1]] != 1){
+    if(jump_left[0] != -1 && board_copy_s[jump_left[0]][jump_right[1]] != 1){
         near_nodes.append(place(jump_left[0], jump_left[1]));
     }
-    if(jump_right[0] != -1 && board_copy_3[jump_right[0]][jump_right[1]] != 1){
+    if(jump_right[0] != -1 && board_copy_s[jump_right[0]][jump_right[1]] != 1){
         near_nodes.append(place(jump_right[0], jump_right[1]));
     }
 
