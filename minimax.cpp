@@ -229,14 +229,15 @@ QString Quoridor::best_wall(int board_copy[][17], int y, int x, int goal){
     if(y > 0 && x > 0 && board_copy[y-2][x-1] != 1 && board_copy[y-1][x-1] != 1 && board_copy[y][x-1] != 1){
         for (int y=0; y<17; y++) {
             for (int x=0; x<17; x++) {
-                board_copy_1[y][x] = board_matrix[y][x];
-                board_copy_2[y][x] = board_matrix[y][x];
+                board_copy_1[y][x] = board_copy[y][x];
+                board_copy_2[y][x] = board_copy[y][x];
             }
         }
         board_copy_1[y-2][x-1] = 1; board_copy_1[y-1][x-1] = 1; board_copy_1[y][x-1] = 1;
         board_copy_2[y-2][x-1] = 1; board_copy_2[y-1][x-1] = 1; board_copy_2[y][x-1] = 1;
         check_placeble_1(y, x); check_placeble_2(red_y, red_x);
         if(placeble_1 && placeble_2){
+            board_matrix[y-2][x-1] = 1; board_matrix[y-1][x-1] = 1; board_matrix[y][x-1] = 1;
             shortest_path(y, x, goal);
             if(distance > longest){
                 longest = distance;
@@ -244,15 +245,15 @@ QString Quoridor::best_wall(int board_copy[][17], int y, int x, int goal){
                 xx = x-1;
                 hv += "v";
             }
-            board_copy[y-2][x-1] = 0; board_copy[y-1][x-1] = 0; board_copy[y][x-1] = 0;
+            board_matrix[y-2][x-1] = 0; board_matrix[y-1][x-1] = 0; board_matrix[y][x-1] = 0;
             placeble_1 = false; placeble_2 = false;
         }
     }
     if(y > 0 && x < 16 && board_copy[y-2][x+1] != 1 && board_copy[y-1][x+1] != 1 && board_copy[y][x+1] != 1){
         for (int y=0; y<17; y++) {
             for (int x=0; x<17; x++) {
-                board_copy_1[y][x] = board_matrix[y][x];
-                board_copy_2[y][x] = board_matrix[y][x];
+                board_copy_1[y][x] = board_copy[y][x];
+                board_copy_2[y][x] = board_copy[y][x];
             }
         }
         board_copy_1[y-2][x-1] = 1; board_copy_1[y-1][x-1] = 1; board_copy_1[y][x-1] = 1;
@@ -274,8 +275,8 @@ QString Quoridor::best_wall(int board_copy[][17], int y, int x, int goal){
     if(y < 16 && x > 0 && board_copy[y][x-1] != 1 && board_copy[y+1][x-1] != 1 && board_copy[y+2][x-1] != 1){
         for (int y=0; y<17; y++) {
             for (int x=0; x<17; x++) {
-                board_copy_1[y][x] = board_matrix[y][x];
-                board_copy_2[y][x] = board_matrix[y][x];
+                board_copy_1[y][x] = board_copy[y][x];
+                board_copy_2[y][x] = board_copy[y][x];
             }
         }
         board_copy_1[y][x-1] = 1; board_copy_1[y+1][x-1] = 1; board_copy_1[y][x-2] = 1;
@@ -296,8 +297,8 @@ QString Quoridor::best_wall(int board_copy[][17], int y, int x, int goal){
     if(y < 16 && x < 16 && board_copy[y][x+1] != 1 && board_copy[y+1][x+1] != 1 && board_copy[y+2][x+1] != 1){
         for (int y=0; y<17; y++) {
             for (int x=0; x<17; x++) {
-                board_copy_1[y][x] = board_matrix[y][x];
-                board_copy_2[y][x] = board_matrix[y][x];
+                board_copy_1[y][x] = board_copy[y][x];
+                board_copy_2[y][x] = board_copy[y][x];
             }
         }
         board_copy_1[y][x-1] = 1; board_copy_1[y+1][x-1] = 1; board_copy_1[y][x-2] = 1;
@@ -318,8 +319,8 @@ QString Quoridor::best_wall(int board_copy[][17], int y, int x, int goal){
     if(y > 0 && x > 0 && board_copy[y-1][x-2] != 1 && board_copy[y-1][x-1] != 1 && board_copy[y-1][x] != 1){
         for (int y=0; y<17; y++) {
             for (int x=0; x<17; x++) {
-                board_copy_1[y][x] = board_matrix[y][x];
-                board_copy_2[y][x] = board_matrix[y][x];
+                board_copy_1[y][x] = board_copy[y][x];
+                board_copy_2[y][x] = board_copy[y][x];
             }
         }
         board_copy_1[y-1][x-2] = 1; board_copy_1[y-1][x-1] = 1; board_copy_1[y-1][x] = 1;
@@ -358,8 +359,8 @@ QString Quoridor::best_wall(int board_copy[][17], int y, int x, int goal){
     if(y > 0 && x < 16 && board_copy[y-1][x] != 1 && board_copy[y-1][x+1] != 1 && board_copy[y-1][x+2] != 1){
         for (int y=0; y<17; y++) {
             for (int x=0; x<17; x++) {
-                board_copy_1[y][x] = board_matrix[y][x];
-                board_copy_2[y][x] = board_matrix[y][x];
+                board_copy_1[y][x] = board_copy[y][x];
+                board_copy_2[y][x] = board_copy[y][x];
             }
         }
         board_copy_1[y-1][x] = 1; board_copy_1[y-1][x+1] = 1; board_copy_1[y-1][x+2] = 1;
@@ -379,8 +380,8 @@ QString Quoridor::best_wall(int board_copy[][17], int y, int x, int goal){
     if(y < 16 && x < 16 &&  board_copy[y+1][x] != 1 && board_copy[y+1][x+1] != 1 && board_copy[y+1][x+2] != 1){
         for (int y=0; y<17; y++) {
             for (int x=0; x<17; x++) {
-                board_copy_1[y][x] = board_matrix[y][x];
-                board_copy_2[y][x] = board_matrix[y][x];
+                board_copy_1[y][x] = board_copy[y][x];
+                board_copy_2[y][x] = board_copy[y][x];
             }
         }
         board_copy_1[y-1][x] = 1; board_copy_1[y-1][x-1] = 1; board_copy_1[y-1][x] = 1;
