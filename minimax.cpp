@@ -48,13 +48,11 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
 
             if(moves[i].at(0) == 'm'){
                 if(moves[i].split(QChar(' ')).at(3) == "r"){
-                    board_copy[y][x] = 1;
                     curr_red_y = y;
                     curr_red_x = x;
                 }
 
                 if(moves[i].split(QChar(' ')).at(3) == "b"){
-                    board_copy[y][x] = 1;
                     curr_blue_y = y;
                     curr_blue_x = x;
                 }
@@ -66,6 +64,9 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
                 board_copy[y][x] = 1; board_copy[y][x+1] = 1; board_copy[y][x+2] = 1;
             }
         }
+
+    board_copy[curr_red_y][curr_red_x] = 1;
+    board_copy[curr_blue_y][curr_blue_x] = 1;
 
     if(level == 0){
         shortest_path(curr_red_y, curr_red_x, 16);
