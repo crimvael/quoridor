@@ -467,7 +467,7 @@ void Quoridor::reset_buttons()
 void Quoridor::on_pushButton_4_clicked()
 {
     if(RED && ai){
-        next_move();
+        next_move(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x));
         int y = next_m.split(QChar(' ')).at(1).toInt();
         int x = next_m.split(QChar(' ')).at(2).toInt();
 

@@ -3,19 +3,25 @@
 
 QString next_m = "";
 
-void Quoridor::next_move(){
+void Quoridor::next_move(place p1, place p2){
 
     QList<QString> moves1;
     QList<QString> moves2;
 
-    QString move1 = best_move(board_matrix, player_red.last().y, player_red.last().x, 16);
-    QString move2 = best_wall(board_matrix, player_blue.last().y, player_blue.last().x, 0);
+    moves1.append("m " + QString::number(player_red.last().y) + " " + QString::number(player_red.last().x) + " r");
+    moves1.append("m " + QString::number(player_blue.last().y) + " " + QString::number(player_blue.last().x) + " b");
+
+    moves2.append("m " + QString::number(player_red.last().y) + " " + QString::number(player_red.last().x) + " r");
+    moves2.append("m " + QString::number(player_blue.last().y) + " " + QString::number(player_blue.last().x) + " b");
+
+    QString move1 = best_move(board_matrix, p1.y, p1.x, 16);
+    QString move2 = best_wall(board_matrix, p2.y, p2.x, 0);
 
     moves1.append(move1);
     moves2.append(move2);
 
 
-    if(minimax(moves1, false, 0) > minimax(moves2, false, 0))
+    if(minimax(moves1, false, 5) > minimax(moves2, false, 5))
         next_m = move1;
     else
         next_m = move2;
@@ -34,6 +40,7 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {
             board_copy[y][x] = board_matrix[y][x];
+            board_copy_s[y][x] = board_matrix[y][x];
         }
     }
 
@@ -59,9 +66,11 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
             }
             if(moves[i].at(0) == 'v'){
                 board_copy[y][x] = 1; board_copy[y+1][x] = 1; board_copy[y+2][x] = 1;
+                board_copy_s[y][x] = 1; board_copy_s[y+1][x] = 1; board_copy_s[y+2][x] = 1;
             }
             if(moves[i].at(0) == 'h'){
                 board_copy[y][x] = 1; board_copy[y][x+1] = 1; board_copy[y][x+2] = 1;
+                board_copy_s[y][x] = 1; board_copy_s[y][x+1] = 1; board_copy_s[y][x+2] = 1;
             }
         }
 
@@ -70,9 +79,9 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
 
     if(level == 0){
         shortest_path(curr_red_y, curr_red_x, 16);
-        int score_red = 1000 - distance;
+        int score_red = distance;
         shortest_path(curr_blue_y, curr_blue_x, 0);
-        int score_blue = 1000 - distance;
+        int score_blue = distance;
         return std::max(score_red, score_blue);
     }
 
