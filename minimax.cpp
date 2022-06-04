@@ -3,19 +3,22 @@
 
 QString next_m = "";
 
-void Quoridor::next_move(place p1, place p2){
+void Quoridor::next_move(){
 
     QList<QString> moves1;
     QList<QString> moves2;
 
-    moves1.append("m " + QString::number(player_red.last().y) + " " + QString::number(player_red.last().x) + " r");
-    moves1.append("m " + QString::number(player_blue.last().y) + " " + QString::number(player_blue.last().x) + " b");
+    int p1_y = player_red.last().y; int p1_x = player_red.last().x;
+    int p2_y = player_blue.last().y; int p2_x = player_blue.last().x;
 
-    moves2.append("m " + QString::number(player_red.last().y) + " " + QString::number(player_red.last().x) + " r");
-    moves2.append("m " + QString::number(player_blue.last().y) + " " + QString::number(player_blue.last().x) + " b");
+    moves1.append("m " + QString::number(p1_y) + " " + QString::number(p1_x) + " r");
+    moves1.append("m " + QString::number(p2_y) + " " + QString::number(p2_x) + " b");
 
-    QString move1 = best_move(board_matrix, p1.y, p1.x, 16);
-    QString move2 = best_wall(board_matrix, p2.y, p2.x, 0);
+    moves2.append("m " + QString::number(p1_y) + " " + QString::number(p1_x) + " r");
+    moves2.append("m " + QString::number(p2_y) + " " + QString::number(p2_x) + " b");
+
+    QString move1 = best_move(board_matrix, p1_y, p1_x, 16);
+    QString move2 = best_wall(board_matrix, p2_y, p2_x, 0);
 
     moves1.append(move1);
     moves2.append(move2);
@@ -79,9 +82,9 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
 
     if(level == 0){
         shortest_path(curr_red_y, curr_red_x, 16);
-        int score_red = distance;
+        int score_red = 1000 - distance;
         shortest_path(curr_blue_y, curr_blue_x, 0);
-        int score_blue = distance;
+        int score_blue = 1000 - distance;
         return std::max(score_red, score_blue);
     }
 
@@ -207,7 +210,7 @@ QString Quoridor::best_move(int board_copy[][17], int y, int x, int goal){
 
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {
-            board_copy_s[y][x] = board_matrix[y][x];
+            board_copy_s[y][x] = board_copy[y][x];
         }
     }
 
