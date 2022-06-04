@@ -95,61 +95,61 @@ QList<place> Quoridor::find_near(place node, int goal){
         opp_x = player_blue.last().x;
     }
 
-    if(x > 0 && board_matrix[y][x-1] != 1){
+    if(x > 0 && board_copy_s[y][x-1] != 1){
         left[0] = y; left[1] = x -2;}
 
-    if(y > 0  && board_matrix[y-1][x] != 1){
+    if(y > 0  && board_copy_s[y-1][x] != 1){
         up[0] = y -2; up[1] = x;}
 
-    if(x < 16 && board_matrix[y][x+1] != 1){
+    if(x < 16 && board_copy_s[y][x+1] != 1){
         right[0] = y; right[1] = x +2;}
 
-    if(y < 16 && board_matrix[y+1][x] != 1){
+    if(y < 16 && board_copy_s[y+1][x] != 1){
         down[0] = y +2; down[1] = x;}
 
 
 
-    if(y == opp_y && x-2 == opp_x && board_matrix[y][x-1] != 1){
+    if(y == opp_y && x-2 == opp_x && board_copy_s[y][x-1] != 1){
         left[0] = -1; left[1] = -1;
-        if(board_matrix[y][x-3] != 1 && x > 2){
+        if(board_copy_s[y][x-3] != 1 && x > 2){
             left[0] = y; left[1] = x-4;}
-        if(board_matrix[y][x-3] == 1 && y > 0 && y < 16){
-            if(board_matrix[y-1][x-2] != 1){
+        if(board_copy_s[y][x-3] == 1 && y > 0 && y < 16){
+            if(board_copy_s[y-1][x-2] != 1){
                 jump_right[0] = y-2; jump_right[1] = x-2;}
-            if(board_matrix[y+1][x-2] != 1){
+            if(board_copy_s[y+1][x-2] != 1){
                 jump_left[0] = y+2; jump_left[1] = x-2;}}}
 
 
-    if(y-2 == opp_y && x == opp_x && board_matrix[y-1][x] != 1){
+    if(y-2 == opp_y && x == opp_x && board_copy_s[y-1][x] != 1){
         up[0] = -1; up[1] = -1;
-        if(board_matrix[y-3][x] != 1 && y > 2 && board_matrix[y-1][x] != 1){
+        if(board_copy_s[y-3][x] != 1 && y > 2 && board_copy_s[y-1][x] != 1){
             up[0] = y-4; up[1] = x;}
-        if(board_matrix[y-3][x] == 1 && x > 0 && x < 16){
-            if(board_matrix[y-2][x+1] != 1){
+        if(board_copy_s[y-3][x] == 1 && x > 0 && x < 16){
+            if(board_copy_s[y-2][x+1] != 1){
                 jump_right[0] = y-2; jump_right[1] = x+2;}
-            if(board_matrix[y-2][x-1] != 1){
+            if(board_copy_s[y-2][x-1] != 1){
                 jump_left[0] = y-2; jump_left[1] = x-2;}}}
 
 
-    if(y == opp_y && x+2 == opp_x && board_matrix[y][x+1] != 1){
+    if(y == opp_y && x+2 == opp_x && board_copy_s[y][x+1] != 1){
         right[0] = -1; right[1] = -1;
-        if(board_matrix[y][x+3] != 1 && x < 14){
+        if(board_copy_s[y][x+3] != 1 && x < 14){
             right[0] = y; right[1] = x+4;}
-        if(board_matrix[y][x+3] == 1 && y > 0 && y < 16){
-            if(board_matrix[y+1][x+2] != 1){
+        if(board_copy_s[y][x+3] == 1 && y > 0 && y < 16){
+            if(board_copy_s[y+1][x+2] != 1){
                 jump_right[0] = y+2; jump_right[1] = x+2;}
-            if(board_matrix[y-1][x+2] != 1){
+            if(board_copy_s[y-1][x+2] != 1){
                 jump_left[0] = y-2; jump_left[1] = x+2;}}}
 
 
-    if(y+2 == opp_y && x == opp_x && board_matrix[y+1][x] != 1){
+    if(y+2 == opp_y && x == opp_x && board_copy_s[y+1][x] != 1){
         down[0] = -1; down[1] = -1;
-        if(board_matrix[y+3][x] != 1 && y < 14){
+        if(board_copy_s[y+3][x] != 1 && y < 14){
             down[0] = y+4; down[1] = x;}
-        if(board_matrix[y+3][x] == 1 && x > 0 && x < 16){
-            if(board_matrix[y+2][x-1] != 1){
+        if(board_copy_s[y+3][x] == 1 && x > 0 && x < 16){
+            if(board_copy_s[y+2][x-1] != 1){
                 jump_right[0] = y+2; jump_right[1] = x-2;}
-            if(board_matrix[y+2][x+1] != 1){
+            if(board_copy_s[y+2][x+1] != 1){
                 jump_left[0] = y+2; jump_left[1] = x+2;}}}
 
 
