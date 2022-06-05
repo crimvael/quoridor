@@ -28,7 +28,7 @@ void Quoridor::next_move(){
         return;
     }
 
-    if(minimax(moves1, false, 0) > minimax(moves2, false, 0))
+    if(minimax(moves1, false, 4) > minimax(moves2, false, 4))
         next_m = move1;
     else
         if(move2.at(0) != 'e')
@@ -244,6 +244,7 @@ QString Quoridor::best_wall(int board_copy[][17], place p1, place p2, int goal){
     int longest = 0;
     int yy = 99;
     int xx = 99;
+    int changes = 0;
     QString hv;
 
     for (int y=p1.y-4; y<14; y++) {
@@ -269,9 +270,10 @@ QString Quoridor::best_wall(int board_copy[][17], place p1, place p2, int goal){
                                 yy = y;
                                 xx = x;
                                 hv = "v";
+                                changes++;
                             }
+                            placeble_1 = false; placeble_2 = false;
                         }
-                        placeble_1 = false; placeble_2 = false;
                     }
 
                 if(x%2 == 0 && y%2 != 0)
@@ -294,15 +296,16 @@ QString Quoridor::best_wall(int board_copy[][17], place p1, place p2, int goal){
                                 yy = y;
                                 xx = x;
                                 hv = "h";
+                                changes++;
                             }
+                            placeble_1 = false; placeble_2 = false;
                         }
-                        placeble_1 = false; placeble_2 = false;
                     }
             }
         }
     }
 
-    if(yy == 99 || xx == 99)
+    if((yy == 99 || xx == 99) || changes <= 1)
         return "e";
 
     return hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx));
