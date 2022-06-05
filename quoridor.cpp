@@ -171,10 +171,10 @@ void Quoridor::game_manager()
 
 void Quoridor::check_placeble_1(int y, int x){
 
-    if(y == 0){
+    //if(y == 0){
         placeble_1 = true;
         return;
-    }
+    //}
 
     if(y < 17 && y != 0){
         if(board_copy_1[y-1][x] == 0 && board_copy_1[y-2][x] == 0){
@@ -201,10 +201,10 @@ void Quoridor::check_placeble_1(int y, int x){
 
 void Quoridor::check_placeble_2(int y, int x){
 
-    if(y == 16){
+    //if(y == 16){
         placeble_2 = true;
         return;
-    }
+    //}
 
     if(y < 17 && y != 0){
 
@@ -484,7 +484,5 @@ void Quoridor::on_pushButton_4_clicked()
 
         RED = false; BLUE = true; game_manager(); update();
 
-
-        ui->textBrowser->setText("Next move: " + next_m);
     }
 }
