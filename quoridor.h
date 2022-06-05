@@ -50,9 +50,9 @@ private slots:
 
     void next_move();
 
-    QString best_move(int[][17], int, int, int);
+    QString best_move(int[][17], place, place, int);
 
-    QString best_wall(int[][17],int, int, int);
+    QString best_wall(int[][17], place, place, int);
 
     int minimax(QList<QString>, bool, int);
 
