@@ -4,17 +4,12 @@
 #include <QPainter>
 #include <QList>
 
-extern bool ai;
-bool start = false; bool show_wall = false; bool wall_enabled = false;
-int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1};
-bool move_select = false; bool placeble_1 = false; bool placeble_2 = false;
-QList<place> player_blue; QList<place> player_red;
-bool BLUE = false; bool RED = false;
-int walls_blue = 10; int walls_red = 10;
-bool vertical = false; bool horizontal = false;
-QList<wall> vertical_walls; QList<wall> horizontal_walls; QList<QString> moves;
-int board_matrix[17][17]; int board_copy_1[17][17]; int board_copy_2[17][17];
-bool ai = false;
+bool start = false; bool show_wall = false; bool wall_unlocked = false; bool ai = false;
+bool move_select = false; bool placeble_1 = false; bool placeble_2 = false; bool BLUE = false; bool RED = false;
+int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1, -1};
+int walls_blue = 10; int walls_red = 10; QString next_m = "";
+int board_matrix[17][17]; int board_copy_1[17][17]; int board_copy_2[17][17]; int board_copy_s[17][17];
+QList<place> player_blue; QList<place> player_red; QList<place> vertical_walls; QList<place> horizontal_walls; QList<QString> moves;
 
 Quoridor::Quoridor(QWidget *parent)
     : QMainWindow(parent)
@@ -45,89 +40,48 @@ void Quoridor::on_radioButton_2_clicked()
     ui->radioButton->setChecked(false);
 }
 
-void Quoridor::on_pushButton_clicked()
+void Quoridor::on_newGameButton_clicked()
 {
-    if(ui->radioButton->isChecked()){
-        if(!player_blue.isEmpty()){
-            remove_pawn(player_blue.last().y, player_blue.last().x);
-            player_blue.clear();
-        }
-        if(!player_red.isEmpty()){
-            remove_pawn(player_red.last().y, player_red.last().x);
-            player_red.clear();
-        }
-        if(!vertical_walls.isEmpty())
-            vertical_walls.clear();
-        if(!horizontal_walls.isEmpty())
-            horizontal_walls.clear();
-        if(!moves.isEmpty())
-            moves.clear();
 
-        walls_blue = 10;
-        walls_red = 10;
-
-        for (int i=0; i < 17; i++) {
-            for (int j=0; j < 17; j++) {
-                board_matrix[i][j] = 0;
-            }
-        }
-
+    if(ui->radioButton->isChecked())
         ai = true;
-        start = true;
-        show_wall = true;
-        wall_enabled = true;
-        BLUE = true;
-        RED = false;
-        set_players(0, 8, 2);
-        set_players(16, 8, 1);
-        player_red.append(place(0, 8));
-        player_blue.append(place(16, 8));
-        moves.append("m 1");
-        moves.append("m 2");
-        game_manager();
+    if(ui->radioButton_2->isChecked())
+        ai = false;
 
+    if(!player_blue.isEmpty()){
+        remove_pawn(player_blue.last().y, player_blue.last().x);
+        player_blue.clear();
+    }
+    if(!player_red.isEmpty()){
+        remove_pawn(player_red.last().y, player_red.last().x);
+        player_red.clear();
+    }
+    if(!vertical_walls.isEmpty())
+        vertical_walls.clear();
+    if(!horizontal_walls.isEmpty())
+        horizontal_walls.clear();
+    if(!moves.isEmpty())
+        moves.clear();
+
+
+    for (int i=0; i < 17; i++) {
+        for (int j=0; j < 17; j++) {
+            board_matrix[i][j] = 0;
+        }
     }
 
-    if(ui->radioButton_2->isChecked()){
-
-        if(!player_blue.isEmpty()){
-            remove_pawn(player_blue.last().y, player_blue.last().x);
-            player_blue.clear();
-        }
-        if(!player_red.isEmpty()){
-            remove_pawn(player_red.last().y, player_red.last().x);
-            player_red.clear();
-        }
-        if(!vertical_walls.isEmpty())
-            vertical_walls.clear();
-        if(!horizontal_walls.isEmpty())
-            horizontal_walls.clear();
-        if(!moves.isEmpty())
-            moves.clear();
-
-        walls_blue = 10;
-        walls_red = 10;
-
-        for (int i=0; i < 17; i++) {
-            for (int j=0; j < 17; j++) {
-                board_matrix[i][j] = 0;
-            }
-        }
-
-
-        start = true;
-        show_wall = true;
-        wall_enabled = true;
-        BLUE = true;
-        RED = false;
-        set_players(0, 8, 2);
-        set_players(16, 8, 1);
-        player_red.append(place(0, 8));
-        player_blue.append(place(16, 8));
-        moves.append("m 1");
-        moves.append("m 2");
-        game_manager();
-    }
+    walls_blue = 10; walls_red = 10;
+    show_wall = true;
+    wall_unlocked = true;
+    BLUE = true; RED = false;
+    set_players(0, 8, 2);
+    set_players(16, 8, 1);
+    player_red.append(place(0, 8));
+    player_blue.append(place(16, 8));
+    moves.append("m 1");
+    moves.append("m 2");
+    start = true;
+    game_manager();
 }
 
 void Quoridor::game_manager()
@@ -166,6 +120,35 @@ void Quoridor::game_manager()
 
 
     ui->textBrowser->setText(status + walls_r + walls_b + winner);
+
+
+    if(RED && ai){
+
+        show_wall = false;
+        wall_unlocked = false;
+
+        next_move();
+
+        int y = next_m.split(QChar(' ')).at(1).toInt();
+        int x = next_m.split(QChar(' ')).at(2).toInt();
+
+        if(next_m.at(0) == 'm'){
+            remove_pawn(curr_position[0], curr_position[1]);
+            set_players(y, x, 2);
+            moves.append("m 2");
+            player_red.append(place(y, x));
+        }
+
+        if(next_m.at(0) == 'v' || next_m.at(0) == 'h'){
+            walls_red--;
+            ai_wall(next_m); moves.append(next_m); update();
+        }
+
+        RED = false; BLUE = true;
+        show_wall = true; wall_unlocked = true;
+        game_manager();
+
+    }
 
 }
 
@@ -236,21 +219,21 @@ void Quoridor::paintEvent(QPaintEvent *){
 
     if(start){
         if(show_wall){
-            if(vertical){
+            if(wall_position[2] == 0){
                 paint.drawRect(wall_position[0],wall_position[1],11,111);}
 
-            if(horizontal){
+            if(wall_position[2] == 1){
                 paint.drawRect(wall_position[0],wall_position[1],111,11);}}
 
         for (int i=0; i<vertical_walls.size(); i++ ) {
-            paint.fillRect(QRect(vertical_walls[i].x, vertical_walls[i].y, 11, 111), Qt::SolidPattern);}
+            paint.fillRect(QRect(vertical_walls[i].y, vertical_walls[i].x, 11, 111), Qt::SolidPattern);}
 
         for (int i=0; i<horizontal_walls.size(); i++ ) {
-            paint.fillRect(QRect(horizontal_walls[i].x, horizontal_walls[i].y, 111, 11), Qt::SolidPattern);}}
+            paint.fillRect(QRect(horizontal_walls[i].y, horizontal_walls[i].x, 111, 11), Qt::SolidPattern);}}
 
 }
 
-void Quoridor::on_pushButton_2_clicked()
+void Quoridor::on_undoButton_clicked()
 {
     if(start){
         if(moves.length() > 2){
@@ -379,8 +362,8 @@ void Quoridor::reset_buttons()
 {
     move_select = false;
 
-    ui->pushButton->setEnabled(true);
-    ui->pushButton_2->setEnabled(true);
+    ui->newGameButton->setEnabled(true);
+    ui->undoButton->setEnabled(true);
     ui->pushButton_0000->setEnabled(true);
     ui->pushButton_0002->setEnabled(true);
     ui->pushButton_0004->setEnabled(true);
@@ -462,27 +445,4 @@ void Quoridor::reset_buttons()
     ui->pushButton_1612->setEnabled(true);
     ui->pushButton_1614->setEnabled(true);
     ui->pushButton_1616->setEnabled(true);
-}
-
-void Quoridor::on_pushButton_4_clicked()
-{
-    if(RED && ai){
-        next_move();
-        int y = next_m.split(QChar(' ')).at(1).toInt();
-        int x = next_m.split(QChar(' ')).at(2).toInt();
-
-        if(next_m.at(0) == 'm'){
-            remove_pawn(curr_position[0], curr_position[1]);
-            set_players(y, x, 2);
-            moves.append("m 2");
-            player_red.append(place(y, x));
-        }
-
-        if(next_m.at(0) == 'v' || next_m.at(0) == 'h'){
-            add_wall(next_m);
-        }
-
-        RED = false; BLUE = true; game_manager(); update();
-
-    }
 }

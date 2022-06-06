@@ -1,27 +1,8 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-int board_copy_s[17][17];
 int distance = 999; int final_y = 99; int final_x = 99;
 
-void Quoridor::on_pushButton_3_clicked()
-{
-
-    for (int y=0; y < 17; y++) {
-        for (int x=0; x < 17; x++) {
-            board_copy_s[y][x] = board_matrix[y][x];
-        }
-    }
-
-    if(BLUE)
-        shortest_path(player_blue.last().y, player_blue.last().x, 0);
-    if(RED)
-        shortest_path(player_red.last().y, player_red.last().x, 16);
-
-    ui->textBrowser->setText("Shortest path: " + QString::number(distance) + \
-                             "\nCoordinates: (" + QString::number(final_y) + \
-                             ", " + QString::number(final_x) + ")");
-}
 
 void Quoridor::shortest_path(int y, int x, int goal){
 

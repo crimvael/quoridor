@@ -14,26 +14,14 @@ struct place {
     place(int yy, int xx) : y(yy), x(xx) {}
 };
 
-struct wall {
-    int x;
-    int y;
-
-    wall(int xx, int yy) : x(xx), y(yy) {}
-};
-
-extern bool start; extern bool show_wall; extern bool wall_enabled;
+extern bool ai; extern bool start; extern bool show_wall; extern bool wall_unlocked;
 extern bool placeble_1; extern bool placeble_2;
 extern int curr_position[]; extern int wall_position[];
-extern QList<place> player_blue; extern QList<place> player_red;
 extern bool BLUE; extern bool RED;
-extern int walls_blue; extern int walls_red;
-extern bool move_select; extern bool placeble;
-extern bool vertical; extern bool horizontal;
-extern QList<wall> vertical_walls; extern QList<wall> horizontal_walls; extern QList<QString> moves;
-extern int board_matrix[17][17]; extern int board_copy_1[17][17]; extern int board_copy_2[17][17];
-extern int board_copy_s[17][17];
-extern int distance; extern int final_y; extern int final_x;
-extern QString next_m;
+extern int walls_blue; extern int walls_red; extern bool move_select; extern bool placeble;
+extern QList<place> player_blue; extern QList<place> player_red; extern QList<place> vertical_walls; extern QList<place> horizontal_walls; extern QList<QString> moves;
+extern int board_matrix[17][17]; extern int board_copy_1[17][17]; extern int board_copy_2[17][17]; extern int board_copy_s[17][17];
+extern int distance; extern int final_y; extern int final_x; extern QString next_m;
 
 class Quoridor : public QMainWindow
 {
@@ -46,7 +34,7 @@ public:
 
 private slots:
 
-    void add_wall(QString);
+    void ai_wall(QString);
 
     void next_move();
 
@@ -72,7 +60,7 @@ private slots:
 
     void mousePressEvent(QMouseEvent *event);
 
-    void on_pushButton_clicked();
+    void on_newGameButton_clicked();
 
     void find_moves();
 
@@ -166,15 +154,11 @@ private slots:
     void on_pushButton_1614_clicked();
     void on_pushButton_1616_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_undoButton_clicked();
 
     void on_radioButton_clicked();
 
     void on_radioButton_2_clicked();
-
-    void on_pushButton_3_clicked();
-
-    void on_pushButton_4_clicked();
 
 private:
     Ui::Quoridor *ui;

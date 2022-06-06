@@ -1,15 +1,20 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-QString next_m = "";
 
 void Quoridor::next_move(){
+
 
     QList<QString> moves1;
     QList<QString> moves2;
 
     int p1_y = player_red.last().y; int p1_x = player_red.last().x;
     int p2_y = player_blue.last().y; int p2_x = player_blue.last().x;
+
+    if(!check_wall_number()){
+        next_m = best_move(board_matrix, place(p1_y, p1_x), place(p2_y, p2_x), 16);
+        return;
+    }
 
     moves1.append("m " + QString::number(p1_y) + " " + QString::number(p1_x) + " r");
     moves1.append("m " + QString::number(p2_y) + " " + QString::number(p2_x) + " b");
@@ -23,12 +28,8 @@ void Quoridor::next_move(){
     moves1.append(move1);
     moves2.append(move2);
 
-    if(!check_wall_number()){
-        next_m = move1;
-        return;
-    }
 
-    if(minimax(moves1, false, 4) > minimax(moves2, false, 4))
+    if(minimax(moves1, false, 0) > minimax(moves2, false, 0))
         next_m = move1;
     else
         if(move2.at(0) != 'e')
@@ -59,7 +60,6 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
         for(int i=0; i < moves.size(); i++){
             if(moves[i].at(0) == 'e')
                 continue;
-            ui->textBrowser_2->setText(moves[i]);
             moves1.append(moves[i]);
             moves2.append(moves[i]);
             int y = moves[i].split(QChar(' ')).at(1).toInt();
@@ -247,8 +247,8 @@ QString Quoridor::best_wall(int board_copy[][17], place p1, place p2, int goal){
     int changes = 0;
     QString hv;
 
-    for (int y=p1.y-4; y<14; y++) {
-        for (int x=p1.x-4; x<14; x++) {
+    for (int y=p1.y-6; y<15; y++) {
+        for (int x=p1.x-6; x<15; x++) {
             if(y >= 0 && x >= 0){
                 if(y%2 == 0 && x%2 != 0)
                     if(board_copy[y][x] != 1 && board_copy[y+1][x] != 1 && board_copy[y+2][x] != 1){
@@ -305,7 +305,7 @@ QString Quoridor::best_wall(int board_copy[][17], place p1, place p2, int goal){
         }
     }
 
-    if((yy == 99 || xx == 99) || changes <= 1)
+    if(yy == 99 || xx == 99 || changes < 2)
         return "e";
 
     return hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx));
