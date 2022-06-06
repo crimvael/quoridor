@@ -229,6 +229,9 @@ QString Quoridor::best_move(int board_copy[][17], place p1, place p2, int goal){
     }
 
 
+    if(yy == 99 || xx == 99)
+        return "e";
+
     if(goal == 16)
         player = "r";
 
