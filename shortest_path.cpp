@@ -4,19 +4,19 @@
 int distance = 999; int final_y = 99; int final_x = 99;
 
 
-void Quoridor::shortest_path(int y, int x, int goal){
+void Quoridor::shortest_path(place p1, place p2, int goal){
 
     distance = 999;
     final_y = 99;
     final_x = 99;
 
     QList<place> path;
-    path.append(place(y, x));
+    path.append(place(p1.y, p1.x));
 
-    find_nodes(path, 0, goal);
+    find_nodes(path, p2, 0, goal);
 }
 
-void Quoridor::find_nodes(QList<place> path, int n, int goal){
+void Quoridor::find_nodes(QList<place> path, place p2, int n, int goal){
 
     if(path.isEmpty())
         return;
@@ -24,7 +24,7 @@ void Quoridor::find_nodes(QList<place> path, int n, int goal){
     QList<place> new_nodes;
 
     for(int i=0; i < path.size(); i++){
-        QList<place> near_nodes = find_near(path[i], goal);
+        QList<place> near_nodes = find_near(path[i], p2);
         if(!near_nodes.isEmpty()){
 
             // remove explored places
@@ -44,10 +44,10 @@ void Quoridor::find_nodes(QList<place> path, int n, int goal){
         }
     }
 
-    find_nodes(new_nodes, ++n, goal);
+    find_nodes(new_nodes, p2, ++n, goal);
 }
 
-QList<place> Quoridor::find_near(place node, int goal){
+QList<place> Quoridor::find_near(place node, place p2){
 
     board_copy_s[node.y][node.x] = 1;
     QList<place> near_nodes;
@@ -65,16 +65,9 @@ QList<place> Quoridor::find_near(place node, int goal){
     int jump_left[] = {-1,-1};
     int jump_right[] = {-1,-1};
 
+    opp_y = p2.y;
+    opp_x = p2.x;
 
-    if(goal == 0){
-        opp_y = player_red.last().y;
-        opp_x = player_red.last().x;
-    }
-
-    if(goal == 16){
-        opp_y = player_blue.last().y;
-        opp_x = player_blue.last().x;
-    }
 
     if(x > 0 && board_copy_s[y][x-1] != 1){
         left[0] = y; left[1] = x -2;}

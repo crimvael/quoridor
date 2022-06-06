@@ -29,7 +29,7 @@ void Quoridor::next_move(){
     moves2.append(move2);
 
 
-    if(minimax(moves1, false, 0) > minimax(moves2, false, 0))
+    if(minimax(moves1, false, 1) > minimax(moves2, false, 1))
         next_m = move1;
     else
         if(move2.at(0) != 'e')
@@ -90,7 +90,7 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
     board_copy[curr_blue_y][curr_blue_x] = 1;
 
     if(level == 0){
-        shortest_path(curr_red_y, curr_red_x, 16);
+        shortest_path(place(curr_red_y, curr_red_x), place(curr_blue_y, curr_blue_x), 16);
         int score_red = distance;
 
         for (int y=0; y < 17; y++) {
@@ -99,7 +99,7 @@ int Quoridor::minimax(QList<QString> moves, bool max, int level){
             }
         }
 
-        shortest_path(curr_blue_y, curr_blue_x, 0);
+        shortest_path(place(curr_blue_y, curr_blue_x), place(curr_red_y, curr_red_x), 0);
         int score_blue = distance;
         return score_red - score_blue;
     }
@@ -219,7 +219,7 @@ QString Quoridor::best_move(int board_copy[][17], place p1, place p2, int goal){
                     board_copy_s[y][x] = board_copy[y][x];
                 }
             }
-            shortest_path(near_nodes[i].y, near_nodes[i].x, goal);
+            shortest_path(place(near_nodes[i].y, near_nodes[i].x), p2, goal);
             if(distance < shortest){
                 shortest = distance;
                 yy = near_nodes[i].y;
@@ -264,7 +264,7 @@ QString Quoridor::best_wall(int board_copy[][17], place p1, place p2, int goal){
                         check_placeble_1(p1.y, p1.x); check_placeble_2(p2.y, p2.x);
                         if(placeble_1 && placeble_2){
                             board_copy_s[y][x] = 1; board_copy_s[y+1][x] = 1; board_copy_s[y+2][x] = 1;
-                            shortest_path(p1.y, p1.x, goal);
+                            shortest_path(p1, p2, goal);
                             if(distance > longest){
                                 longest = distance;
                                 yy = y;
@@ -290,7 +290,7 @@ QString Quoridor::best_wall(int board_copy[][17], place p1, place p2, int goal){
                         check_placeble_1(p1.y, p1.x); check_placeble_2(p2.y, p2.x);
                         if(placeble_1 && placeble_2){
                             board_copy_s[y][x] = 1; board_copy_s[y][x+1] = 1; board_copy_s[y][x+2] = 1;
-                            shortest_path(p1.y, p1.x, goal);
+                            shortest_path(p1, p2, goal);
                             if(distance > longest){
                                 longest = distance;
                                 yy = y;

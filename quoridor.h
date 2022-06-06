@@ -46,11 +46,11 @@ private slots:
 
     bool check_wall_number();
 
-    void shortest_path(int, int, int);
+    void shortest_path(place, place, int);
 
-    void find_nodes(QList<place>, int, int);
+    void find_nodes(QList<place>, place, int, int);
 
-    QList<place> find_near(place, int);
+    QList<place> find_near(place, place);
 
     void check_placeble_1(int, int);
 
