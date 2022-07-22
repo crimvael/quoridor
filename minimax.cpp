@@ -20,14 +20,22 @@ void Quoridor::next_move(){
 
     IN.append(curr);
 
-    minimax(1);
+    int n = 2;
+    while(n>0){
+
+        minimax();
+
+        if (n == 1)
+            evaluate();
+
+        OUT.clear();
+
+        n--;
+    }
 
 }
 
-void Quoridor::minimax(int n){
-
-    if(n==0)
-        return;
+void Quoridor::minimax(){
 
     for(int x=0; x<IN.size(); x++){
         OUT.append(best_move(IN[x]));
@@ -40,9 +48,7 @@ void Quoridor::minimax(int n){
     for(int x=0; x<OUT.size(); x++)
         IN.append(OUT[x]);
 
-    OUT.clear();
-
-    minimax(--n);
+    return;
 
 }
 
@@ -52,7 +58,6 @@ snap Quoridor::best_move(snap s){
     QList<place> near_nodes;
     int shortest = 999;
     int yy = 99; int xx = 99;
-    QString player;
 
     int up[] = {-1,-1};
     int down[] = {-1,-1};
@@ -145,7 +150,7 @@ snap Quoridor::best_move(snap s){
         for(int i=0; i < near_nodes.size(); i++){
             for (int y=0; y < 17; y++) {
                 for (int x=0; x < 17; x++) {
-                    s.board_s[y][x] = s.board[y][x];
+                    board_copy_s[y][x] = s.board[y][x];
                 }
             }
             shortest_path(place(near_nodes[i].y, near_nodes[i].x), s.p2, s.goal);
@@ -158,17 +163,43 @@ snap Quoridor::best_move(snap s){
     }
 
 
-    if(yy == 99 || xx == 99)
-        return "e";
 
-    if(s.goal == 16)
-        player = "r";
+    if(s.goal == 16){
 
-    if(s.goal == 0)
-        player = "b";
+        snap next(place(yy, xx), s.p2, 0);
 
+        for (int y=0; y < 17; y++) {
+            for (int x=0; x < 17; x++) {
+                next.board[y][x] = s.board[y][x];
+            }
+        }
 
-    return "m " + QString(QString::number(yy)) + " " + QString(QString::number(xx)) + " " + player;
+        return next;
+    }
+
+    if(s.goal == 0){
+
+        snap next(place(yy, xx), s.p2, 16);
+
+        for (int y=0; y < 17; y++) {
+            for (int x=0; x < 17; x++) {
+                next.board[y][x] = s.board[y][x];
+            }
+        }
+
+        return next;
+    }
+
+    snap next(place(yy, xx), s.p2, 16);
+
+    for (int y=0; y < 17; y++) {
+        for (int x=0; x < 17; x++) {
+            next.board[y][x] = s.board[y][x];
+        }
+    }
+
+    return next;
+
 }
 
 snap Quoridor::best_wall(snap s){
@@ -237,9 +268,47 @@ snap Quoridor::best_wall(snap s){
         }
     }
 
-    if(yy == 99 || xx == 99 || changes < 2)
-        return "e";
 
-    return hv + " " + QString(QString::number(yy)) + " " + QString(QString::number(xx));
+    if(hv == "v"){
+
+        snap next(place(yy, xx), s.p2, 16);
+
+        for (int y=0; y < 17; y++) {
+            for (int x=0; x < 17; x++) {
+                next.board[y][x] = s.board[y][x];
+            }
+        }
+
+        s.board[yy][xx] = 1; s.board[yy+1][xx] = 1; s.board[yy+2][xx] = 1;
+
+        return next;
+    }
+
+    if(hv == "h"){
+
+        snap next(place(yy, xx), s.p2, 16);
+
+        for (int y=0; y < 17; y++) {
+            for (int x=0; x < 17; x++) {
+                next.board[y][x] = s.board[y][x];
+            }
+        }
+
+        s.board[yy][xx] = 1; s.board[yy][xx+1] = 1; s.board[yy+2][xx+2] = 1;
+
+        return next;
+    }
+
+    snap next(place(yy, xx), s.p2, 16);
+
+    for (int y=0; y < 17; y++) {
+        for (int x=0; x < 17; x++) {
+            next.board[y][x] = s.board[y][x];
+        }
+    }
+
+    s.board[yy][xx] = 1; s.board[yy][xx+1] = 1; s.board[yy+2][xx+2] = 1;
+
+    return next;
 
 }

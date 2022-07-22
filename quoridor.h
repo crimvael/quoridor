@@ -51,7 +51,7 @@ private slots:
 
     snap best_wall(snap s);
 
-    void minimax(int);
+    void minimax();
 
     void new_moves(snap);
 
