@@ -17,8 +17,10 @@ struct place {
 struct snap {
     place p1;
     place p2;
+    int goal;
+    int board[17][17];
 
-    snap(place pp1, place pp2) : p1(pp1), p2(pp2) {}
+    snap(place pp1, place pp2, int g) : p1(pp1), p2(pp2), goal(g) {}
 };
 
 extern bool ai; extern bool start; extern bool show_wall; extern bool wall_unlocked;
@@ -45,11 +47,13 @@ private slots:
 
     void next_move();
 
-    QString best_move(int[][17], place, place, int);
+    snap best_move(int[][17], place, place, int);
 
-    QString best_wall(int[][17], place, place, int);
+    snap best_wall(int[][17], place, place, int);
 
-    void minimax(snap s);
+    void minimax(int);
+
+    void new_moves(snap);
 
     bool check_wall_number();
 

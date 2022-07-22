@@ -1,25 +1,53 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
+extern QList<snap> IN;
+extern QList<snap> OUT;
+
+QList<snap> IN;
+QList<snap> OUT;
 
 void Quoridor::next_move(){
 
-    QList<snap> IN;
-    QList<snap> OUT;
 
-    for(int x=0; x<IN.size(); x++)
-        minimax(IN[x]);
+    snap curr(place(player_blue.last().y, player_blue.last().x), place(player_red.last().y, player_red.last().x), 16);
 
+    for (int y=0; y < 17; y++) {
+        for (int x=0; x < 17; x++) {
+            curr.board[y][x] = board_matrix[y][x];
+        }
+    }
+
+    IN.append(curr);
+
+    minimax(1);
 
 }
 
-void Quoridor::minimax(snap s){
+void Quoridor::minimax(int n){
+
+    if(n==0)
+        return;
+
+    for(int x=0; x<IN.size(); x++){
+        OUT.append(best_move(IN[x].board, IN[x].p1, IN[x].p2, IN[x].goal));
+        OUT.append(best_wall(IN[x].board, IN[x].p1, IN[x].p2, IN[x].goal));
+    }
 
 
+    IN.clear();
+
+    for(int x=0; x<OUT.size(); x++)
+        IN.append(OUT[x]);
+
+    OUT.clear();
+
+    minimax(--n);
 
 }
 
-QString Quoridor::best_move(int board_copy[][17], place p1, place p2, int goal){
+
+snap Quoridor::best_move(int board_copy[][17], place p1, place p2, int goal){
 
     QList<place> near_nodes;
     int shortest = 999;
@@ -143,7 +171,7 @@ QString Quoridor::best_move(int board_copy[][17], place p1, place p2, int goal){
     return "m " + QString(QString::number(yy)) + " " + QString(QString::number(xx)) + " " + player;
 }
 
-QString Quoridor::best_wall(int board_copy[][17], place p1, place p2, int goal){
+snap Quoridor::best_wall(int board_copy[][17], place p1, place p2, int goal){
 
     int longest = 0;
     int yy = 99;
