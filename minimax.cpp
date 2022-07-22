@@ -16,26 +16,7 @@ void Quoridor::next_move(){
         return;
     }
 
-    moves1.append("m " + QString::number(p1_y) + " " + QString::number(p1_x) + " r");
-    moves1.append("m " + QString::number(p2_y) + " " + QString::number(p2_x) + " b");
 
-    moves2.append("m " + QString::number(p1_y) + " " + QString::number(p1_x) + " r");
-    moves2.append("m " + QString::number(p2_y) + " " + QString::number(p2_x) + " b");
-
-    QString move1 = best_move(board_matrix, place(p1_y, p1_x), place(p2_y, p2_x), 16);
-    QString move2 = best_wall(board_matrix, place(p2_y, p2_x), place(p1_y, p1_x), 0);
-
-    moves1.append(move1);
-    moves2.append(move2);
-
-
-    if(minimax(moves1, false, 1) > minimax(moves2, false, 1))
-        next_m = move1;
-    else
-        if(move2.at(0) != 'e')
-            next_m = move2;
-        else
-            next_m = move1;
 
 }
 

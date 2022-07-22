@@ -14,6 +14,14 @@ struct place {
     place(int yy, int xx) : y(yy), x(xx) {}
 };
 
+struct snap {
+    place p1;
+    place p2;
+    int board[17][17];
+
+    snap(place pp1, place pp2, int b[17][17]) : p1(pp1), p2(pp2), board(b) {}
+};
+
 extern bool ai; extern bool start; extern bool show_wall; extern bool wall_unlocked;
 extern bool placeble_1; extern bool placeble_2;
 extern int curr_position[]; extern int wall_position[];
