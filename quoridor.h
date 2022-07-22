@@ -47,9 +47,9 @@ private slots:
 
     void next_move();
 
-    snap best_move(int[][17], place, place, int);
+    snap best_move(snap s);
 
-    snap best_wall(int[][17], place, place, int);
+    snap best_wall(snap s);
 
     void minimax(int);
 
