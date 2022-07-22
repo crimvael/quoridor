@@ -4,98 +4,18 @@
 
 void Quoridor::next_move(){
 
+    QList<snap> IN;
+    QList<snap> OUT;
 
-    QList<QString> moves1;
-    QList<QString> moves2;
-
-    int p1_y = player_red.last().y; int p1_x = player_red.last().x;
-    int p2_y = player_blue.last().y; int p2_x = player_blue.last().x;
-
-    if(!check_wall_number()){
-        next_m = best_move(board_matrix, place(p1_y, p1_x), place(p2_y, p2_x), 16);
-        return;
-    }
-
+    for(int x=0; x<IN.size(); x++)
+        minimax(IN[x]);
 
 
 }
 
-int Quoridor::minimax(QList<QString> moves, bool max, int level){
-
-    QList<QString> moves1;
-    QList<QString> moves2;
-    int curr_blue_y = 99; int curr_blue_x = 99;
-    int curr_red_y = 99; int curr_red_x = 99;
-    int board_copy[17][17];
-
-    // create new board
-    for (int y=0; y < 17; y++) {
-        for (int x=0; x < 17; x++) {
-            board_copy[y][x] = board_matrix[y][x];
-            board_copy_s[y][x] = board_matrix[y][x];
-        }
-    }
-
-    // load chosen moves
-    if(!moves.isEmpty())
-        for(int i=0; i < moves.size(); i++){
-            if(moves[i].at(0) == 'e')
-                continue;
-            moves1.append(moves[i]);
-            moves2.append(moves[i]);
-            int y = moves[i].split(QChar(' ')).at(1).toInt();
-            int x = moves[i].split(QChar(' ')).at(2).toInt();
-
-            if(moves[i].at(0) == 'm'){
-                if(moves[i].split(QChar(' ')).at(3) == "r"){
-                    curr_red_y = y;
-                    curr_red_x = x;
-                }
-
-                if(moves[i].split(QChar(' ')).at(3) == "b"){
-                    curr_blue_y = y;
-                    curr_blue_x = x;
-                }
-            }
-            if(moves[i].at(0) == 'v'){
-                board_copy[y][x] = 1; board_copy[y+1][x] = 1; board_copy[y+2][x] = 1;
-                board_copy_s[y][x] = 1; board_copy_s[y+1][x] = 1; board_copy_s[y+2][x] = 1;
-            }
-            if(moves[i].at(0) == 'h'){
-                board_copy[y][x] = 1; board_copy[y][x+1] = 1; board_copy[y][x+2] = 1;
-                board_copy_s[y][x] = 1; board_copy_s[y][x+1] = 1; board_copy_s[y][x+2] = 1;
-            }
-        }
-
-    board_copy[curr_red_y][curr_red_x] = 1;
-    board_copy[curr_blue_y][curr_blue_x] = 1;
-
-    if(level == 0){
-        shortest_path(place(curr_red_y, curr_red_x), place(curr_blue_y, curr_blue_x), 16);
-        int score_red = distance;
-
-        for (int y=0; y < 17; y++) {
-            for (int x=0; x < 17; x++) {
-                board_copy_s[y][x] = board_copy[y][x];
-            }
-        }
-
-        shortest_path(place(curr_blue_y, curr_blue_x), place(curr_red_y, curr_red_x), 0);
-        int score_blue = distance;
-        return score_red - score_blue;
-    }
+void Quoridor::minimax(snap s){
 
 
-    if(max){
-        moves1.append(best_move(board_copy, place(curr_red_y, curr_red_x), place(curr_blue_y, curr_blue_x), 16));
-        moves2.append(best_wall(board_copy, place(curr_blue_y, curr_blue_x), place(curr_red_y, curr_red_x), 0));
-        return std::max(minimax(moves1, false, level-1), minimax(moves2, false, level-1));
-    }
-    else{
-        moves1.append(best_move(board_copy, place(curr_blue_y, curr_blue_x), place(curr_red_y, curr_red_x), 0));
-        moves2.append(best_wall(board_copy, place(curr_red_y, curr_red_x), place(curr_blue_y, curr_blue_x), 16));
-        return std::min(minimax(moves1, true, level-1), minimax(moves2, true, level-1));
-    }
 
 }
 
