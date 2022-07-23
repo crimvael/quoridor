@@ -1,6 +1,7 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
+
 int distance = 999; int final_y = 99; int final_x = 99;
 
 

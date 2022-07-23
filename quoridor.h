@@ -18,6 +18,8 @@ struct snap {
     place p1;
     place p2;
     int goal;
+    QString move;
+    QString wall;
     int board[17][17];
 
     snap(place pp1, place pp2, int g) : p1(pp1), p2(pp2), goal(g) {}
@@ -53,7 +55,7 @@ private slots:
 
     void minimax();
 
-    void new_moves(snap);
+    void evaluate();
 
     bool check_wall_number();
 
