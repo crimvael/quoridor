@@ -17,9 +17,15 @@ Quoridor::Quoridor(QWidget *parent)
 {
     ui->setupUi(this);
 
+
+    ui->tableWidget->resizeColumnsToContents();
+    ui->tableWidget->resizeRowsToContents();
+
+
     for (int i=0; i < 17; i++) {
         for (int j=0; j < 17; j++) {
             board_matrix[i][j] = 0;
+            ui->tableWidget->setItem(i, j, new QTableWidgetItem("0"));
         }
     }
 }
@@ -169,7 +175,7 @@ void Quoridor::check_placeble_1(int y, int x){
             board_copy_1[y+2][x] = 1;
             check_placeble_1(y+2, x);}}
 
-    if(x < 17&& x != 0){
+    if(x < 17 && x != 0){
         if(board_copy_1[y][x-1] == 0 && board_copy_1[y][x-2] == 0){
             board_copy_1[y][x-2] = 1;
             check_placeble_1(y, x-2);}}

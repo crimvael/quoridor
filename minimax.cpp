@@ -25,6 +25,7 @@ void Quoridor::next_move(){
     IN.append(best_wall(curr));
     move2 = IN[1].wall;
 
+
     int n = 0;
 
     while(n > 0){
@@ -47,6 +48,9 @@ void Quoridor::next_move(){
 
     //if(mover == "wall")
         next_m = move2;
+
+        if(next_m == "e")
+            next_m = move1;
 
     IN.clear();
 
@@ -271,8 +275,8 @@ snap Quoridor::best_wall(snap s){
     int changes = 0;
     QString hv;
 
-    for (int y=s.p1.y-6; y<15; y++) {
-        for (int x=s.p1.x-6; x<15; x++) {
+    for (int y=0; y<15; y++) {
+        for (int x=0; x<15; x++) {
             if(y >= 0 && x >= 0){
                 if(y%2 == 0 && x%2 != 0)
                     if(s.board[y][x] != 1 && s.board[y+1][x] != 1 && s.board[y+2][x] != 1){
@@ -285,7 +289,7 @@ snap Quoridor::best_wall(snap s){
                         }
                         board_copy_1[y][x] = 1; board_copy_1[y+1][x] = 1; board_copy_1[y+2][x] = 1;
                         board_copy_2[y][x] = 1; board_copy_2[y+1][x] = 1; board_copy_2[y+2][x] = 1;
-                        check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
+                        check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
                         if(placeble_1 && placeble_2){
                             board_copy_s[y][x] = 1; board_copy_s[y+1][x] = 1; board_copy_s[y+2][x] = 1;
                             shortest_path(s.p1, s.p2, s.goal);
@@ -311,7 +315,7 @@ snap Quoridor::best_wall(snap s){
                         }
                         board_copy_1[y][x] = 1; board_copy_1[y][x+1] = 1; board_copy_1[y+2][x+2] = 1;
                         board_copy_2[y][x] = 1; board_copy_2[y][x+1] = 1; board_copy_2[y+2][x+2] = 1;
-                        check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
+                        check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
                         if(placeble_1 && placeble_2){
                             board_copy_s[y][x] = 1; board_copy_s[y][x+1] = 1; board_copy_s[y][x+2] = 1;
                             shortest_path(s.p1, s.p2, s.goal);
@@ -370,8 +374,7 @@ snap Quoridor::best_wall(snap s){
         }
     }
 
-    s.board[yy][xx] = 1; s.board[yy][xx+1] = 1; s.board[yy+2][xx+2] = 1;
-    next.wall = hv + " " + QString::number(yy) + " " + QString::number(xx);
+    next.wall = "e";
 
     return next;
 
