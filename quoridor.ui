@@ -1724,11 +1724,6 @@ p, li { white-space: pre-wrap; }
       <string>16</string>
      </property>
     </row>
-    <row>
-     <property name="text">
-      <string>17</string>
-     </property>
-    </row>
     <column>
      <property name="text">
       <string>0</string>
@@ -1812,11 +1807,6 @@ p, li { white-space: pre-wrap; }
     <column>
      <property name="text">
       <string>16</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>17</string>
      </property>
     </column>
    </widget>

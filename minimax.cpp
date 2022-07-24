@@ -17,16 +17,17 @@ void Quoridor::next_move(){
         }
     }
 
-    curr.move = "move";
-    IN.append(best_move(curr));
-    move1 = "m " + QString::number(IN[0].p1.y) + " " + QString::number(IN[0].p1.x);
+    //curr.move = "move";
+    //IN.append(best_move(curr));
+    //move1 = "m " + QString::number(IN[0].p2.y) + " " + QString::number(IN[0].p2.x);
 
     curr.move = "wall";
-    IN.append(best_wall(curr));
-    move2 = IN[1].wall;
+    //IN.append(best_wall(curr));
+    move2 = best_wall(curr).wall;//IN[1].wall;
 
+    //evaluate();
 
-    int n = 3;
+    int n = 0;
 
     while(n > 0){
 
@@ -43,16 +44,16 @@ void Quoridor::next_move(){
         n--;
     }
 
-    if(mover == "move")
-        next_m = move1;
+//    if(mover == "move")
+//        next_m = move1;
 
-    if(mover == "wall")
+//    if(mover == "wall")
         next_m = move2;
 
-    if(next_m == "e")
-        next_m = move1;
+//    if(next_m == "e")
+//        next_m = move1;
 
-    IN.clear();
+    //IN.clear();
 
 }
 
@@ -66,8 +67,13 @@ void Quoridor::minimax(){
 
     IN.clear();
 
-    for(int x=0; x<OUT.size(); x++)
+    for(int x=0; x<OUT.size(); x++){
+
+        if(OUT[x].wall == "e" || OUT[x].move == "e")
+            OUT.removeAt(x);
+
         IN.append(OUT[x]);
+    }
 
     return;
 
@@ -81,7 +87,7 @@ void Quoridor::evaluate(){
     int index = 0;
     int min = 999;
 
-    for(int x=0; x<OUT.size(); x++){
+    for(int x=0; x<IN.size(); x++){
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -119,6 +125,9 @@ void Quoridor::evaluate(){
 }
 
 snap Quoridor::best_move(snap s){
+
+    if(s.wall == "e")
+        return s;
 
     QList<place> near_nodes;
     int shortest = 999;
@@ -218,7 +227,14 @@ snap Quoridor::best_move(snap s){
                     board_copy_s[y][x] = s.board[y][x];
                 }
             }
-            shortest_path(place(near_nodes[i].y, near_nodes[i].x), s.p2, s.goal);
+
+            if(s.goal == 16){
+                shortest_path(place(near_nodes[i].y, near_nodes[i].x), s.p2, 16);
+            }
+            if(s.goal == 0){
+                shortest_path(place(near_nodes[i].y, near_nodes[i].x), s.p2, 0);
+            }
+
             if(distance < shortest){
                 shortest = distance;
                 yy = near_nodes[i].y;
@@ -231,7 +247,7 @@ snap Quoridor::best_move(snap s){
 
     if(s.goal == 16){
 
-        snap next(place(yy, xx), s.p2, 0);
+        snap next(s.p2, place(yy, xx), 0);
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -244,7 +260,7 @@ snap Quoridor::best_move(snap s){
 
     if(s.goal == 0){
 
-        snap next(place(yy, xx), s.p2, 16);
+        snap next(s.p2, place(yy, xx), 16);
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -255,7 +271,7 @@ snap Quoridor::best_move(snap s){
         return next;
     }
 
-    snap next(place(yy, xx), s.p2, 16);
+    snap next(s.p1, s.p2, 16);
 
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {
@@ -269,10 +285,12 @@ snap Quoridor::best_move(snap s){
 
 snap Quoridor::best_wall(snap s){
 
+    if(s.wall == "e")
+        return s;
+
     int longest = 0;
     int yy = 99;
     int xx = 99;
-    int changes = 0;
     QString hv;
 
     for (int y=0; y<17; y++) {
@@ -281,12 +299,17 @@ snap Quoridor::best_wall(snap s){
         }
     }
 
-    shortest_path(s.p2, s.p1, 0);
+    if(s.goal == 16){
+        shortest_path(s.p1, s.p2, 16);
+    }
+    if(s.goal == 0){
+        shortest_path(s.p2, s.p1, 0);
+    }
 
     longest = distance;
 
-    for (int y=0; y<15; y++) {
-        for (int x=0; x<15; x++) {
+    for (int y=s.p2.y-6; y<15; y++) {
+        for (int x=s.p2.x-6; x<15; x++) {
             if(y >= 0 && x >= 0){
                 if(y%2 == 0 && x%2 != 0)
                     if(s.board[y][x] != 1 && s.board[y+1][x] != 1 && s.board[y+2][x] != 1){
@@ -299,16 +322,29 @@ snap Quoridor::best_wall(snap s){
                         }
                         board_copy_1[y][x] = 1; board_copy_1[y+1][x] = 1; board_copy_1[y+2][x] = 1;
                         board_copy_2[y][x] = 1; board_copy_2[y+1][x] = 1; board_copy_2[y+2][x] = 1;
-                        check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+
+                        if(s.goal == 16){
+                            check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+                        }
+                        if(s.goal == 0){
+                            check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
+                        }
+
                         if(placeble_1 && placeble_2){
                             board_copy_s[y][x] = 1; board_copy_s[y+1][x] = 1; board_copy_s[y+2][x] = 1;
-                            shortest_path(s.p2, s.p1, 0);
+
+                            if(s.goal == 16){
+                                shortest_path(s.p1, s.p2, 16);
+                            }
+                            if(s.goal == 0){
+                                shortest_path(s.p2, s.p1, 0);
+                            }
+
                             if(distance > longest){
                                 longest = distance;
                                 yy = y;
                                 xx = x;
                                 hv = "v";
-                                changes++;
                             }
                             placeble_1 = false; placeble_2 = false;
                         }
@@ -323,18 +359,31 @@ snap Quoridor::best_wall(snap s){
                                 board_copy_s[y][x] = s.board[y][x];
                             }
                         }
-                        board_copy_1[y][x] = 1; board_copy_1[y][x+1] = 1; board_copy_1[y+2][x+2] = 1;
-                        board_copy_2[y][x] = 1; board_copy_2[y][x+1] = 1; board_copy_2[y+2][x+2] = 1;
-                        check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+                        board_copy_1[y][x] = 1; board_copy_1[y][x+1] = 1; board_copy_1[y][x+2] = 1;
+                        board_copy_2[y][x] = 1; board_copy_2[y][x+1] = 1; board_copy_2[y][x+2] = 1;
+
+                        if(s.goal == 16){
+                            check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+                        }
+                        if(s.goal == 0){
+                            check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
+                        }
+
                         if(placeble_1 && placeble_2){
                             board_copy_s[y][x] = 1; board_copy_s[y][x+1] = 1; board_copy_s[y][x+2] = 1;
-                            shortest_path(s.p2, s.p1, 0);
+
+                            if(s.goal == 16){
+                                shortest_path(s.p1, s.p2, 16);
+                            }
+                            if(s.goal == 0){
+                                shortest_path(s.p2, s.p1, 0);
+                            }
+
                             if(distance > longest){
                                 longest = distance;
                                 yy = y;
                                 xx = x;
                                 hv = "h";
-                                changes++;
                             }
                             placeble_1 = false; placeble_2 = false;
                         }
@@ -346,7 +395,14 @@ snap Quoridor::best_wall(snap s){
 
     if(hv == "v"){
 
-        snap next(s.p1, s.p2, 16);
+        snap next(s.p1, s.p2, 0);
+
+        if(s.goal == 16){
+            next.goal = 0; next.p1 = s.p2; next.p2 = s.p1;
+        }
+        if(s.goal == 0){
+            next.goal = 16; next.p1 = s.p2; next.p2 = s.p1;
+        }
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -358,10 +414,17 @@ snap Quoridor::best_wall(snap s){
 
         board_copy_1[yy][xx] = 1; board_copy_1[yy+1][xx] = 1; board_copy_1[yy+2][xx] = 1;
         board_copy_2[yy][xx] = 1; board_copy_2[yy+1][xx] = 1; board_copy_2[yy+2][xx] = 1;
-        check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+
+        if(s.goal == 16){
+            check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+        }
+        if(s.goal == 0){
+            check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
+        }
+
         if(placeble_1 && placeble_2){
 
-            s.board[yy][xx] = 1; s.board[yy+1][xx] = 1; s.board[yy+2][xx] = 1;
+            next.board[yy][xx] = 1; next.board[yy+1][xx] = 1; next.board[yy+2][xx] = 1;
             next.wall = hv + " " + QString::number(yy) + " " + QString::number(xx);
             placeble_1 = false; placeble_2 = false;
 
@@ -371,7 +434,14 @@ snap Quoridor::best_wall(snap s){
 
     if(hv == "h"){
 
-        snap next(s.p1, s.p2, 16);
+        snap next(s.p1, s.p2, 0);
+
+        if(s.goal == 16){
+            next.goal = 0; next.p1 = s.p2; next.p2 = s.p1;
+        }
+        if(s.goal == 0){
+            next.goal = 16; next.p1 = s.p2; next.p2 = s.p1;
+        }
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -383,10 +453,17 @@ snap Quoridor::best_wall(snap s){
 
         board_copy_1[yy][xx] = 1; board_copy_1[yy][xx+1] = 1; board_copy_1[yy][xx+2] = 1;
         board_copy_2[yy][xx] = 1; board_copy_2[yy][xx+1] = 1; board_copy_2[yy][xx+2] = 1;
-        check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+
+        if(s.goal == 16){
+            check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+        }
+        if(s.goal == 0){
+            check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
+        }
+
         if(placeble_1 && placeble_2){
 
-            s.board[yy][xx] = 1; s.board[yy][xx+1] = 1; s.board[yy][xx+2] = 1;
+            next.board[yy][xx] = 1; next.board[yy][xx+1] = 1; next.board[yy][xx+2] = 1;
             next.wall = hv + " " + QString::number(yy) + " " + QString::number(xx);
             placeble_1 = false; placeble_2 = false;
 
