@@ -26,7 +26,7 @@ void Quoridor::next_move(){
     move2 = IN[1].wall;
 
 
-    int n = 0;
+    int n = 3;
 
     while(n > 0){
 
@@ -43,14 +43,14 @@ void Quoridor::next_move(){
         n--;
     }
 
-    //if(mover == "move")
-        //next_m = move1;
+    if(mover == "move")
+        next_m = move1;
 
-    //if(mover == "wall")
+    if(mover == "wall")
         next_m = move2;
 
-        if(next_m == "e")
-            next_m = move1;
+    if(next_m == "e")
+        next_m = move1;
 
     IN.clear();
 
