@@ -27,7 +27,7 @@ void Quoridor::next_move(){
         move2 = IN[1].wall;
     }
 
-    int n = 1;
+    int n = 5;
 
     while(n > 0){
 
