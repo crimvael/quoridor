@@ -27,7 +27,7 @@ void Quoridor::next_move(){
         move2 = IN[1].wall;
     }
 
-    int n = 5;
+    int n = 1;
 
     while(n > 0){
 
@@ -137,7 +137,7 @@ snap Quoridor::best_move(snap s){
 
     QList<place> near_nodes;
     int shortest = 999;
-    int yy = 99; int xx = 99;
+    int yy = 0; int xx = 0;
 
     int up[] = {-1,-1};
     int down[] = {-1,-1};
