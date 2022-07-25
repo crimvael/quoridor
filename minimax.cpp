@@ -17,15 +17,15 @@ void Quoridor::next_move(){
         }
     }
 
-    //curr.move = "move";
-    //IN.append(best_move(curr));
-    //move1 = "m " + QString::number(IN[0].p2.y) + " " + QString::number(IN[0].p2.x);
+    curr.move = "move";
+    IN.append(best_move(curr));
+    move1 = "m " + QString::number(IN[0].p2.y) + " " + QString::number(IN[0].p2.x);
 
-    //curr.move = "wall";
-    //IN.append(best_wall(curr));
-    move2 = best_wall(curr).wall;//IN[1].wall;
+    curr.move = "wall";
+    IN.append(best_wall(curr));
+    move2 = IN[1].wall;
 
-    //evaluate();
+    evaluate();
 
     int n = 0;
 
@@ -44,16 +44,16 @@ void Quoridor::next_move(){
         n--;
     }
 
-//    if(mover == "move")
-//        next_m = move1;
+    if(mover == "move")
+        next_m = move1;
 
-//    if(mover == "wall")
+    if(mover == "wall")
         next_m = move2;
 
-//    if(next_m == "e")
-//        next_m = move1;
+    if(next_m == "e")
+        next_m = move1;
 
-    //IN.clear();
+    IN.clear();
 
 }
 
@@ -91,21 +91,21 @@ void Quoridor::evaluate(){
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
-                board_copy_s[y][x] = OUT[x].board[y][x];
+                board_copy_s[y][x] = IN[x].board[y][x];
             }
         }
 
-        shortest_path(OUT[x].p1, OUT[x].p2, 16);
+        shortest_path(IN[x].p1, IN[x].p2, 16);
 
         dist1 = distance;
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
-                board_copy_s[y][x] = OUT[x].board[y][x];
+                board_copy_s[y][x] = IN[x].board[y][x];
             }
         }
 
-        shortest_path(OUT[x].p2, OUT[x].p1, 0);
+        shortest_path(IN[x].p2, IN[x].p1, 0);
 
         dist2 = distance;
 
@@ -120,7 +120,8 @@ void Quoridor::evaluate(){
         }
     }
 
-    mover = OUT[index].move;
+    mover = IN[index].move;
+
 
 }
 
@@ -404,31 +405,33 @@ snap Quoridor::best_wall(snap s){
             next.goal = 0; next.p1 = s.p2; next.p2 = s.p1;
         }
 
-        for (int y=0; y < 17; y++) {
-            for (int x=0; x < 17; x++) {
-                board_copy_1[y][x] = s.board[y][x];
-                board_copy_2[y][x] = s.board[y][x];
-                next.board[y][x] = s.board[y][x];
+        if(s.board[yy][xx] != 1 && s.board[yy+1][xx] != 1 && s.board[yy+2][xx] != 1){
+            for (int y=0; y < 17; y++) {
+                for (int x=0; x < 17; x++) {
+                    board_copy_1[y][x] = s.board[y][x];
+                    board_copy_2[y][x] = s.board[y][x];
+                    next.board[y][x] = s.board[y][x];
+                }
             }
-        }
 
-        board_copy_1[yy][xx] = 1; board_copy_1[yy+1][xx] = 1; board_copy_1[yy+2][xx] = 1;
-        board_copy_2[yy][xx] = 1; board_copy_2[yy+1][xx] = 1; board_copy_2[yy+2][xx] = 1;
+            board_copy_1[yy][xx] = 1; board_copy_1[yy+1][xx] = 1; board_copy_1[yy+2][xx] = 1;
+            board_copy_2[yy][xx] = 1; board_copy_2[yy+1][xx] = 1; board_copy_2[yy+2][xx] = 1;
 
-        if(s.goal == 0){
-            check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
-        }
-        if(s.goal == 16){
-            check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
-        }
+            if(s.goal == 0){
+                check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
+            }
+            if(s.goal == 16){
+                check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+            }
 
-        if(placeble_1 && placeble_2){
+            if(placeble_1 && placeble_2){
 
-            next.board[yy][xx] = 1; next.board[yy+1][xx] = 1; next.board[yy+2][xx] = 1;
-            next.wall = hv + " " + QString::number(yy) + " " + QString::number(xx);
-            placeble_1 = false; placeble_2 = false;
+                next.board[yy][xx] = 1; next.board[yy+1][xx] = 1; next.board[yy+2][xx] = 1;
+                next.wall = hv + " " + QString::number(yy) + " " + QString::number(xx);
+                placeble_1 = false; placeble_2 = false;
 
-            return next;
+                return next;
+            }
         }
     }
 
@@ -443,31 +446,33 @@ snap Quoridor::best_wall(snap s){
             next.goal = 0; next.p1 = s.p2; next.p2 = s.p1;
         }
 
-        for (int y=0; y < 17; y++) {
-            for (int x=0; x < 17; x++) {
-                board_copy_1[y][x] = s.board[y][x];
-                board_copy_2[y][x] = s.board[y][x];
-                next.board[y][x] = s.board[y][x];
+        if(s.board[yy][xx] != 1 && s.board[yy][xx+1] != 1 && s.board[yy][xx+2] != 1){
+            for (int y=0; y < 17; y++) {
+                for (int x=0; x < 17; x++) {
+                    board_copy_1[y][x] = s.board[y][x];
+                    board_copy_2[y][x] = s.board[y][x];
+                    next.board[y][x] = s.board[y][x];
+                }
             }
-        }
 
-        board_copy_1[yy][xx] = 1; board_copy_1[yy][xx+1] = 1; board_copy_1[yy][xx+2] = 1;
-        board_copy_2[yy][xx] = 1; board_copy_2[yy][xx+1] = 1; board_copy_2[yy][xx+2] = 1;
+            board_copy_1[yy][xx] = 1; board_copy_1[yy][xx+1] = 1; board_copy_1[yy][xx+2] = 1;
+            board_copy_2[yy][xx] = 1; board_copy_2[yy][xx+1] = 1; board_copy_2[yy][xx+2] = 1;
 
-        if(s.goal == 0){
-            check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
-        }
-        if(s.goal == 16){
-            check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
-        }
+            if(s.goal == 0){
+                check_placeble_1(s.p1.y, s.p1.x); check_placeble_2(s.p2.y, s.p2.x);
+            }
+            if(s.goal == 16){
+                check_placeble_1(s.p2.y, s.p2.x); check_placeble_2(s.p1.y, s.p1.x);
+            }
 
-        if(placeble_1 && placeble_2){
+            if(placeble_1 && placeble_2){
 
-            next.board[yy][xx] = 1; next.board[yy][xx+1] = 1; next.board[yy][xx+2] = 1;
-            next.wall = hv + " " + QString::number(yy) + " " + QString::number(xx);
-            placeble_1 = false; placeble_2 = false;
+                next.board[yy][xx] = 1; next.board[yy][xx+1] = 1; next.board[yy][xx+2] = 1;
+                next.wall = hv + " " + QString::number(yy) + " " + QString::number(xx);
+                placeble_1 = false; placeble_2 = false;
 
-            return next;
+                return next;
+            }
         }
     }
 
