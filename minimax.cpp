@@ -50,7 +50,7 @@ void Quoridor::next_move(){
     if(mover == "wall")
         next_m = move2;
 
-    if(next_m == "e")
+    if(move2 == "e")
         next_m = move1;
 
     IN.clear();
@@ -87,25 +87,25 @@ void Quoridor::evaluate(){
     int index = 0;
     int min = 999;
 
-    for(int x=0; x<IN.size(); x++){
+    for(int n=0; n<IN.size(); n++){
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
-                board_copy_s[y][x] = IN[x].board[y][x];
+                board_copy_s[y][x] = IN[n].board[y][x];
             }
         }
 
-        shortest_path(IN[x].p1, IN[x].p2, 16);
+        shortest_path(IN[n].p1, IN[n].p2, 16);
 
         dist1 = distance;
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
-                board_copy_s[y][x] = IN[x].board[y][x];
+                board_copy_s[y][x] = IN[n].board[y][x];
             }
         }
 
-        shortest_path(IN[x].p2, IN[x].p1, 0);
+        shortest_path(IN[n].p2, IN[n].p1, 0);
 
         dist2 = distance;
 
@@ -113,15 +113,14 @@ void Quoridor::evaluate(){
 
     }
 
-    for(int x=0; x<diffs.size(); x++){
-        if(diffs[x] < min){
-            min = diffs[x];
-            index = x;
+    for(int n=0; n<diffs.size(); n++){
+        if(diffs[n] < min){
+            min = diffs[n];
+            index = n;
         }
     }
 
     mover = IN[index].move;
-
 
 }
 
