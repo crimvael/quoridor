@@ -21,13 +21,13 @@ void Quoridor::next_move(){
     IN.append(best_move(curr));
     move1 = "m " + QString::number(IN[0].p2.y) + " " + QString::number(IN[0].p2.x);
 
-    curr.move = "wall";
-    IN.append(best_wall(curr));
-    move2 = IN[1].wall;
+    if(check_wall_number()){
+        curr.move = "wall";
+        IN.append(best_wall(curr));
+        move2 = IN[1].wall;
+    }
 
-    evaluate();
-
-    int n = 0;
+    int n = 5;
 
     while(n > 0){
 
@@ -61,7 +61,9 @@ void Quoridor::minimax(){
 
     for(int x=0; x<IN.size(); x++){
         OUT.append(best_move(IN[x]));
-        OUT.append(best_wall(IN[x]));
+
+        if(check_wall_number())
+            OUT.append(best_wall(IN[x]));
     }
 
 
@@ -69,8 +71,10 @@ void Quoridor::minimax(){
 
     for(int x=0; x<OUT.size(); x++){
 
-        if(OUT[x].wall == "e" || OUT[x].move == "e")
+        if(OUT[x].wall == "e"){
             OUT.removeAt(x);
+            continue;
+        }
 
         IN.append(OUT[x]);
     }
@@ -86,30 +90,33 @@ void Quoridor::evaluate(){
     int dist2 = 0;
     int index = 0;
     int min = 999;
+    QString deb = "";
 
-    for(int n=0; n<IN.size(); n++){
+    for(int n=0; n<OUT.size(); n++){
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
-                board_copy_s[y][x] = IN[n].board[y][x];
+                board_copy_s[y][x] = OUT[n].board[y][x];
             }
         }
 
-        shortest_path(IN[n].p1, IN[n].p2, 16);
+        shortest_path(OUT[n].p1, OUT[n].p2, 16);
 
         dist1 = distance;
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
-                board_copy_s[y][x] = IN[n].board[y][x];
+                board_copy_s[y][x] = OUT[n].board[y][x];
             }
         }
 
-        shortest_path(IN[n].p2, IN[n].p1, 0);
+        shortest_path(OUT[n].p2, OUT[n].p1, 0);
 
         dist2 = distance;
 
         diffs.append(dist1 - dist2);
+
+        deb += QString::number(n) + ": [move] " + OUT[n].move + " * [wall] " + OUT[n].wall + " * ";
 
     }
 
@@ -120,14 +127,13 @@ void Quoridor::evaluate(){
         }
     }
 
-    mover = IN[index].move;
+    mover = OUT[index].move;
+
+    ui->textBrowser_2->setText(deb + " final move: " + mover);
 
 }
 
 snap Quoridor::best_move(snap s){
-
-    if(s.wall == "e")
-        return s;
 
     QList<place> near_nodes;
     int shortest = 999;
@@ -248,6 +254,7 @@ snap Quoridor::best_move(snap s){
     if(s.goal == 16){
 
         snap next(s.p2, place(yy, xx), 0);
+        next.move = s.move;
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -261,6 +268,7 @@ snap Quoridor::best_move(snap s){
     if(s.goal == 0){
 
         snap next(s.p2, place(yy, xx), 16);
+        next.move = s.move;
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -271,7 +279,8 @@ snap Quoridor::best_move(snap s){
         return next;
     }
 
-    snap next(s.p1, s.p2, 16);
+    snap next(s.p2, s.p1, s.goal);
+    next.move = s.move;
 
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {
@@ -279,14 +288,13 @@ snap Quoridor::best_move(snap s){
         }
     }
 
+    next.wall = "e";
+
     return next;
 
 }
 
 snap Quoridor::best_wall(snap s){
-
-    if(s.wall == "e")
-        return s;
 
     int longest = 0;
     int yy = 99;
@@ -308,8 +316,8 @@ snap Quoridor::best_wall(snap s){
 
     longest = distance;
 
-    for (int y=0; y<15; y++) {
-        for (int x=0; x<15; x++) {
+    for (int y=s.p2.y-6; y<15; y++) {
+        for (int x=s.p2.x-6; x<15; x++) {
             if(y >= 0 && x >= 0){
                 if(y%2 == 0 && x%2 != 0)
                     if(s.board[y][x] != 1 && s.board[y+1][x] != 1 && s.board[y+2][x] != 1){
@@ -397,6 +405,8 @@ snap Quoridor::best_wall(snap s){
 
         snap next(s.p1, s.p2, 0);
 
+        next.move = s.move;
+
         if(s.goal == 0){
             next.goal = 16; next.p1 = s.p2; next.p2 = s.p1;
         }
@@ -437,6 +447,7 @@ snap Quoridor::best_wall(snap s){
     if(hv == "h"){
 
         snap next(s.p1, s.p2, 0);
+        next.move = s.move;
 
         if(s.goal == 0){
             next.goal = 16; next.p1 = s.p2; next.p2 = s.p1;
@@ -476,6 +487,7 @@ snap Quoridor::best_wall(snap s){
     }
 
     snap next(s.p1, s.p2, 16);
+    next.move = s.move;
 
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {
