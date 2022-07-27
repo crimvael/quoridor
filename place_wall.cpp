@@ -5,7 +5,7 @@
 
 void Quoridor::mousePressEvent(QMouseEvent *event){
 
-    if(wall_unlocked){// && check_wall_number()){
+    if(wall_unlocked && check_wall_number()){
 
         for (int y=0; y<17; y++) {
             for (int x=0; x<17; x++) {

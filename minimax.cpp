@@ -21,7 +21,7 @@ void Quoridor::next_move(){
     IN.append(best_move(curr));
     move1 = "m " + QString::number(IN[0].p2.y) + " " + QString::number(IN[0].p2.x);
 
-    if(true){//check_wall_number()){
+    if(check_wall_number()){
         curr.move = "wall";
         IN.append(best_wall(curr));
         move2 = IN[1].wall;
