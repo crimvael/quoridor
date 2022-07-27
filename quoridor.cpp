@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QList>
 
+bool window_expanded = false;
 bool start = false; bool show_wall = false; bool wall_unlocked = false; bool ai = false;
 bool move_select = false; bool placeble_1 = false; bool placeble_2 = false; bool BLUE = false; bool RED = false;
 int curr_position[] = {-1, -1}; int wall_position[] = {-1, -1, -1};
@@ -16,7 +17,6 @@ Quoridor::Quoridor(QWidget *parent)
     , ui(new Ui::Quoridor)
 {
     ui->setupUi(this);
-
 
     ui->tableWidget->resizeColumnsToContents();
     ui->tableWidget->resizeRowsToContents();
@@ -452,3 +452,20 @@ void Quoridor::reset_buttons()
     ui->pushButton_1614->setEnabled(true);
     ui->pushButton_1616->setEnabled(true);
 }
+
+void Quoridor::on_details_Button_clicked()
+{
+    if(!window_expanded){
+        ui->details_Button->setText("Hide details <<");
+        this->setMinimumSize(1500,750);
+        this->setMaximumSize(1500,750);
+        window_expanded = true;
+    }
+    else{
+        ui->details_Button->setText("Show details >>");
+        this->setMinimumSize(600,750);
+        this->setMaximumSize(600,750);
+        window_expanded = false;
+    }
+}
+

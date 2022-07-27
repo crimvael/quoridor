@@ -17,7 +17,7 @@ bool Quoridor::check_wall_number(){
 
 void Quoridor::mouseMoveEvent(QMouseEvent *event){
 
-    if(start && check_wall_number()){
+    if(start){// && check_wall_number()){
 
         if((event->pos().x() > 65 && event->pos().x() < 80) && (event->pos().y() > 15 && event->pos().y() < 65)){
             if(board_matrix[0][1] == 1 || board_matrix[0+1][1] == 1 || board_matrix[0+2][1] == 1) return;

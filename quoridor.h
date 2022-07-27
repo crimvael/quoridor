@@ -25,6 +25,7 @@ struct snap {
     snap(place pp1, place pp2, int g) : p1(pp1), p2(pp2), goal(g) {}
 };
 
+extern bool window_expanded;
 extern bool ai; extern bool start; extern bool show_wall; extern bool wall_unlocked;
 extern bool placeble_1; extern bool placeble_2;
 extern int curr_position[]; extern int wall_position[];
@@ -172,6 +173,8 @@ private slots:
     void on_radioButton_clicked();
 
     void on_radioButton_2_clicked();
+
+    void on_details_Button_clicked();
 
 private:
     Ui::Quoridor *ui;

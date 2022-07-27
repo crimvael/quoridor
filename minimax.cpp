@@ -21,7 +21,7 @@ void Quoridor::next_move(){
     IN.append(best_move(curr));
     move1 = "m " + QString::number(IN[0].p2.y) + " " + QString::number(IN[0].p2.x);
 
-    if(check_wall_number()){
+    if(true){//check_wall_number()){
         curr.move = "wall";
         IN.append(best_wall(curr));
         move2 = IN[1].wall;
@@ -166,21 +166,21 @@ snap Quoridor::best_move(snap s){
         left[0] = -1; left[1] = -1;
         if(s.board[s.p1.y][s.p1.x-3] != 1 && s.p1.x > 2){
             left[0] = s.p1.y; left[1] = s.p1.x-4;}
-        if(s.board[s.p1.y][s.p1.x-3] == 1 && s.p1.y > 0 && s.p1.y < 16){
-            if(s.board[s.p1.y-1][s.p1.x-2] != 1){
+        if(s.board[s.p1.y][s.p1.x-3] == 1 || s.p1.x == 2){
+            if(s.board[s.p1.y-1][s.p1.x-2] != 1 && s.p1.y > 0){
                 jump_right[0] = s.p1.y-2; jump_right[1] = s.p1.x-2;}
-            if(s.board[s.p1.y+1][s.p1.x-2] != 1){
+            if(s.board[s.p1.y+1][s.p1.x-2] != 1 && s.p1.y < 16){
                 jump_left[0] = s.p1.y+2; jump_left[1] = s.p1.x-2;}}}
 
 
     if(s.p1.y-2 == s.p2.y && s.p1.x == s.p2.x && s.board[s.p1.y-1][s.p1.x] != 1){
         up[0] = -1; up[1] = -1;
-        if(s.board[s.p1.y-3][s.p1.x] != 1 && s.p1.y > 2 && s.board[s.p1.y-1][s.p1.x] != 1){
+        if(s.board[s.p1.y-3][s.p1.x] != 1 && s.p1.y > 2){
             up[0] = s.p1.y-4; up[1] = s.p1.x;}
-        if(s.board[s.p1.y-3][s.p1.x] == 1 && s.p1.x > 0 && s.p1.x < 16){
-            if(s.board[s.p1.y-2][s.p1.x+1] != 1){
+        if(s.board[s.p1.y-3][s.p1.x] == 1 || s.p1.y == 2){
+            if(s.board[s.p1.y-2][s.p1.x+1] != 1 && s.p1.x < 16){
                 jump_right[0] = s.p1.y-2; jump_right[1] = s.p1.x+2;}
-            if(s.board[s.p1.y-2][s.p1.x-1] != 1){
+            if(s.board[s.p1.y-2][s.p1.x-1] != 1 && s.p1.x > 0){
                 jump_left[0] = s.p1.y-2; jump_left[1] = s.p1.x-2;}}}
 
 
@@ -188,10 +188,10 @@ snap Quoridor::best_move(snap s){
         right[0] = -1; right[1] = -1;
         if(s.board[s.p1.y][s.p1.x+3] != 1 && s.p1.x < 14){
             right[0] = s.p1.y; right[1] = s.p1.x+4;}
-        if(s.board[s.p1.y][s.p1.x+3] == 1 && s.p1.y > 0 && s.p1.y < 16){
-            if(s.board[s.p1.y+1][s.p1.x+2] != 1){
+        if(s.board[s.p1.y][s.p1.x+3] == 1 || s.p1.x == 14){
+            if(s.board[s.p1.y+1][s.p1.x+2] != 1 && s.p1.y < 16){
                 jump_right[0] = s.p1.y+2; jump_right[1] = s.p1.x+2;}
-            if(s.board[s.p1.y-1][s.p1.x+2] != 1){
+            if(s.board[s.p1.y-1][s.p1.x+2] != 1 && s.p1.y > 0){
                 jump_left[0] = s.p1.y-2; jump_left[1] = s.p1.x+2;}}}
 
 
@@ -199,11 +199,11 @@ snap Quoridor::best_move(snap s){
         down[0] = -1; down[1] = -1;
         if(s.board[s.p1.y+3][s.p1.x] != 1 && s.p1.y < 14){
             down[0] = s.p1.y+4; down[1] = s.p1.x;}
-        if(s.board[s.p1.y+3][s.p1.x] == 1 && s.p1.x > 0 && s.p1.x < 16){
-            if(s.board[s.p1.y+2][s.p1.x-1] != 1){
-                jump_right[0] = s.p1.y+2; jump_right[1] = s.p1.x-2;}
-            if(s.board[s.p1.y+2][s.p1.x+1] != 1){
-                jump_left[0] = s.p1.y+2; jump_left[1] = s.p1.x+2;}}}
+        if(s.board[s.p1.y+3][s.p1.x] == 1 || s.p1.y == 14){
+            if(s.board[s.p1.y+2][s.p1.x+1] != 1 && s.p1.x < 16){
+                jump_right[0] = s.p1.y+2; jump_right[1] = s.p1.x+2;}
+            if(s.board[s.p1.y+2][s.p1.x-1] != 1 && s.p1.x > 0){
+                jump_left[0] = s.p1.y+2; jump_left[1] = s.p1.x-2;}}}
 
 
     if(up[0] != -1 && s.board[up[0]][up[1]] != 1){
@@ -500,4 +500,3 @@ snap Quoridor::best_wall(snap s){
     return next;
 
 }
-
