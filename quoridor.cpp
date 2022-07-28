@@ -20,12 +20,22 @@ Quoridor::Quoridor(QWidget *parent)
 
     ui->tableWidget->resizeColumnsToContents();
     ui->tableWidget->resizeRowsToContents();
+    ui->tableWidget_2->resizeColumnsToContents();
+    ui->tableWidget_2->resizeRowsToContents();
+    ui->tableWidget_3->resizeColumnsToContents();
+    ui->tableWidget_3->resizeRowsToContents();
+    ui->tableWidget_4->resizeColumnsToContents();
+    ui->tableWidget_4->resizeRowsToContents();
 
 
     for (int i=0; i < 17; i++) {
         for (int j=0; j < 17; j++) {
             board_matrix[i][j] = 0;
-            ui->tableWidget->setItem(i, j, new QTableWidgetItem("0"));
+            QTableWidgetItem* item = new QTableWidgetItem("0");
+            item->setTextAlignment(Qt::AlignCenter);
+            if(i%2 == 0 && j%2 == 0)
+                item->setBackground(QColor(153, 255, 153));
+            ui->tableWidget->setItem(i, j, item);
         }
     }
 }
@@ -154,6 +164,49 @@ void Quoridor::game_manager()
         show_wall = true; wall_unlocked = true;
         game_manager();
 
+    }
+
+    if(RED){ui->label_9->setText("true"); ui->label_10->setText("false");}
+    if(BLUE){ui->label_9->setText("false"); ui->label_10->setText("true");}
+    ui->label_7->setText(QString::number(curr_position[0]) + ", " + QString::number(curr_position[1]));
+
+
+    ui->tableWidget_2->setRowCount(0);
+    for(int n=0; n < fmax(player_blue.size(), player_red.size()); n++){
+        ui->tableWidget_2->insertRow(ui->tableWidget_2->rowCount());
+        if(n < player_blue.size()){
+            QTableWidgetItem* item = new QTableWidgetItem(QString::number(player_blue[n].y) + ", " + QString::number(player_blue[n].x));
+            item->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget_2->setItem(n, 0, item);
+        }
+        if(n < player_red.size()){
+            QTableWidgetItem* item_2 = new QTableWidgetItem(QString::number(player_red[n].y) + ", " + QString::number(player_red[n].x));
+            item_2->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget_2->setItem(n, 1, item_2);
+        }
+    }
+
+    ui->tableWidget_3->setRowCount(0);
+    for(int n=0; n < fmax(vertical_walls.size(), horizontal_walls.size()); n++){
+        ui->tableWidget_3->insertRow(ui->tableWidget_3->rowCount());
+        if(n < vertical_walls.size()){
+            QTableWidgetItem* item = new QTableWidgetItem(QString::number(vertical_walls[n].y) + ", " + QString::number(vertical_walls[n].x));
+            item->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget_3->setItem(n, 0, item);
+        }
+        if(n < horizontal_walls.size()){
+            QTableWidgetItem* item_2 = new QTableWidgetItem(QString::number(horizontal_walls[n].y) + ", " + QString::number(horizontal_walls[n].x));
+            item_2->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget_3->setItem(n, 1, item_2);
+        }
+    }
+
+    ui->tableWidget_4->setRowCount(0);
+    for(int n=0; n < moves.size(); n++){
+        ui->tableWidget_4->insertRow(ui->tableWidget_4->rowCount());
+            QTableWidgetItem* item = new QTableWidgetItem(moves[n]);
+            item->setTextAlignment(Qt::AlignCenter);
+            ui->tableWidget_4->setItem(n, 0, item);
     }
 
 }
@@ -457,8 +510,8 @@ void Quoridor::on_details_Button_clicked()
 {
     if(!window_expanded){
         ui->details_Button->setText("Hide details <<");
-        this->setMinimumSize(1500,750);
-        this->setMaximumSize(1500,750);
+        this->setMinimumSize(1340,750);
+        this->setMaximumSize(1340,750);
         window_expanded = true;
     }
     else{

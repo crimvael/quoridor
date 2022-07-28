@@ -90,7 +90,6 @@ void Quoridor::evaluate(){
     int dist2 = 0;
     int index = 0;
     int min = 999;
-    QString deb = "";
 
     for(int n=0; n<OUT.size(); n++){
 
@@ -116,8 +115,6 @@ void Quoridor::evaluate(){
 
         diffs.append(dist1 - dist2);
 
-        deb += QString::number(n) + ": [move] " + OUT[n].move + " * [wall] " + OUT[n].wall + " * ";
-
     }
 
     for(int n=0; n<diffs.size(); n++){
@@ -128,8 +125,6 @@ void Quoridor::evaluate(){
     }
 
     mover = OUT[index].move;
-
-    ui->textBrowser_2->setText(deb + " final move: " + mover);
 
 }
 
