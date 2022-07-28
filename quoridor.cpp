@@ -59,16 +59,24 @@ void Quoridor::on_newGameButton_clicked()
             board_matrix[i][j] = 0;
             QTableWidgetItem* item = new QTableWidgetItem("0");
             item->setTextAlignment(Qt::AlignCenter);
-            if(i%2 == 0 && j%2 == 0)
+            if(i%2 == 0 && j%2 == 0){
                 item->setBackground(QColor(153, 255, 153));
+                item->setText("X");
+            }
             ui->tableWidget->setItem(i, j, item);
         }
     }
 
-    if(ui->radioButton->isChecked())
+    if(ui->radioButton->isChecked()){
         ai = true;
-    if(ui->radioButton_2->isChecked())
+        ui->checkBox->setEnabled(true);
+        ui->checkBox_2->setEnabled(true);
+    }
+    if(ui->radioButton_2->isChecked()){
         ai = false;
+        ui->checkBox->setEnabled(false);
+        ui->checkBox_2->setEnabled(false);
+    }
 
     if(!player_blue.isEmpty()){
         remove_pawn(player_blue.last().y, player_blue.last().x);
@@ -543,5 +551,19 @@ void Quoridor::on_details_Button_clicked()
         this->setMaximumSize(600,750);
         window_expanded = false;
     }
+}
+
+
+void Quoridor::on_checkBox_clicked()
+{
+    if(ui->checkBox_2->isChecked())
+        ui->checkBox_2->setChecked(false);
+}
+
+
+void Quoridor::on_checkBox_2_clicked()
+{
+    if(ui->checkBox->isChecked())
+        ui->checkBox->setChecked(false);
 }
 

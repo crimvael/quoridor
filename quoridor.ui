@@ -1553,8 +1553,8 @@
      <rect>
       <x>30</x>
       <y>695</y>
-      <width>121</width>
-      <height>31</height>
+      <width>120</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1573,7 +1573,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>611</y>
+      <y>610</y>
       <width>101</width>
       <height>30</height>
      </rect>
@@ -1634,9 +1634,9 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>610</y>
-      <width>151</width>
-      <height>51</height>
+      <y>695</y>
+      <width>150</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1661,13 +1661,16 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>Game status</string>
      </attribute>
      <widget class="QTableWidget" name="tableWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -2126,7 +2129,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <column>
        <property name="text">
-        <string>BLUE positions</string>
+        <string>player_blue</string>
        </property>
        <property name="font">
         <font>
@@ -2136,7 +2139,7 @@ p, li { white-space: pre-wrap; }
       </column>
       <column>
        <property name="text">
-        <string>RED positions</string>
+        <string>player_red</string>
        </property>
        <property name="font">
         <font>
@@ -2156,7 +2159,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <column>
        <property name="text">
-        <string>Vertical walls</string>
+        <string>vertical_walls</string>
        </property>
        <property name="font">
         <font>
@@ -2166,7 +2169,7 @@ p, li { white-space: pre-wrap; }
       </column>
       <column>
        <property name="text">
-        <string>Horizontal walls</string>
+        <string>horizontal_walls</string>
        </property>
        <property name="font">
         <font>
@@ -2186,7 +2189,15 @@ p, li { white-space: pre-wrap; }
       </property>
       <column>
        <property name="text">
-        <string>Moves</string>
+        <string>moves</string>
+       </property>
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="textAlignment">
+        <set>AlignLeading|AlignVCenter</set>
        </property>
       </column>
      </widget>
@@ -2206,7 +2217,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>board_matrix[y][x]</string>
+       <string>board_matrix [y][x]</string>
       </property>
      </widget>
     </widget>
@@ -2223,13 +2234,73 @@ p, li { white-space: pre-wrap; }
         <height>591</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <column>
        <property name="text">
-        <string notr="true">1</string>
+        <string notr="true">Minimax tree output</string>
        </property>
       </column>
+      <item>
+       <property name="text">
+        <string>move</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>wall</string>
+       </property>
+      </item>
      </widget>
     </widget>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>610</y>
+      <width>140</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>AI move only</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>650</y>
+      <width>140</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>AI wall only</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

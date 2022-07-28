@@ -17,12 +17,12 @@ void Quoridor::next_move(){
         }
     }
 
-    curr.move = "move";
+    curr.root_move = "move";
     IN.append(best_move(curr));
     move1 = "m " + QString::number(IN[0].p2.y) + " " + QString::number(IN[0].p2.x);
 
     if(check_wall_number()){
-        curr.move = "wall";
+        curr.root_move = "wall";
         IN.append(best_wall(curr));
         move2 = IN[1].wall;
     }
@@ -52,6 +52,15 @@ void Quoridor::next_move(){
 
     if(move2 == "e")
         next_m = move1;
+
+    if(ui->checkBox->isChecked())
+        next_m = move1;
+
+    if(ui->checkBox_2->isChecked() && check_wall_number()){
+        next_m = move2;
+        if(move2 == "e")
+            next_m = move1;
+    }
 
     IN.clear();
 
@@ -124,7 +133,7 @@ void Quoridor::evaluate(){
         }
     }
 
-    mover = OUT[index].move;
+    mover = OUT[index].root_move;
 
 }
 
@@ -249,7 +258,7 @@ snap Quoridor::best_move(snap s){
     if(s.goal == 16){
 
         snap next(s.p2, place(yy, xx), 0);
-        next.move = s.move;
+        next.root_move = s.root_move;
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -263,7 +272,7 @@ snap Quoridor::best_move(snap s){
     if(s.goal == 0){
 
         snap next(s.p2, place(yy, xx), 16);
-        next.move = s.move;
+        next.root_move = s.root_move;
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -274,18 +283,9 @@ snap Quoridor::best_move(snap s){
         return next;
     }
 
-    snap next(s.p2, s.p1, s.goal);
-    next.move = s.move;
+    s.wall = "e";
 
-    for (int y=0; y < 17; y++) {
-        for (int x=0; x < 17; x++) {
-            next.board[y][x] = s.board[y][x];
-        }
-    }
-
-    next.wall = "e";
-
-    return next;
+    return s;
 
 }
 
@@ -400,7 +400,7 @@ snap Quoridor::best_wall(snap s){
 
         snap next(s.p1, s.p2, 0);
 
-        next.move = s.move;
+        next.root_move = s.root_move;
 
         if(s.goal == 0){
             next.goal = 16; next.p1 = s.p2; next.p2 = s.p1;
@@ -442,7 +442,7 @@ snap Quoridor::best_wall(snap s){
     if(hv == "h"){
 
         snap next(s.p1, s.p2, 0);
-        next.move = s.move;
+        next.root_move = s.root_move;
 
         if(s.goal == 0){
             next.goal = 16; next.p1 = s.p2; next.p2 = s.p1;
@@ -482,7 +482,7 @@ snap Quoridor::best_wall(snap s){
     }
 
     snap next(s.p1, s.p2, 16);
-    next.move = s.move;
+    next.root_move = s.root_move;
 
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {

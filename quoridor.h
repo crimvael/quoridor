@@ -18,7 +18,7 @@ struct snap {
     place p1;
     place p2;
     int goal;
-    QString move;
+    QString root_move;
     QString wall;
     int board[17][17];
 
@@ -177,6 +177,10 @@ private slots:
     void on_radioButton_2_clicked();
 
     void on_details_Button_clicked();
+
+    void on_checkBox_clicked();
+
+    void on_checkBox_2_clicked();
 
 private:
     Ui::Quoridor *ui;
