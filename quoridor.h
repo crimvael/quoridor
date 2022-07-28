@@ -76,6 +76,8 @@ private slots:
 
     void on_newGameButton_clicked();
 
+    void undo_last_move();
+
     void find_moves();
 
     void reset_buttons();

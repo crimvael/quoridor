@@ -20,12 +20,6 @@ Quoridor::Quoridor(QWidget *parent)
 
     ui->tableWidget->resizeColumnsToContents();
     ui->tableWidget->resizeRowsToContents();
-    ui->tableWidget_2->resizeColumnsToContents();
-    ui->tableWidget_2->resizeRowsToContents();
-    ui->tableWidget_3->resizeColumnsToContents();
-    ui->tableWidget_3->resizeRowsToContents();
-    ui->tableWidget_4->resizeColumnsToContents();
-    ui->tableWidget_4->resizeRowsToContents();
 
 
     for (int i=0; i < 17; i++) {
@@ -33,8 +27,10 @@ Quoridor::Quoridor(QWidget *parent)
             board_matrix[i][j] = 0;
             QTableWidgetItem* item = new QTableWidgetItem("0");
             item->setTextAlignment(Qt::AlignCenter);
-            if(i%2 == 0 && j%2 == 0)
+            if(i%2 == 0 && j%2 == 0){
                 item->setBackground(QColor(153, 255, 153));
+                item->setText("X");
+            }
             ui->tableWidget->setItem(i, j, item);
         }
     }
@@ -58,6 +54,16 @@ void Quoridor::on_radioButton_2_clicked()
 
 void Quoridor::on_newGameButton_clicked()
 {
+    for (int i=0; i < 17; i++) {
+        for (int j=0; j < 17; j++) {
+            board_matrix[i][j] = 0;
+            QTableWidgetItem* item = new QTableWidgetItem("0");
+            item->setTextAlignment(Qt::AlignCenter);
+            if(i%2 == 0 && j%2 == 0)
+                item->setBackground(QColor(153, 255, 153));
+            ui->tableWidget->setItem(i, j, item);
+        }
+    }
 
     if(ui->radioButton->isChecked())
         ai = true;
@@ -79,12 +85,6 @@ void Quoridor::on_newGameButton_clicked()
     if(!moves.isEmpty())
         moves.clear();
 
-
-    for (int i=0; i < 17; i++) {
-        for (int j=0; j < 17; j++) {
-            board_matrix[i][j] = 0;
-        }
-    }
 
     walls_blue = 10; walls_red = 10;
     show_wall = true;
@@ -209,6 +209,13 @@ void Quoridor::game_manager()
             ui->tableWidget_4->setItem(n, 0, item);
     }
 
+    ui->tableWidget_2->resizeColumnsToContents();
+    ui->tableWidget_2->resizeRowsToContents();
+    ui->tableWidget_3->resizeColumnsToContents();
+    ui->tableWidget_3->resizeRowsToContents();
+    ui->tableWidget_4->resizeColumnsToContents();
+    ui->tableWidget_4->resizeRowsToContents();
+
 }
 
 void Quoridor::check_placeble_1(int y, int x){
@@ -295,41 +302,57 @@ void Quoridor::paintEvent(QPaintEvent *){
 void Quoridor::on_undoButton_clicked()
 {
     if(start){
-        if(moves.length() > 2){
+        if(moves.size() > 2){
+            undo_last_move();
 
-            if(moves.last().at(0) == 'v'){
-                int y = moves.last().split(QChar(' ')).at(1).toInt();
-                int x = moves.last().split(QChar(' ')).at(2).toInt();
-                board_matrix[y][x] = 0; board_matrix[y+1][x] = 0; board_matrix[y+2][x] = 0;
-                vertical_walls.removeLast(); update();
-                if(BLUE){BLUE = false; RED = true; walls_red++; game_manager(); moves.removeLast(); return;}
-                if(RED){BLUE = true; RED = false; walls_blue++; game_manager(); moves.removeLast(); return;}}
-            if(moves.last().at(0) == 'h'){
-                int y = moves.last().split(QChar(' ')).at(1).toInt();
-                int x = moves.last().split(QChar(' ')).at(2).toInt();
-                board_matrix[y][x] = 0; board_matrix[y][x+1] = 0; board_matrix[y][x+2] = 0;
-                horizontal_walls.removeLast(); update();
-                if(BLUE){BLUE = false; RED = true; walls_red++; game_manager(); moves.removeLast(); return;}
-                if(RED){BLUE = true; RED = false; walls_blue++; game_manager(); moves.removeLast(); return;}}
-            if(moves.last().at(0) == 'm'){
-                if(moves.last().at(2) == '1'){
-                    remove_pawn(player_blue.last().y, player_blue.last().x);
-                    set_players(player_blue[player_blue.length()-2].y, player_blue[player_blue.length()-2].x, 1);
-                    BLUE = true; RED = false;
-                    player_blue.removeLast();
-                    game_manager();}
-                if(moves.last().at(2) == '2'){
-                    remove_pawn(player_red.last().y, player_red.last().x);
-                    set_players(player_red[player_red.length()-2].y, player_red[player_red.length()-2].x, 2);
-                    BLUE = false; RED = true;
-                    player_red.removeLast();
-                    game_manager();}}
-
-            moves.removeLast();
+            if(ai){
+                if(moves.size() > 2)
+                    undo_last_move();
+            }
         }
     }
 
+    game_manager();
     return;
+}
+
+void Quoridor::undo_last_move()
+{
+    if(moves.last().at(0) == 'v'){
+        int y = moves.last().split(QChar(' ')).at(1).toInt();
+        int x = moves.last().split(QChar(' ')).at(2).toInt();
+        board_matrix[y][x] = 0; board_matrix[y+1][x] = 0; board_matrix[y+2][x] = 0;
+        vertical_walls.removeLast(); update();
+        QTableWidgetItem* item = new QTableWidgetItem("0"); item->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item2 = new QTableWidgetItem("0"); item2->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item3 = new QTableWidgetItem("0"); item3->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget->setItem(y,x, item); ui->tableWidget->setItem(y+1,x, item2);ui->tableWidget->setItem(y+2,x, item3);
+        if(BLUE){BLUE = false; RED = true; walls_red++; moves.removeLast(); return;}
+        if(RED){BLUE = true; RED = false; walls_blue++; moves.removeLast(); return;}}
+    if(moves.last().at(0) == 'h'){
+        int y = moves.last().split(QChar(' ')).at(1).toInt();
+        int x = moves.last().split(QChar(' ')).at(2).toInt();
+        board_matrix[y][x] = 0; board_matrix[y][x+1] = 0; board_matrix[y][x+2] = 0;
+        horizontal_walls.removeLast(); update();
+        QTableWidgetItem* item = new QTableWidgetItem("0"); item->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item2 = new QTableWidgetItem("0"); item2->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item3 = new QTableWidgetItem("0"); item3->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget->setItem(y,x, item); ui->tableWidget->setItem(y,x+1, item2);ui->tableWidget->setItem(y,x+2, item3);
+        if(BLUE){BLUE = false; RED = true; walls_red++; moves.removeLast(); return;}
+        if(RED){BLUE = true; RED = false; walls_blue++; moves.removeLast(); return;}}
+    if(moves.last().at(0) == 'm'){
+        if(moves.last().at(2) == '1'){
+            remove_pawn(player_blue.last().y, player_blue.last().x);
+            set_players(player_blue[player_blue.length()-2].y, player_blue[player_blue.length()-2].x, 1);
+            BLUE = true; RED = false;
+            player_blue.removeLast();
+            moves.removeLast(); return;}
+        if(moves.last().at(2) == '2'){
+            remove_pawn(player_red.last().y, player_red.last().x);
+            set_players(player_red[player_red.length()-2].y, player_red[player_red.length()-2].x, 2);
+            BLUE = false; RED = true;
+            player_red.removeLast();
+            moves.removeLast(); return;}}
 }
 
 void Quoridor::remove_pawn(int y, int x){

@@ -53,7 +53,7 @@ void Quoridor::mousePressEvent(QMouseEvent *event){
                         board_copy_2[n][m] = 1; board_copy_2[n][m+1] = 1; board_copy_2[n][m+2] = 1;
                         check_placeble_1(player_blue.last().y, player_blue.last().x); check_placeble_2(player_red.last().y, player_red.last().x);
                         if(placeble_1 && placeble_2){
-                            horizontal_walls.append(place(i+2, j+2)); moves.append("v "+ QString::number(n) + " " + QString::number(m)); update();
+                            horizontal_walls.append(place(i+2, j+2)); moves.append("h "+ QString::number(n) + " " + QString::number(m)); update();
                             board_matrix[n][m] = 1; board_matrix[n][m+1] = 1; board_matrix[n][m+2] = 1; placeble_1 = false; placeble_2 = false;
                             QTableWidgetItem* item = new QTableWidgetItem("1"); item->setTextAlignment(Qt::AlignCenter); item->setBackground(Qt::gray);
                             QTableWidgetItem* item2 = new QTableWidgetItem("1"); item2->setTextAlignment(Qt::AlignCenter); item2->setBackground(Qt::gray);

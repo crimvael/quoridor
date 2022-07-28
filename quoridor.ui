@@ -1661,7 +1661,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -2030,7 +2030,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>30</x>
         <y>510</y>
-        <width>201</width>
+        <width>191</width>
         <height>151</height>
        </rect>
       </property>
@@ -2118,7 +2118,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QTableWidget" name="tableWidget_2">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>230</x>
         <y>510</y>
         <width>190</width>
         <height>160</height>
@@ -2128,19 +2128,29 @@ p, li { white-space: pre-wrap; }
        <property name="text">
         <string>BLUE positions</string>
        </property>
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
       </column>
       <column>
        <property name="text">
         <string>RED positions</string>
+       </property>
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
        </property>
       </column>
      </widget>
      <widget class="QTableWidget" name="tableWidget_3">
       <property name="geometry">
        <rect>
-        <x>435</x>
+        <x>425</x>
         <y>510</y>
-        <width>190</width>
+        <width>201</width>
         <height>160</height>
        </rect>
       </property>
@@ -2148,10 +2158,20 @@ p, li { white-space: pre-wrap; }
        <property name="text">
         <string>Vertical walls</string>
        </property>
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
       </column>
       <column>
        <property name="text">
         <string>Horizontal walls</string>
+       </property>
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
        </property>
       </column>
      </widget>
@@ -2169,6 +2189,25 @@ p, li { white-space: pre-wrap; }
         <string>Moves</string>
        </property>
       </column>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>15</y>
+        <width>151</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>board_matrix[y][x]</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
