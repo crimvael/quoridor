@@ -75,6 +75,22 @@ void Quoridor::minimax(){
             OUT.append(best_wall(IN[x]));
     }
 
+    // Create new item (top level item)
+    QTreeWidgetItem *topLevelItem = new QTreeWidgetItem(ui->treeWidget);
+    topLevelItem->setExpanded(true);
+
+    // Set text for item
+    topLevelItem->setText(0,"Item");
+
+    // Add it on our tree as the top item.
+    ui->treeWidget->addTopLevelItem(topLevelItem);
+
+
+    // Create new item and add as child item
+    QTreeWidgetItem *item=new QTreeWidgetItem(topLevelItem);
+    // Set text for item
+    item->setText(0,"SubItem");
+
 
     IN.clear();
 

@@ -2244,16 +2244,6 @@ p, li { white-space: pre-wrap; }
         <string notr="true">Minimax tree output</string>
        </property>
       </column>
-      <item>
-       <property name="text">
-        <string>move</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>wall</string>
-       </property>
-      </item>
      </widget>
     </widget>
    </widget>
