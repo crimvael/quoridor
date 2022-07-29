@@ -2243,6 +2243,12 @@ p, li { white-space: pre-wrap; }
        <property name="text">
         <string notr="true">Minimax tree output</string>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
       </column>
      </widget>
     </widget>

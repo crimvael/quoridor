@@ -1,17 +1,14 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-extern QList<snap> IN; extern QList<snap> OUT; extern QList<snap> all;
-extern QString mover; extern QString move1; extern QString move2;
-extern QList<int> diffs;
+extern QList<snap> OUT; extern QString mover;
 
-QList<snap> IN; QList<snap> OUT; QList<snap> all;
-QString mover; QString move1; QString move2;
-QList<int> diffs;
+QList<snap> OUT; QString mover;
 
 void Quoridor::next_move(){
 
     snap curr(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x), 16);
+    curr.root_move = "init";
 
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {
@@ -19,14 +16,7 @@ void Quoridor::next_move(){
         }
     }
 
-    snap move = best_move(curr);
-    move.root_move = "move";
-    move1 = "m " + QString::number(move.p2.y) + " " + QString::number(move.p2.x);
-
-    snap wall = best_wall(curr);
-    wall.root_move = "wall";
-    move2 = wall.wall;
-
+    ui->treeWidget->clear();
 
     QTreeWidgetItem *top = new QTreeWidgetItem(ui->treeWidget);
     top->setText(0,"red_turn");
@@ -34,65 +24,36 @@ void Quoridor::next_move(){
 
     ui->treeWidget->addTopLevelItem(top);
 
-    QTreeWidgetItem *topLevelItem = new QTreeWidgetItem(top);
-    topLevelItem->setText(0,"move_root");
-    topLevelItem->setExpanded(true);
+    minimax(curr, 4, top);
 
-    QTreeWidgetItem *topLevelItem2 = new QTreeWidgetItem(top);
-    topLevelItem2->setText(0,"wall_root");
-    topLevelItem2->setExpanded(true);
-
-    minimax(best_move(move), 4, topLevelItem);
-    minimax(best_wall(wall), 4, topLevelItem2);
     evaluate();
 
-    if(mover == "move")
-        next_m = move1;
-
-    if(mover == "wall")
-        next_m = move2;
-
-    if(move2 == "e")
-        next_m = move1;
-
-    if(ui->checkBox->isChecked())
-        next_m = move1;
-
-    if(ui->checkBox_2->isChecked() && check_wall_number()){
-        next_m = move2;
-        if(move2 == "e")
-            next_m = move1;
+    if(mover == "move"){
+        snap next = best_move(curr);
+        next_m = "m " + QString::number(next.p2.y) + " " + QString::number(next.p2.x);
     }
 
-    IN.clear();
+    if(mover == "wall" && check_wall_number()){
+        snap next = best_wall(curr);
+        next_m = next.wall;
+    }
+
+    OUT.clear();
+
+
+//    if(ui->checkBox->isChecked())
+//        next_m = move1;
+
+//    if(ui->checkBox_2->isChecked() && check_wall_number()){
+//        next_m = move2;
+//        if(move2 == "e")
+//            next_m = move1;
+//    }
 
 }
 
 void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
 
-//    for(int x=0; x<IN.size(); x++){
-
-//        all.append(IN[x]);
-
-//        OUT.append(best_move(IN[x]));
-
-//        if(check_wall_number())
-//            OUT.append(best_wall(IN[x]));
-//    }
-
-//    IN.clear();
-
-//    for(int x=0; x<OUT.size(); x++){
-
-////        if(OUT[x].wall == "e"){
-////            OUT.removeAt(x);
-////            continue;
-////        }
-
-//        IN.append(OUT[x]);
-//    }
-
-//    return;
     if(n == 0){
         OUT.append(s);
         return;
@@ -101,8 +62,13 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
     QString move = "";
     QString wall = "";
 
-    if(n%2 == 0){move = "blue_move"; wall = "blue_wall";}
-    if(n%2 != 0){move = "red_move"; wall = "red_wall";}
+    snap m = best_move(s);
+    snap w = best_wall(s);
+
+    if(n%2 != 0){move = "blue_move: " + QString::number(m.p2.y) + " " + QString::number(m.p2.x); wall = "blue_wall: " + w.wall;}
+    if(n%2 == 0){move = "red_move: " + QString::number(m.p2.y) + " " + QString::number(m.p2.x); wall = "red_wall: " + w.wall;}
+
+    if(s.wall == "e"){move = "e"; wall = "e";}
 
     QTreeWidgetItem *item_right = new QTreeWidgetItem(item);
     item_right->setText(0, move);
@@ -112,14 +78,14 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
     item_left->setText(0, wall);
     item_left->setExpanded(true);
 
-    minimax(best_move(s), n-1, item_right);
-    minimax(best_wall(s), n-1, item_left);
-
+    minimax(m, n-1, item_right);
+    minimax(w, n-1, item_left);
 
 }
 
 void Quoridor::evaluate(){
 
+    QList<int> diffs;
     int dist1 = 0;
     int dist2 = 0;
     int index = 0;
@@ -163,7 +129,10 @@ void Quoridor::evaluate(){
         }
     }
 
-    mover = OUT[index].root_move;
+    if(OUT[index].root_move == "move")
+        mover = "move";
+    if(OUT[index].root_move == "wall")
+        mover = "wall";
 
 }
 
@@ -171,6 +140,9 @@ snap Quoridor::best_move(snap s){
 
     if(s.wall == "e")
         return s;
+
+    if(s.root_move == "init")
+        s.root_move = "move";
 
     QList<place> near_nodes;
     int shortest = 999;
@@ -326,6 +298,9 @@ snap Quoridor::best_wall(snap s){
 
     if(s.wall == "e")
         return s;
+
+    if(s.root_move == "init")
+        s.root_move = "wall";
 
     int longest = 0;
     int yy = 99;

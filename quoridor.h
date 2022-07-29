@@ -19,7 +19,7 @@ struct snap {
     place p1;
     place p2;
     int goal;
-    QString root_move;
+    QString root_move = "";
     QString wall;
     int board[17][17];
 
