@@ -55,15 +55,11 @@ private slots:
 
     snap best_wall(snap s);
 
-    void minimax();
+    void minimax(snap s, int n, QTreeWidgetItem*);
 
     void evaluate();
 
     bool check_wall_number();
-
-    void display_tree();
-
-    void new_leaf(QTreeWidgetItem*, int);
 
     void shortest_path(place, place, int);
 
