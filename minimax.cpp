@@ -40,6 +40,9 @@ void Quoridor::next_move(){
 
     OUT.clear();
 
+    ui->tableWidget_5->resizeColumnsToContents();
+    ui->tableWidget_5->resizeRowsToContents();
+
 
 //    if(ui->checkBox->isChecked())
 //        next_m = move1;
@@ -71,10 +74,12 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
     if(s.wall == "e"){move = "e"; wall = "e";}
 
     QTreeWidgetItem *item_right = new QTreeWidgetItem(item);
+    if(n==1) item_right->setForeground(0, QColor(255, 0, 0));
     item_right->setText(0, move);
     item_right->setExpanded(true);
 
     QTreeWidgetItem *item_left = new QTreeWidgetItem(item);
+    if(n==1) item_left->setForeground(0, QColor(255, 0, 0));
     item_left->setText(0, wall);
     item_left->setExpanded(true);
 

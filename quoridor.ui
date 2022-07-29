@@ -2230,7 +2230,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>20</x>
         <y>30</y>
-        <width>681</width>
+        <width>340</width>
         <height>431</height>
        </rect>
       </property>
@@ -2246,6 +2246,60 @@ p, li { white-space: pre-wrap; }
        <property name="font">
         <font>
          <pointsize>13</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget_5">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>30</y>
+        <width>341</width>
+        <height>431</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>OUT</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>dist1</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>dist 2</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>diff</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
          <bold>true</bold>
         </font>
        </property>

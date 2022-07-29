@@ -20,6 +20,14 @@ Quoridor::Quoridor(QWidget *parent)
 
     ui->tableWidget->resizeColumnsToContents();
     ui->tableWidget->resizeRowsToContents();
+    ui->tableWidget_2->resizeColumnsToContents();
+    ui->tableWidget_2->resizeRowsToContents();
+    ui->tableWidget_3->resizeColumnsToContents();
+    ui->tableWidget_3->resizeRowsToContents();
+    ui->tableWidget_4->resizeColumnsToContents();
+    ui->tableWidget_4->resizeRowsToContents();
+    ui->tableWidget_5->resizeColumnsToContents();
+    ui->tableWidget_5->resizeRowsToContents();
 
 
     for (int i=0; i < 17; i++) {
