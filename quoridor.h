@@ -2,6 +2,7 @@
 #define QUORIDOR_H
 
 #include <QMainWindow>
+#include <QTreeWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Quoridor; }
@@ -59,6 +60,10 @@ private slots:
     void evaluate();
 
     bool check_wall_number();
+
+    void display_tree();
+
+    void new_leaf(QTreeWidgetItem*, int);
 
     void shortest_path(place, place, int);
 

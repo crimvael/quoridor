@@ -566,4 +566,3 @@ void Quoridor::on_checkBox_2_clicked()
     if(ui->checkBox->isChecked())
         ui->checkBox->setChecked(false);
 }
-

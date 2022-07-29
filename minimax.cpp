@@ -1,10 +1,11 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-extern QList<snap> IN; extern QList<snap> OUT;
+extern QList<snap> IN; extern QList<snap> OUT; extern QList<snap> all;
 extern QString mover; extern QString move1; extern QString move2;
+extern QList<QTreeWidgetItem> nodes;
 
-QList<snap> IN; QList<snap> OUT;
+QList<snap> IN; QList<snap> OUT; QList<snap> all;
 QString mover; QString move1; QString move2;
 
 void Quoridor::next_move(){
@@ -27,7 +28,8 @@ void Quoridor::next_move(){
         move2 = IN[1].wall;
     }
 
-    int n = 5;
+    int n = 3;
+
 
     while(n > 0){
 
@@ -35,6 +37,7 @@ void Quoridor::next_move(){
 
         if (n == 1){
             evaluate();
+            display_tree();
             OUT.clear();
             break;
         }
@@ -69,37 +72,23 @@ void Quoridor::next_move(){
 void Quoridor::minimax(){
 
     for(int x=0; x<IN.size(); x++){
+
+        all.append(IN[x]);
+
         OUT.append(best_move(IN[x]));
 
         if(check_wall_number())
             OUT.append(best_wall(IN[x]));
     }
 
-    // Create new item (top level item)
-    QTreeWidgetItem *topLevelItem = new QTreeWidgetItem(ui->treeWidget);
-    topLevelItem->setExpanded(true);
-
-    // Set text for item
-    topLevelItem->setText(0,"Item");
-
-    // Add it on our tree as the top item.
-    ui->treeWidget->addTopLevelItem(topLevelItem);
-
-
-    // Create new item and add as child item
-    QTreeWidgetItem *item=new QTreeWidgetItem(topLevelItem);
-    // Set text for item
-    item->setText(0,"SubItem");
-
-
     IN.clear();
 
     for(int x=0; x<OUT.size(); x++){
 
-        if(OUT[x].wall == "e"){
-            OUT.removeAt(x);
-            continue;
-        }
+//        if(OUT[x].wall == "e"){
+//            OUT.removeAt(x);
+//            continue;
+//        }
 
         IN.append(OUT[x]);
     }
@@ -154,6 +143,9 @@ void Quoridor::evaluate(){
 }
 
 snap Quoridor::best_move(snap s){
+
+    if(s.wall == "e")
+        return s;
 
     QList<place> near_nodes;
     int shortest = 999;
@@ -306,6 +298,9 @@ snap Quoridor::best_move(snap s){
 }
 
 snap Quoridor::best_wall(snap s){
+
+    if(s.wall == "e")
+        return s;
 
     int longest = 0;
     int yy = 99;
@@ -509,5 +504,60 @@ snap Quoridor::best_wall(snap s){
     next.wall = "e";
 
     return next;
+
+}
+
+void Quoridor::display_tree(){
+
+    //    // Create new item (top level item)
+    //    QTreeWidgetItem *topLevelItem = new QTreeWidgetItem(ui->treeWidget);
+    //    topLevelItem->setExpanded(true);
+
+    //    // Set text for item
+    //    topLevelItem->setText(0,"Item");
+
+    //    // Add it on our tree as the top item.
+    //    ui->treeWidget->addTopLevelItem(topLevelItem);
+
+
+    //    // Create new item and add as child item
+    //    QTreeWidgetItem *item = new QTreeWidgetItem(topLevelItem);
+    //    // Set text for item
+    //    item->setText(0,"SubItem");
+    //    item->setExpanded(true);
+
+    //    QTreeWidgetItem *item2 = new QTreeWidgetItem(topLevelItem);
+    //    // Set text for item
+    //    item2->setText(0,"SubItem2");
+
+//    for(int i=-1; i<all.size(); i++){
+
+//    }
+
+    QTreeWidgetItem *topLevelItem = new QTreeWidgetItem(ui->treeWidget);
+    topLevelItem->setText(0,"Item");
+    topLevelItem->setExpanded(true);
+
+    ui->treeWidget->addTopLevelItem(topLevelItem);
+
+    new_leaf(topLevelItem, 1);
+
+}
+
+void Quoridor::new_leaf(QTreeWidgetItem* item, int n){
+
+    if(n >= 7)
+        return;
+
+    QTreeWidgetItem *item_right = new QTreeWidgetItem(item);
+    item_right->setText(0,QString::number(n++));
+    item_right->setExpanded(true);
+
+    QTreeWidgetItem *item_left = new QTreeWidgetItem(item);
+    item_left->setText(0,QString::number(n++));
+    item_left->setExpanded(true);
+
+    new_leaf(item_right, n);
+    new_leaf(item_left, n);
 
 }
