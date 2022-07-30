@@ -25,7 +25,7 @@ struct snap {
     QString current_move;
     int board[17][17];
 
-    snap(place pp1, place pp2, int g) : p1(pp1), p2(pp2), goal(g) {}
+    snap(place pp1, place pp2) : p1(pp1), p2(pp2) {}
 };
 
 extern bool window_expanded;

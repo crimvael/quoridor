@@ -5,10 +5,7 @@
 
 bool Quoridor::check_wall_number(){
 
-    if(BLUE && walls_blue > 0)
-        return true;
-
-    if(RED && walls_red > 0)
+    if((BLUE && walls_blue > 0) || (RED && walls_red > 0))
         return true;
 
     return false;
@@ -17,7 +14,7 @@ bool Quoridor::check_wall_number(){
 
 void Quoridor::mouseMoveEvent(QMouseEvent *event){
 
-    if(start){// && check_wall_number()){
+    if(start && check_wall_number()){
 
 
         ui->label_6->setText(QString::number(event->pos().x()) + ", " + QString::number(event->pos().y()));
