@@ -19,8 +19,10 @@ struct snap {
     place p1;
     place p2;
     int goal;
+    int red_w;
+    int blue_w;
     QString root_move = "";
-    QString wall;
+    QString current_move;
     int board[17][17];
 
     snap(place pp1, place pp2, int g) : p1(pp1), p2(pp2), goal(g) {}

@@ -182,10 +182,25 @@ void Quoridor::game_manager()
 
     }
 
-    if(RED){ui->label_9->setText("true"); ui->label_10->setText("false");}
-    if(BLUE){ui->label_9->setText("false"); ui->label_10->setText("true");}
     ui->label_7->setText(QString::number(curr_position[0]) + ", " + QString::number(curr_position[1]));
 
+    for (int y=0; y<17; y++) {
+        for (int x=0; x<17; x++) {
+            board_copy_s[y][x] = board_matrix[y][x];
+        }
+    }
+
+    shortest_path(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x),16);
+    ui->label_9->setText(QString::number(distance));
+
+    for (int y=0; y<17; y++) {
+        for (int x=0; x<17; x++) {
+            board_copy_s[y][x] = board_matrix[y][x];
+        }
+    }
+
+    shortest_path(place(player_blue.last().y, player_blue.last().x), place(player_red.last().y, player_red.last().x),0);
+    ui->label_10->setText(QString::number(distance));
 
     ui->tableWidget_2->setRowCount(0);
     for(int n=0; n < fmax(player_blue.size(), player_red.size()); n++){

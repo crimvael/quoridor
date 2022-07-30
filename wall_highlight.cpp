@@ -17,7 +17,7 @@ bool Quoridor::check_wall_number(){
 
 void Quoridor::mouseMoveEvent(QMouseEvent *event){
 
-    if(start && check_wall_number()){
+    if(start){// && check_wall_number()){
 
 
         ui->label_6->setText(QString::number(event->pos().x()) + ", " + QString::number(event->pos().y()));

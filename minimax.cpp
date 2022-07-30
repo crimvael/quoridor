@@ -9,6 +9,8 @@ void Quoridor::next_move(){
 
     snap curr(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x), 16);
     curr.root_move = "init";
+    curr.red_w = walls_red;
+    curr.blue_w = walls_blue;
 
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {
@@ -28,14 +30,17 @@ void Quoridor::next_move(){
 
     evaluate();
 
+    snap nextm = best_move(curr);
+    snap nextw = best_wall(curr);
+
     if(mover == "move"){
-        snap next = best_move(curr);
-        next_m = "m " + QString::number(next.p2.y) + " " + QString::number(next.p2.x);
+        next_m = "m " + QString::number(nextm.p2.y) + " " + QString::number(nextm.p2.x);
+        ui->label_18->setText("move " + QString::number(nextm.p2.y) + " " + QString::number(nextm.p2.x));
     }
 
-    if(mover == "wall" && check_wall_number()){
-        snap next = best_wall(curr);
-        next_m = next.wall;
+    if(mover == "wall" && check_wall_number() && nextw.current_move != "e"){
+        next_m = nextw.current_move;
+        ui->label_18->setText(next_m);
     }
 
     OUT.clear();
@@ -44,14 +49,11 @@ void Quoridor::next_move(){
     ui->tableWidget_5->resizeRowsToContents();
 
 
-//    if(ui->checkBox->isChecked())
-//        next_m = move1;
+    if(ui->checkBox->isChecked())
+        next_m = nextm.current_move;
 
-//    if(ui->checkBox_2->isChecked() && check_wall_number()){
-//        next_m = move2;
-//        if(move2 == "e")
-//            next_m = move1;
-//    }
+    if(ui->checkBox_2->isChecked() && nextw.current_move != "e")
+        next_m = nextw.current_move;
 
 }
 
@@ -68,15 +70,16 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
     snap m = best_move(s);
     snap w = best_wall(s);
 
-    if(n%2 != 0){move = "blue_move: " + QString::number(m.p2.y) + " " + QString::number(m.p2.x); wall = "blue_wall: " + w.wall;}
-    if(n%2 == 0){move = "red_move: " + QString::number(m.p2.y) + " " + QString::number(m.p2.x); wall = "red_wall: " + w.wall;}
+    if(n%2 != 0){move = "blue_move: " + m.current_move; wall = "blue_wall: " + w.current_move;}
+    if(n%2 == 0){move = "red_move: " + m.current_move; wall = "red_wall: " + w.current_move;}
 
-    if(s.wall == "e"){move = "e"; wall = "e";}
+    if(s.current_move == "e" || w.current_move == "e"){move = "No moves"; wall = "No walls";}
 
     QTreeWidgetItem *item_right = new QTreeWidgetItem(item);
     if(n==1) item_right->setForeground(0, QColor(255, 0, 0));
     item_right->setText(0, move);
     item_right->setExpanded(true);
+
 
     QTreeWidgetItem *item_left = new QTreeWidgetItem(item);
     if(n==1) item_left->setForeground(0, QColor(255, 0, 0));
@@ -90,18 +93,28 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
 
 void Quoridor::evaluate(){
 
+    ui->tableWidget_5->setRowCount(0);
+
     QList<int> diffs;
-    int dist1 = 0;
-    int dist2 = 0;
+    int red_dist = 0;
+    int blue_dist = 0;
     int index = 0;
     int min = 999;
 
     for(int n=0; n<OUT.size(); n++){
 
-        if(OUT[n].wall == "e"){
-            OUT.removeAt(n);
-            continue;
+        for(int n=0; n<OUT.size(); n++){
+
+            if(OUT[n].current_move == "e"){
+                OUT.removeAt(n); n--;
+            }
         }
+
+        ui->tableWidget_5->insertRow(n);
+
+        QTableWidgetItem* item = new QTableWidgetItem(OUT[n].current_move);
+        item->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_5->setItem(n, 0, item);
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -111,7 +124,11 @@ void Quoridor::evaluate(){
 
         shortest_path(OUT[n].p1, OUT[n].p2, 16);
 
-        dist1 = distance;
+        red_dist = distance;
+
+        QTableWidgetItem* item2 = new QTableWidgetItem(QString::number(red_dist));
+        item2->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_5->setItem(n, 1, item2);
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -121,18 +138,30 @@ void Quoridor::evaluate(){
 
         shortest_path(OUT[n].p2, OUT[n].p1, 0);
 
-        dist2 = distance;
+        blue_dist = distance;
 
-        diffs.append(dist1 - dist2);
+        QTableWidgetItem* item3 = new QTableWidgetItem(QString::number(blue_dist));
+        item3->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_5->setItem(n, 2, item3);
+
+        diffs.append(red_dist - blue_dist);
 
     }
 
     for(int n=0; n<diffs.size(); n++){
+
+        QTableWidgetItem* item4 = new QTableWidgetItem(QString::number(diffs[n]));
+        item4->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_5->setItem(n, 3, item4);
+
         if(diffs[n] < min){
             min = diffs[n];
             index = n;
         }
     }
+
+    ui->label_15->setText(QString::number(min));
+    ui->label_16->setText(QString::number(index));
 
     if(OUT[index].root_move == "move")
         mover = "move";
@@ -143,7 +172,7 @@ void Quoridor::evaluate(){
 
 snap Quoridor::best_move(snap s){
 
-    if(s.wall == "e")
+    if(s.current_move == "e")
         return s;
 
     if(s.root_move == "init")
@@ -220,22 +249,22 @@ snap Quoridor::best_move(snap s){
                 jump_left[0] = s.p1.y+2; jump_left[1] = s.p1.x-2;}}}
 
 
-    if(up[0] != -1 && s.board[up[0]][up[1]] != 1){
+    if(up[0] != -1){
         near_nodes.append(place(up[0], up[1]));
     }
-    if(down[0] != -1 && s.board[down[0]][down[1]] != 1){
+    if(down[0] != -1){
         near_nodes.append(place(down[0], down[1]));
     }
-    if(left[0] != -1 && s.board[left[0]][left[1]] != 1){
+    if(left[0] != -1){
         near_nodes.append(place(left[0], left[1]));
     }
-    if(right[0] != -1 && s.board[right[0]][right[1]] != 1){
+    if(right[0] != -1){
         near_nodes.append(place(right[0], right[1]));
     }
-    if(jump_left[0] != -1 && s.board[jump_left[0]][jump_right[1]] != 1){
+    if(jump_left[0] != -1){
         near_nodes.append(place(jump_left[0], jump_left[1]));
     }
-    if(jump_right[0] != -1 && s.board[jump_right[0]][jump_right[1]] != 1){
+    if(jump_right[0] != -1){
         near_nodes.append(place(jump_right[0], jump_right[1]));
     }
 
@@ -269,6 +298,7 @@ snap Quoridor::best_move(snap s){
 
         snap next(s.p2, place(yy, xx), 0);
         next.root_move = s.root_move;
+        next.current_move = "m " + QString::number(yy) + " " + QString::number(xx);
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -283,6 +313,7 @@ snap Quoridor::best_move(snap s){
 
         snap next(s.p2, place(yy, xx), 16);
         next.root_move = s.root_move;
+        next.current_move = "m " + QString::number(yy) + " " + QString::number(xx);
 
         for (int y=0; y < 17; y++) {
             for (int x=0; x < 17; x++) {
@@ -293,7 +324,7 @@ snap Quoridor::best_move(snap s){
         return next;
     }
 
-    s.wall = "e";
+    s.current_move = "e";
 
     return s;
 
@@ -301,7 +332,7 @@ snap Quoridor::best_move(snap s){
 
 snap Quoridor::best_wall(snap s){
 
-    if(s.wall == "e")
+    if(s.current_move == "e")
         return s;
 
     if(s.root_move == "init")
@@ -447,7 +478,7 @@ snap Quoridor::best_wall(snap s){
             if(placeble_1 && placeble_2){
 
                 next.board[yy][xx] = 1; next.board[yy+1][xx] = 1; next.board[yy+2][xx] = 1;
-                next.wall = hv + " " + QString::number(yy) + " " + QString::number(xx);
+                next.current_move = hv + " " + QString::number(yy) + " " + QString::number(xx);
                 placeble_1 = false; placeble_2 = false;
 
                 return next;
@@ -489,7 +520,7 @@ snap Quoridor::best_wall(snap s){
             if(placeble_1 && placeble_2){
 
                 next.board[yy][xx] = 1; next.board[yy][xx+1] = 1; next.board[yy][xx+2] = 1;
-                next.wall = hv + " " + QString::number(yy) + " " + QString::number(xx);
+                next.current_move = hv + " " + QString::number(yy) + " " + QString::number(xx);
                 placeble_1 = false; placeble_2 = false;
 
                 return next;
@@ -506,7 +537,7 @@ snap Quoridor::best_wall(snap s){
         }
     }
 
-    next.wall = "e";
+    next.current_move = "e";
 
     return next;
 

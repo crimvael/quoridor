@@ -97,7 +97,7 @@ QList<place> Quoridor::find_near(place node, place p2){
 
     if(y-2 == opp_y && x == opp_x && board_copy_s[y-1][x] != 1){
         up[0] = -1; up[1] = -1;
-        if(board_copy_s[y-3][x] != 1 && y > 2 && board_copy_s[y-1][x] != 1){
+        if(board_copy_s[y-3][x] != 1 && y > 2){
             up[0] = y-4; up[1] = x;}
         if(board_copy_s[y-3][x] == 1 || y == 2){
             if(board_copy_s[y-2][x+1] != 1 && x < 16){
@@ -140,7 +140,7 @@ QList<place> Quoridor::find_near(place node, place p2){
     if(right[0] != -1 && board_copy_s[right[0]][right[1]] != 1){
         near_nodes.append(place(right[0], right[1]));
     }
-    if(jump_left[0] != -1 && board_copy_s[jump_left[0]][jump_right[1]] != 1){
+    if(jump_left[0] != -1 && board_copy_s[jump_left[0]][jump_left[1]] != 1){
         near_nodes.append(place(jump_left[0], jump_left[1]));
     }
     if(jump_right[0] != -1 && board_copy_s[jump_right[0]][jump_right[1]] != 1){
