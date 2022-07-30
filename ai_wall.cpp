@@ -1,7 +1,7 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-
+// Place a wall on the board
 void Quoridor::ai_wall(QString wall_info){
 
     int n = 0;

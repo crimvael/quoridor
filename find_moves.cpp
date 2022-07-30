@@ -2,6 +2,7 @@
 #include "ui_quoridor.h"
 
 
+// Find the next legal position
 void Quoridor::find_moves()
 {
     move_select = true;

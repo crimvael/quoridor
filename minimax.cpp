@@ -5,6 +5,8 @@ extern QList<snap> final_moves; extern QString mover;
 
 QList<snap> final_moves; QString mover;
 
+
+// Determine the next move to perform
 void Quoridor::next_move(){
 
     snap curr(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x));
@@ -19,7 +21,19 @@ void Quoridor::next_move(){
         }
     }
 
+    snap nextm = best_move(curr);
+    snap nextw = best_wall(curr);
+
+    if(ui->checkBox->isChecked()){
+        next_m = nextm.current_move; return;
+    }
+
+    if(ui->checkBox_2->isChecked() && nextw.current_move != "e"){
+        next_m = nextw.current_move; return;
+    }
+
     ui->treeWidget->clear();
+    ui->tableWidget_5->setRowCount(0);
 
     QTreeWidgetItem *top = new QTreeWidgetItem(ui->treeWidget);
     top->setText(0,"RED_turn");
@@ -30,31 +44,24 @@ void Quoridor::next_move(){
     minimax(curr, ui->comboBox->currentText().toInt(), top);
     evaluate();
 
-    snap nextm = best_move(curr);
-    snap nextw = best_wall(curr);
-
-    if(mover == "move"){
-        next_m = "m " + QString::number(nextm.p2.y) + " " + QString::number(nextm.p2.x);
-        ui->label_18->setText("move " + QString::number(nextm.p2.y) + " " + QString::number(nextm.p2.x));
-    }
-
-    if(mover == "wall" && check_wall_number() && nextw.current_move != "e"){
-        next_m = nextw.current_move;
-        ui->label_18->setText(next_m);
-    }
-
+    ui->treeWidget->resizeColumnToContents(0);
     ui->tableWidget_5->resizeColumnsToContents();
     ui->tableWidget_5->resizeRowsToContents();
 
 
-    if(ui->checkBox->isChecked())
+    if(mover == "move"){
         next_m = nextm.current_move;
+        ui->label_18->setText(next_m);
+    }
 
-    if(ui->checkBox_2->isChecked() && nextw.current_move != "e")
+    if(mover == "wall"){
         next_m = nextw.current_move;
+        ui->label_18->setText(next_m);
+    }
 
 }
 
+// Find all possible combinations of moves
 void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
 
     if(n == 0){
@@ -100,9 +107,8 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
 
 }
 
+// Evaluate each move and find the best one
 void Quoridor::evaluate(){
-
-    ui->tableWidget_5->setRowCount(0);
 
     int diff;
     int red_dist = 0;
@@ -185,6 +191,7 @@ void Quoridor::evaluate(){
 
 }
 
+// Find the best next move position
 snap Quoridor::best_move(snap s){
 
     if(s.current_move == "e")
@@ -329,6 +336,7 @@ snap Quoridor::best_move(snap s){
 
 }
 
+// Find the best next wall to place
 snap Quoridor::best_wall(snap s){
 
     if(s.current_move == "e")

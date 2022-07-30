@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1340</width>
+    <width>600</width>
     <height>750</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1340</width>
+    <width>600</width>
     <height>750</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1340</width>
+    <width>600</width>
     <height>750</height>
    </size>
   </property>
@@ -1531,7 +1531,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>695</y>
+      <y>690</y>
       <width>210</width>
       <height>30</height>
      </rect>
@@ -1552,7 +1552,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>695</y>
+      <y>690</y>
       <width>120</width>
       <height>30</height>
      </rect>
@@ -1573,7 +1573,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>610</y>
+      <y>605</y>
       <width>101</width>
       <height>30</height>
      </rect>
@@ -1592,7 +1592,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>650</y>
+      <y>645</y>
       <width>101</width>
       <height>30</height>
      </rect>
@@ -1611,7 +1611,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>610</y>
+      <y>605</y>
       <width>210</width>
       <height>75</height>
      </rect>
@@ -1634,7 +1634,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>695</y>
+      <y>690</y>
       <width>150</width>
       <height>30</height>
      </rect>
@@ -1666,7 +1666,7 @@ p, li { white-space: pre-wrap; }
      </font>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1681,7 +1681,7 @@ p, li { white-space: pre-wrap; }
         <x>20</x>
         <y>40</y>
         <width>691</width>
-        <height>441</height>
+        <height>461</height>
        </rect>
       </property>
       <property name="editTriggers">
@@ -2036,7 +2036,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>510</y>
         <width>201</width>
         <height>151</height>
@@ -2186,7 +2186,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QTableWidget" name="tableWidget_2">
       <property name="geometry">
        <rect>
-        <x>235</x>
+        <x>225</x>
         <y>510</y>
         <width>181</width>
         <height>160</height>
@@ -2216,7 +2216,7 @@ p, li { white-space: pre-wrap; }
      <widget class="QTableWidget" name="tableWidget_3">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>410</x>
         <y>510</y>
         <width>201</width>
         <height>160</height>
@@ -2246,9 +2246,9 @@ p, li { white-space: pre-wrap; }
      <widget class="QTableWidget" name="tableWidget_4">
       <property name="geometry">
        <rect>
-        <x>625</x>
+        <x>616</x>
         <y>510</y>
-        <width>85</width>
+        <width>94</width>
         <height>160</height>
        </rect>
       </property>
@@ -2307,6 +2307,21 @@ p, li { white-space: pre-wrap; }
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>false</bool>
+      </property>
+      <property name="horizontalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="columnCount">
+       <number>1</number>
+      </property>
+      <attribute name="headerDefaultSectionSize">
+       <number>100</number>
+      </attribute>
       <column>
        <property name="text">
         <string notr="true">minimax tree output</string>
@@ -2438,7 +2453,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>20</x>
         <y>480</y>
-        <width>111</width>
+        <width>221</width>
         <height>34</height>
        </rect>
       </property>
@@ -2449,7 +2464,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>Set tree depth</string>
+       <string>Set tree depth/game difficulty</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_14">
@@ -2493,12 +2508,15 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
      <widget class="QComboBox" name="comboBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>480</y>
+        <x>240</x>
+        <y>483</y>
         <width>51</width>
-        <height>34</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
@@ -2608,52 +2626,52 @@ p, li { white-space: pre-wrap; }
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QCheckBox" name="checkBox_2">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>540</y>
+        <width>201</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>AI place wall only</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>490</y>
+        <width>201</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>AI move piece only</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
     </widget>
-   </widget>
-   <widget class="QCheckBox" name="checkBox">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>610</y>
-      <width>140</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>AI move only</string>
-    </property>
-    <property name="checked">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_2">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>650</y>
-      <width>140</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>AI wall only</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -2661,7 +2679,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1340</width>
+     <width>600</width>
      <height>21</height>
     </rect>
    </property>

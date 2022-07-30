@@ -4,7 +4,8 @@
 
 int distance = 999; int final_y = 99; int final_x = 99;
 
-
+// Calculate the shortest distance to the goal
+// and determine the final position (y, x)
 void Quoridor::shortest_path(place p1, place p2, int goal){
 
     distance = 999;
@@ -17,6 +18,7 @@ void Quoridor::shortest_path(place p1, place p2, int goal){
     find_nodes(path, p2, 0, goal);
 }
 
+// Visit all reachble positions once
 void Quoridor::find_nodes(QList<place> path, place p2, int n, int goal){
 
     if(path.isEmpty())
@@ -48,6 +50,7 @@ void Quoridor::find_nodes(QList<place> path, place p2, int n, int goal){
     find_nodes(new_nodes, p2, ++n, goal);
 }
 
+// Find the next legal positions
 QList<place> Quoridor::find_near(place node, place p2){
 
     board_copy_s[node.y][node.x] = 1;

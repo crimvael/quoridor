@@ -79,6 +79,8 @@ private slots:
 
     void on_newGameButton_clicked();
 
+    void start_new_game();
+
     void undo_last_move();
 
     void find_moves();
@@ -89,7 +91,7 @@ private slots:
 
     void set_players(int, int, int);
 
-    void remove_pawn(int, int);
+    void remove_piece(int, int);
 
     void on_pushButton_0000_clicked();
     void on_pushButton_0002_clicked();

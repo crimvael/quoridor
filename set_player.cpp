@@ -2,6 +2,7 @@
 #include "ui_quoridor.h"
 
 
+// Place the player at (y, x)
 void Quoridor::set_players(int y, int x, int p){
 
     QPixmap pixmap1(":/images/BLUE.png");

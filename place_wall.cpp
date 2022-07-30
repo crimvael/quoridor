@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 
 
+// Set a wall on the game board at the mouse position if possible
 void Quoridor::mousePressEvent(QMouseEvent *event){
 
     if(wall_unlocked && check_wall_number()){

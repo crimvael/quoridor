@@ -50,18 +50,46 @@ Quoridor::~Quoridor()
     delete ui;
 }
 
+// 1 Player
 void Quoridor::on_radioButton_clicked()
 {
     ui->radioButton_2->setChecked(false);
 }
 
+// 2 Players
 void Quoridor::on_radioButton_2_clicked()
 {
     ui->radioButton->setChecked(false);
 }
 
+// New game button
 void Quoridor::on_newGameButton_clicked()
 {
+
+    if(ui->radioButton->isChecked()){
+        ai = true;
+        ui->checkBox->setEnabled(true);
+        ui->checkBox_2->setEnabled(true);
+        ui->comboBox->setEnabled(true);
+        start_new_game();
+    }
+    if(ui->radioButton_2->isChecked()){
+        ai = false;
+        ui->checkBox->setEnabled(false);
+        ui->checkBox_2->setEnabled(false);
+        ui->comboBox->setEnabled(false);
+        start_new_game();
+    }
+
+}
+
+// Start new game
+void Quoridor::start_new_game(){
+
+    ui->treeWidget->clear();
+    ui->tableWidget_5->setRowCount(0);
+    ui->label_15->setText(""); ui->label_16->setText(""); ui->label_18->setText("");
+
     for (int i=0; i < 17; i++) {
         for (int j=0; j < 17; j++) {
             board_matrix[i][j] = 0;
@@ -75,23 +103,12 @@ void Quoridor::on_newGameButton_clicked()
         }
     }
 
-    if(ui->radioButton->isChecked()){
-        ai = true;
-        ui->checkBox->setEnabled(true);
-        ui->checkBox_2->setEnabled(true);
-    }
-    if(ui->radioButton_2->isChecked()){
-        ai = false;
-        ui->checkBox->setEnabled(false);
-        ui->checkBox_2->setEnabled(false);
-    }
-
     if(!player_blue.isEmpty()){
-        remove_pawn(player_blue.last().y, player_blue.last().x);
+        remove_piece(player_blue.last().y, player_blue.last().x);
         player_blue.clear();
     }
     if(!player_red.isEmpty()){
-        remove_pawn(player_red.last().y, player_red.last().x);
+        remove_piece(player_red.last().y, player_red.last().x);
         player_red.clear();
     }
     if(!vertical_walls.isEmpty())
@@ -114,8 +131,10 @@ void Quoridor::on_newGameButton_clicked()
     moves.append("m 2");
     start = true;
     game_manager();
+
 }
 
+// Controls the players
 void Quoridor::game_manager()
 {
 
@@ -165,7 +184,7 @@ void Quoridor::game_manager()
         int x = next_m.split(QChar(' ')).at(2).toInt();
 
         if(next_m.at(0) == 'm'){
-            remove_pawn(curr_position[0], curr_position[1]);
+            remove_piece(curr_position[0], curr_position[1]);
             set_players(y, x, 2);
             moves.append("m 2");
             player_red.append(place(y, x));
@@ -249,6 +268,8 @@ void Quoridor::game_manager()
 
 }
 
+// Place a wall at (y, x) and
+// check if the BLUE player can reach the goal
 void Quoridor::check_placeble_1(int y, int x){
 
     if(y == 0){
@@ -279,6 +300,8 @@ void Quoridor::check_placeble_1(int y, int x){
     return;
 }
 
+// Place a wall at (y, x) and
+// check if the RED player can reach the goal
 void Quoridor::check_placeble_2(int y, int x){
 
     if(y == 16){
@@ -310,6 +333,7 @@ void Quoridor::check_placeble_2(int y, int x){
     return;
 }
 
+// Display walls
 void Quoridor::paintEvent(QPaintEvent *){
 
     QPainter paint(this);
@@ -330,6 +354,7 @@ void Quoridor::paintEvent(QPaintEvent *){
 
 }
 
+// Undo last move or wall
 void Quoridor::on_undoButton_clicked()
 {
     if(start){
@@ -339,6 +364,9 @@ void Quoridor::on_undoButton_clicked()
             if(ai){
                 if(moves.size() > 2)
                     undo_last_move();
+                ui->treeWidget->clear();
+                ui->tableWidget_5->setRowCount(0);
+                ui->label_15->setText(""); ui->label_16->setText(""); ui->label_18->setText("");
             }
         }
     }
@@ -347,6 +375,7 @@ void Quoridor::on_undoButton_clicked()
     return;
 }
 
+// Undo last move or wall
 void Quoridor::undo_last_move()
 {
     if(moves.last().at(0) == 'v'){
@@ -373,20 +402,21 @@ void Quoridor::undo_last_move()
         if(RED){BLUE = true; RED = false; walls_blue++; moves.removeLast(); return;}}
     if(moves.last().at(0) == 'm'){
         if(moves.last().at(2) == '1'){
-            remove_pawn(player_blue.last().y, player_blue.last().x);
+            remove_piece(player_blue.last().y, player_blue.last().x);
             set_players(player_blue[player_blue.length()-2].y, player_blue[player_blue.length()-2].x, 1);
             BLUE = true; RED = false;
             player_blue.removeLast();
             moves.removeLast(); return;}
         if(moves.last().at(2) == '2'){
-            remove_pawn(player_red.last().y, player_red.last().x);
+            remove_piece(player_red.last().y, player_red.last().x);
             set_players(player_red[player_red.length()-2].y, player_red[player_red.length()-2].x, 2);
             BLUE = false; RED = true;
             player_red.removeLast();
             moves.removeLast(); return;}}
 }
 
-void Quoridor::remove_pawn(int y, int x){
+// Remove the player at (y, x)
+void Quoridor::remove_piece(int y, int x){
 
     if(y == 0 && x == 0) ui->pushButton_0000->setIcon(QIcon());
     if(y == 0 && x == 2) ui->pushButton_0002->setIcon(QIcon());
@@ -471,6 +501,7 @@ void Quoridor::remove_pawn(int y, int x){
     if(y == 16 && x == 16) ui->pushButton_1616->setIcon(QIcon());
 }
 
+// Set all buttons clickable
 void Quoridor::reset_buttons()
 {
     move_select = false;
@@ -560,6 +591,7 @@ void Quoridor::reset_buttons()
     ui->pushButton_1616->setEnabled(true);
 }
 
+// Show more details of the game
 void Quoridor::on_details_Button_clicked()
 {
     if(!window_expanded){
@@ -576,14 +608,14 @@ void Quoridor::on_details_Button_clicked()
     }
 }
 
-
+// Force computer to move piece only
 void Quoridor::on_checkBox_clicked()
 {
     if(ui->checkBox_2->isChecked())
         ui->checkBox_2->setChecked(false);
 }
 
-
+// Force computer to place walls only
 void Quoridor::on_checkBox_2_clicked()
 {
     if(ui->checkBox->isChecked())

@@ -12,6 +12,7 @@ bool Quoridor::check_wall_number(){
 
 }
 
+// Show placeble wall at mouse position
 void Quoridor::mouseMoveEvent(QMouseEvent *event){
 
     if(start && check_wall_number()){
