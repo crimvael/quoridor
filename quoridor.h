@@ -36,7 +36,8 @@ extern bool BLUE; extern bool RED;
 extern int walls_blue; extern int walls_red; extern bool move_select; extern bool placeble;
 extern QList<place> player_blue; extern QList<place> player_red; extern QList<place> vertical_walls; extern QList<place> horizontal_walls; extern QList<QString> moves;
 extern int board_matrix[17][17]; extern int board_copy_1[17][17]; extern int board_copy_2[17][17]; extern int board_copy_s[17][17];
-extern int distance; extern int final_y; extern int final_x; extern QString next_m;
+extern int distance; extern int final_pos[]; extern QString next_m;
+extern QList<snap> final_moves;
 
 class Quoridor : public QMainWindow
 {

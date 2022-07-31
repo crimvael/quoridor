@@ -2,15 +2,14 @@
 #include "ui_quoridor.h"
 
 
-int distance = 999; int final_y = 99; int final_x = 99;
+int distance = 999; int final_pos[] = {99, 99};
 
 // Calculate the shortest distance to the goal
 // and determine the final position (y, x)
 void Quoridor::shortest_path(place p1, place p2, int goal){
 
     distance = 999;
-    final_y = 99;
-    final_x = 99;
+    final_pos[0] = 99; final_pos[1] = 99;
 
     QList<place> path;
     path.append(place(p1.y, p1.x));
@@ -40,7 +39,7 @@ void Quoridor::find_nodes(QList<place> path, place p2, int n, int goal){
             for(int i=0; i < near_nodes.size(); i++){
                 // check if reached goal
                 if(near_nodes[i].y == goal){
-                    final_y = near_nodes[i].y; final_x = near_nodes[i].x;
+                    final_pos[0] = near_nodes[i].y; final_pos[1] = near_nodes[i].x;
                     distance = n+1; return;}
                 new_nodes.append(near_nodes[i]);
             }

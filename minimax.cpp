@@ -1,13 +1,14 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-extern QList<snap> final_moves; extern QString mover;
-
-QList<snap> final_moves; QString mover;
+QList<snap> final_moves;
 
 
 // Determine the next move to perform
 void Quoridor::next_move(){
+
+    ui->treeWidget->clear();
+    ui->tableWidget_5->setRowCount(0);
 
     snap curr(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x));
     curr.root_move = "init";
@@ -21,19 +22,14 @@ void Quoridor::next_move(){
         }
     }
 
-    snap nextm = best_move(curr);
-    snap nextw = best_wall(curr);
-
     if(ui->checkBox->isChecked()){
-        next_m = nextm.current_move; return;
+        next_m = best_move(curr).current_move; return;
     }
 
-    if(ui->checkBox_2->isChecked() && nextw.current_move != "e"){
-        next_m = nextw.current_move; return;
+    if(ui->checkBox_2->isChecked() && best_wall(curr).current_move != "e"){
+        next_m = best_wall(curr).current_move; return;
     }
 
-    ui->treeWidget->clear();
-    ui->tableWidget_5->setRowCount(0);
 
     QTreeWidgetItem *top = new QTreeWidgetItem(ui->treeWidget);
     top->setText(0,"RED_turn");
@@ -47,17 +43,6 @@ void Quoridor::next_move(){
     ui->treeWidget->resizeColumnToContents(0);
     ui->tableWidget_5->resizeColumnsToContents();
     ui->tableWidget_5->resizeRowsToContents();
-
-
-    if(mover == "move"){
-        next_m = nextm.current_move;
-        ui->label_18->setText(next_m);
-    }
-
-    if(mover == "wall"){
-        next_m = nextw.current_move;
-        ui->label_18->setText(next_m);
-    }
 
 }
 
@@ -193,11 +178,8 @@ void Quoridor::evaluate(){
     ui->label_15->setText(QString::number(min));
     ui->label_16->setText(QString::number(index));
 
-    if(final_moves[index].root_move == "move")
-        mover = "move";
-    if(final_moves[index].root_move == "wall")
-        mover = "wall";
 
+    next_m = final_moves[index].root_move;
 
     final_moves.clear();
 
@@ -208,9 +190,6 @@ snap Quoridor::best_move(snap s){
 
     if(s.current_move == "e")
         return s;
-
-    if(s.root_move == "init")
-        s.root_move = "move";
 
     QList<place> near_nodes;
     int shortest = 999;
@@ -335,8 +314,11 @@ snap Quoridor::best_move(snap s){
     if(s.goal == 0)
         next.goal = 16;
 
-    next.root_move = s.root_move;
     next.current_move = "m " + QString::number(yy) + " " + QString::number(xx);
+
+    if(s.root_move == "init")
+        s.root_move = next.current_move;
+    next.root_move = s.root_move;
 
     for (int y=0; y < 17; y++) {
         for (int x=0; x < 17; x++) {
@@ -360,8 +342,6 @@ snap Quoridor::best_wall(snap s){
         return no_wall;
     }
 
-    if(s.root_move == "init")
-        s.root_move = "wall";
 
     int longest = 0;
     int yy = 99;
@@ -471,7 +451,6 @@ snap Quoridor::best_wall(snap s){
     if(hv == "v"){
 
         snap next(s.p1, s.p2);
-        next.root_move = s.root_move;
 
         if(s.goal == 0){
             next.goal = 16; next.p1 = s.p2; next.p2 = s.p1; s.blue_w--;
@@ -501,9 +480,16 @@ snap Quoridor::best_wall(snap s){
 
             if(placeble_1 && placeble_2){
 
-                next.board[yy][xx] = 1; next.board[yy+1][xx] = 1; next.board[yy+2][xx] = 1;
-                next.current_move = hv + " " + QString::number(yy) + " " + QString::number(xx);
                 placeble_1 = false; placeble_2 = false;
+
+                next.board[yy][xx] = 1; next.board[yy+1][xx] = 1; next.board[yy+2][xx] = 1;
+
+                next.current_move = hv + " " + QString::number(yy) + " " + QString::number(xx);
+
+                if(s.root_move == "init")
+                    s.root_move = next.current_move;
+
+                next.root_move = s.root_move;
 
                 return next;
             }
@@ -543,9 +529,15 @@ snap Quoridor::best_wall(snap s){
 
             if(placeble_1 && placeble_2){
 
+                placeble_1 = false; placeble_2 = false;
+
                 next.board[yy][xx] = 1; next.board[yy][xx+1] = 1; next.board[yy][xx+2] = 1;
                 next.current_move = hv + " " + QString::number(yy) + " " + QString::number(xx);
-                placeble_1 = false; placeble_2 = false;
+
+                if(s.root_move == "init")
+                    s.root_move = next.current_move;
+
+                next.root_move = s.root_move;
 
                 return next;
             }
