@@ -2288,7 +2288,7 @@ p, li { white-space: pre-wrap; }
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>AI</string>
+      <string>Minimax</string>
      </attribute>
      <widget class="QTreeWidget" name="treeWidget">
       <property name="geometry">
@@ -2633,9 +2633,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>540</y>
-        <width>201</width>
-        <height>30</height>
+        <y>519</y>
+        <width>181</width>
+        <height>35</height>
        </rect>
       </property>
       <property name="font">
@@ -2644,7 +2644,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>AI place wall only</string>
+       <string>Place wall only</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBox">
@@ -2654,9 +2654,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>490</y>
-        <width>201</width>
-        <height>30</height>
+        <y>480</y>
+        <width>181</width>
+        <height>34</height>
        </rect>
       </property>
       <property name="font">
@@ -2665,7 +2665,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="text">
-       <string>AI move piece only</string>
+       <string>Move piece only</string>
       </property>
       <property name="checked">
        <bool>false</bool>

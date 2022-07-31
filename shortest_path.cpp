@@ -18,7 +18,7 @@ void Quoridor::shortest_path(place p1, place p2, int goal){
     find_nodes(path, p2, 0, goal);
 }
 
-// Visit all reachble positions once
+// Visit all reachable positions once
 void Quoridor::find_nodes(QList<place> path, place p2, int n, int goal){
 
     if(path.isEmpty())

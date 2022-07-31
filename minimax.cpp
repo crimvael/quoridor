@@ -41,7 +41,7 @@ void Quoridor::next_move(){
 
     ui->treeWidget->addTopLevelItem(top);
 
-    minimax(curr, ui->comboBox->currentText().toInt(), top);
+    minimax(curr, 0, top);
     evaluate();
 
     ui->treeWidget->resizeColumnToContents(0);
@@ -64,7 +64,7 @@ void Quoridor::next_move(){
 // Find all possible combinations of moves
 void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
 
-    if(n == 0){
+    if(n == ui->comboBox->currentText().toInt()){
         final_moves.append(s);
         return;
     }
@@ -84,7 +84,7 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
     QTreeWidgetItem *item_right = new QTreeWidgetItem(item);
     QTreeWidgetItem *item_left = new QTreeWidgetItem(item);
 
-    if(n==1) {
+    if(n == ui->comboBox->currentText().toInt()-1) {
 
         item_right->setForeground(0, QColor(0, 200, 0));
         item_left->setForeground(0, QColor(0, 200, 0));
@@ -102,15 +102,15 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
     item_right->setExpanded(true);
     item_left->setExpanded(true);
 
-    minimax(m, n-1, item_right);
-    minimax(w, n-1, item_left);
+    minimax(m, n+1, item_right);
+    minimax(w, n+1, item_left);
 
 }
 
 // Evaluate each move and find the best one
 void Quoridor::evaluate(){
 
-    int diff;
+    int diff = 999;
     int red_dist = 0;
     int blue_dist = 0;
     int index = 0;
@@ -132,7 +132,12 @@ void Quoridor::evaluate(){
             }
         }
 
-        shortest_path(final_moves[n].p1, final_moves[n].p2, 16);
+        if(ui->comboBox->currentText().toInt()%2 == 0){
+            shortest_path(final_moves[n].p1, final_moves[n].p2, 16);
+        }
+        else{
+            shortest_path(final_moves[n].p2, final_moves[n].p1, 16);
+        }
 
         red_dist = distance;
 
@@ -142,7 +147,12 @@ void Quoridor::evaluate(){
             }
         }
 
-        shortest_path(final_moves[n].p2, final_moves[n].p1, 0);
+        if(ui->comboBox->currentText().toInt()%2 == 0){
+            shortest_path(final_moves[n].p2, final_moves[n].p1, 0);
+        }
+        else{
+            shortest_path(final_moves[n].p1, final_moves[n].p2, 0);
+        }
 
         blue_dist = distance;
 
@@ -170,6 +180,9 @@ void Quoridor::evaluate(){
         item5->setTextAlignment(Qt::AlignCenter);
         ui->tableWidget_5->setItem(n, 4, item5);
 
+        if(blue_dist == 999 || red_dist == 999)
+            continue;
+
         if(diff < min){
             min = diff;
             index = n;
@@ -184,7 +197,6 @@ void Quoridor::evaluate(){
         mover = "move";
     if(final_moves[index].root_move == "wall")
         mover = "wall";
-
 
 
     final_moves.clear();
@@ -371,8 +383,8 @@ snap Quoridor::best_wall(snap s){
 
     longest = distance;
 
-    for (int y=s.p2.y-6; y<15; y++) {
-        for (int x=s.p2.x-6; x<15; x++) {
+    for (int y=0; y<15; y++) {
+        for (int x=0; x<15; x++) {
             if(y >= 0 && x >= 0){
                 if(y%2 == 0 && x%2 != 0)
                     if(s.board[y][x] != 1 && s.board[y+1][x] != 1 && s.board[y+2][x] != 1){

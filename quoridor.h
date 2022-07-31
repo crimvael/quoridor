@@ -89,6 +89,8 @@ private slots:
 
     void game_manager();
 
+    void game_over();
+
     void set_players(int, int, int);
 
     void remove_piece(int, int);

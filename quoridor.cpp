@@ -33,11 +33,11 @@ Quoridor::Quoridor(QWidget *parent)
     for (int i=0; i < 17; i++) {
         for (int j=0; j < 17; j++) {
             board_matrix[i][j] = 0;
-            QTableWidgetItem* item = new QTableWidgetItem("0");
+            QTableWidgetItem* item = new QTableWidgetItem("*");
             item->setTextAlignment(Qt::AlignCenter);
             if(i%2 == 0 && j%2 == 0){
                 item->setBackground(QColor(153, 255, 153));
-                item->setText("X");
+                item->setText("O");
             }
             ui->tableWidget->setItem(i, j, item);
         }
@@ -93,11 +93,11 @@ void Quoridor::start_new_game(){
     for (int i=0; i < 17; i++) {
         for (int j=0; j < 17; j++) {
             board_matrix[i][j] = 0;
-            QTableWidgetItem* item = new QTableWidgetItem("0");
+            QTableWidgetItem* item = new QTableWidgetItem("*");
             item->setTextAlignment(Qt::AlignCenter);
             if(i%2 == 0 && j%2 == 0){
                 item->setBackground(QColor(153, 255, 153));
-                item->setText("X");
+                item->setText("O");
             }
             ui->tableWidget->setItem(i, j, item);
         }
@@ -134,7 +134,7 @@ void Quoridor::start_new_game(){
 
 }
 
-// Controls the players
+// Coordinates the game
 void Quoridor::game_manager()
 {
 
@@ -161,12 +161,12 @@ void Quoridor::game_manager()
 
     if(player_blue.last().y == 0){
         winner = "<br><span style='color: blue'>BLUE</span> wins!</br>";
-        start = false;
+        game_over();
     }
 
     if(player_red.last().y == 16){
         winner = "<br><span style='color: red'>RED</span> wins!</br>";
-        start = false;
+        game_over();
     }
 
 
@@ -265,6 +265,11 @@ void Quoridor::game_manager()
     ui->tableWidget_3->resizeRowsToContents();
     ui->tableWidget_4->resizeColumnsToContents();
     ui->tableWidget_4->resizeRowsToContents();
+
+}
+
+// Game Over
+void Quoridor::game_over(){
 
 }
 
