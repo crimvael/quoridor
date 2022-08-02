@@ -1,11 +1,13 @@
 #include "quoridor.h"
 #include "ui_quoridor.h"
 
-QList<snap> final_moves;
-
+extern int best_diff;
+int best_diff = 999;
 
 // Determine the next move to perform
 void Quoridor::next_move(){
+
+    best_diff = 999;
 
     ui->treeWidget->clear();
     ui->tableWidget_5->setRowCount(0);
@@ -38,21 +40,95 @@ void Quoridor::next_move(){
     ui->treeWidget->addTopLevelItem(top);
 
     minimax(curr, 0, top);
-    evaluate();
 
     ui->treeWidget->resizeColumnToContents(0);
     ui->tableWidget_5->resizeColumnsToContents();
     ui->tableWidget_5->resizeRowsToContents();
+    ui->label_18->setText(next_m);
 
 }
 
 // Find all possible combinations of moves
+// and choose the best one
 void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
 
     if(n == ui->comboBox->currentText().toInt()){
-        final_moves.append(s);
+
+        if(s.current_move == "e")
+            return;
+
+        int diff = 999;
+        int red_dist = 0;
+        int blue_dist = 0;
+
+        for (int y=0; y < 17; y++) {
+            for (int x=0; x < 17; x++) {
+                board_copy_s[y][x] = s.board[y][x];
+            }
+        }
+
+        if(ui->comboBox->currentText().toInt()%2 == 0){
+            shortest_path(s.p1, s.p2, 16);
+        }
+        else{
+            shortest_path(s.p2, s.p1, 16);
+        }
+
+        red_dist = distance;
+
+        for (int y=0; y < 17; y++) {
+            for (int x=0; x < 17; x++) {
+                board_copy_s[y][x] = s.board[y][x];
+            }
+        }
+
+        if(ui->comboBox->currentText().toInt()%2 == 0){
+            shortest_path(s.p2, s.p1, 0);
+        }
+        else{
+            shortest_path(s.p1, s.p2, 0);
+        }
+
+        blue_dist = distance;
+
+        diff = red_dist - blue_dist;
+
+        int x = ui->tableWidget_5->rowCount();
+        ui->tableWidget_5->insertRow(x);
+
+        QTableWidgetItem* item = new QTableWidgetItem(s.current_move);
+        item->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_5->setItem(x, 0, item);
+
+        QTableWidgetItem* item2 = new QTableWidgetItem(QString::number(red_dist));
+        item2->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_5->setItem(x, 1, item2);
+
+        QTableWidgetItem* item3 = new QTableWidgetItem(QString::number(blue_dist));
+        item3->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_5->setItem(x, 2, item3);
+
+        QTableWidgetItem* item4 = new QTableWidgetItem(QString::number(diff));
+        item4->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_5->setItem(x, 3, item4);
+
+        QTableWidgetItem* item5 = new QTableWidgetItem(s.root_move);
+        item5->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_5->setItem(x, 4, item5);
+
+        if(blue_dist == 999 || red_dist == 999)
+            return;
+
+        if(diff < best_diff){
+            best_diff = diff;
+            next_m = s.root_move;
+        }
+
+        ui->label_15->setText(QString::number(best_diff));
+
         return;
     }
+
 
     QString move = "";
     QString wall = "";
@@ -89,99 +165,6 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
 
     minimax(m, n+1, item_right);
     minimax(w, n+1, item_left);
-
-}
-
-// Evaluate each move and find the best one
-void Quoridor::evaluate(){
-
-    int diff = 999;
-    int red_dist = 0;
-    int blue_dist = 0;
-    int index = 0;
-    int min = 999;
-
-    for(int n=0; n<final_moves.size(); n++){
-
-        for(int n=0; n<final_moves.size(); n++){
-
-            if(final_moves[n].current_move == "e"){
-                final_moves.removeAt(n);
-                n--;
-            }
-        }
-
-        for (int y=0; y < 17; y++) {
-            for (int x=0; x < 17; x++) {
-                board_copy_s[y][x] = final_moves[n].board[y][x];
-            }
-        }
-
-        if(ui->comboBox->currentText().toInt()%2 == 0){
-            shortest_path(final_moves[n].p1, final_moves[n].p2, 16);
-        }
-        else{
-            shortest_path(final_moves[n].p2, final_moves[n].p1, 16);
-        }
-
-        red_dist = distance;
-
-        for (int y=0; y < 17; y++) {
-            for (int x=0; x < 17; x++) {
-                board_copy_s[y][x] = final_moves[n].board[y][x];
-            }
-        }
-
-        if(ui->comboBox->currentText().toInt()%2 == 0){
-            shortest_path(final_moves[n].p2, final_moves[n].p1, 0);
-        }
-        else{
-            shortest_path(final_moves[n].p1, final_moves[n].p2, 0);
-        }
-
-        blue_dist = distance;
-
-        diff = red_dist - blue_dist;
-
-        ui->tableWidget_5->insertRow(n);
-
-        QTableWidgetItem* item = new QTableWidgetItem(final_moves[n].current_move);
-        item->setTextAlignment(Qt::AlignCenter);
-        ui->tableWidget_5->setItem(n, 0, item);
-
-        QTableWidgetItem* item2 = new QTableWidgetItem(QString::number(red_dist));
-        item2->setTextAlignment(Qt::AlignCenter);
-        ui->tableWidget_5->setItem(n, 1, item2);
-
-        QTableWidgetItem* item3 = new QTableWidgetItem(QString::number(blue_dist));
-        item3->setTextAlignment(Qt::AlignCenter);
-        ui->tableWidget_5->setItem(n, 2, item3);
-
-        QTableWidgetItem* item4 = new QTableWidgetItem(QString::number(diff));
-        item4->setTextAlignment(Qt::AlignCenter);
-        ui->tableWidget_5->setItem(n, 3, item4);
-
-        QTableWidgetItem* item5 = new QTableWidgetItem(final_moves[n].root_move);
-        item5->setTextAlignment(Qt::AlignCenter);
-        ui->tableWidget_5->setItem(n, 4, item5);
-
-        if(blue_dist == 999 || red_dist == 999)
-            continue;
-
-        if(diff < min){
-            min = diff;
-            index = n;
-        }
-
-    }
-
-    ui->label_15->setText(QString::number(min));
-    ui->label_16->setText(QString::number(index));
-
-
-    next_m = final_moves[index].root_move;
-
-    final_moves.clear();
 
 }
 

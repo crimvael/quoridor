@@ -60,8 +60,6 @@ private slots:
 
     void minimax(snap s, int n, QTreeWidgetItem*);
 
-    void evaluate();
-
     bool check_wall_number();
 
     void shortest_path(place, place, int);

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>1500</width>
     <height>750</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
+    <width>1500</width>
     <height>750</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>600</width>
+    <width>1500</width>
     <height>750</height>
    </size>
   </property>
@@ -1666,7 +1666,7 @@ p, li { white-space: pre-wrap; }
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -2414,7 +2414,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>600</y>
+        <y>590</y>
         <width>121</width>
         <height>34</height>
        </rect>
@@ -2433,7 +2433,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>519</y>
+        <y>549</y>
         <width>159</width>
         <height>35</height>
        </rect>
@@ -2452,7 +2452,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>480</y>
+        <y>510</y>
         <width>221</width>
         <height>34</height>
        </rect>
@@ -2467,30 +2467,11 @@ p, li { white-space: pre-wrap; }
        <string>Set tree depth/game difficulty</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_14">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>560</y>
-        <width>51</width>
-        <height>34</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Index:</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_18">
       <property name="geometry">
        <rect>
         <x>140</x>
-        <y>600</y>
+        <y>590</y>
         <width>61</width>
         <height>34</height>
        </rect>
@@ -2514,7 +2495,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>240</x>
-        <y>483</y>
+        <y>513</y>
         <width>51</width>
         <height>31</height>
        </rect>
@@ -2584,32 +2565,11 @@ p, li { white-space: pre-wrap; }
        </property>
       </item>
      </widget>
-     <widget class="QLabel" name="label_16">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>560</y>
-        <width>31</width>
-        <height>34</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_15">
       <property name="geometry">
        <rect>
         <x>170</x>
-        <y>519</y>
+        <y>549</y>
         <width>31</width>
         <height>35</height>
        </rect>
@@ -2633,7 +2593,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>519</y>
+        <y>549</y>
         <width>181</width>
         <height>35</height>
        </rect>
@@ -2654,7 +2614,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>350</x>
-        <y>480</y>
+        <y>510</y>
         <width>181</width>
         <height>34</height>
        </rect>
@@ -2679,7 +2639,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>1500</width>
      <height>21</height>
     </rect>
    </property>

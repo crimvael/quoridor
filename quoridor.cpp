@@ -88,7 +88,7 @@ void Quoridor::start_new_game(){
 
     ui->treeWidget->clear();
     ui->tableWidget_5->setRowCount(0);
-    ui->label_15->setText(""); ui->label_16->setText(""); ui->label_18->setText("");
+    ui->label_15->setText(""); ui->label_18->setText("");
 
     for (int i=0; i < 17; i++) {
         for (int j=0; j < 17; j++) {
@@ -371,7 +371,7 @@ void Quoridor::on_undoButton_clicked()
                     undo_last_move();
                 ui->treeWidget->clear();
                 ui->tableWidget_5->setRowCount(0);
-                ui->label_15->setText(""); ui->label_16->setText(""); ui->label_18->setText("");
+                ui->label_15->setText(""); ui->label_18->setText("");
             }
         }
     }
