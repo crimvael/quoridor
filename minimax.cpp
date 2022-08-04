@@ -50,9 +50,9 @@ void Quoridor::next_move(){
 
 // Find all possible combinations of moves
 // and choose the best one
-void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
+void Quoridor::minimax(snap s, int depth, QTreeWidgetItem* item){
 
-    if(n == ui->comboBox->currentText().toInt()){
+    if(depth == ui->comboBox->currentText().toInt()){
 
         if(s.current_move == "e")
             return;
@@ -136,8 +136,8 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
     snap m = best_move(s);
     snap w = best_wall(s);
 
-    if(n%2 != 0){move = "BLUE_move: " + m.current_move; wall = "BLUE_wall: " + w.current_move;}
-    if(n%2 == 0){move = "RED_move: " + m.current_move; wall = "RED_wall: " + w.current_move;}
+    if(depth%2 != 0){move = "BLUE_move: " + m.current_move; wall = "BLUE_wall: " + w.current_move;}
+    if(depth%2 == 0){move = "RED_move: " + m.current_move; wall = "RED_wall: " + w.current_move;}
 
     if(w.current_move == "e") wall = "No wall";
     if(s.current_move == "e") move = "No move";
@@ -145,7 +145,7 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
     QTreeWidgetItem *item_right = new QTreeWidgetItem(item);
     QTreeWidgetItem *item_left = new QTreeWidgetItem(item);
 
-    if(n == ui->comboBox->currentText().toInt()-1) {
+    if(depth == ui->comboBox->currentText().toInt()-1) {
 
         item_right->setForeground(0, QColor(0, 200, 0));
         item_left->setForeground(0, QColor(0, 200, 0));
@@ -163,8 +163,8 @@ void Quoridor::minimax(snap s, int n, QTreeWidgetItem* item){
     item_right->setExpanded(true);
     item_left->setExpanded(true);
 
-    minimax(m, n+1, item_right);
-    minimax(w, n+1, item_left);
+    minimax(m, depth+1, item_right);
+    minimax(w, depth+1, item_left);
 
 }
 
