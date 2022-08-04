@@ -87,10 +87,8 @@ QList<place> Quoridor::find_near(place node, place p2){
 
 
     if(y == opp_y && x-2 == opp_x && board_copy_s[y][x-1] != 1){
-        left[0] = -1; left[1] = -1;
-        if(board_copy_s[y][x-3] != 1 && x > 2){
-            left[0] = y; left[1] = x-4;}
         if(board_copy_s[y][x-3] == 1 || x == 2){
+            left[0] = -1; left[1] = -1;
             if(board_copy_s[y-1][x-2] != 1 && y > 0){
                 jump_right[0] = y-2; jump_right[1] = x-2;}
             if(board_copy_s[y+1][x-2] != 1 && y < 16){
@@ -98,10 +96,8 @@ QList<place> Quoridor::find_near(place node, place p2){
 
 
     if(y-2 == opp_y && x == opp_x && board_copy_s[y-1][x] != 1){
-        up[0] = -1; up[1] = -1;
-        if(board_copy_s[y-3][x] != 1 && y > 2){
-            up[0] = y-4; up[1] = x;}
         if(board_copy_s[y-3][x] == 1 || y == 2){
+            up[0] = -1; up[1] = -1;
             if(board_copy_s[y-2][x+1] != 1 && x < 16){
                 jump_right[0] = y-2; jump_right[1] = x+2;}
             if(board_copy_s[y-2][x-1] != 1 && x > 0){
@@ -109,10 +105,8 @@ QList<place> Quoridor::find_near(place node, place p2){
 
 
     if(y == opp_y && x+2 == opp_x && board_copy_s[y][x+1] != 1){
-        right[0] = -1; right[1] = -1;
-        if(board_copy_s[y][x+3] != 1 && x < 14){
-            right[0] = y; right[1] = x+4;}
         if(board_copy_s[y][x+3] == 1 || x == 14){
+            right[0] = -1; right[1] = -1;
             if(board_copy_s[y+1][x+2] != 1 && y < 16){
                 jump_right[0] = y+2; jump_right[1] = x+2;}
             if(board_copy_s[y-1][x+2] != 1 && y > 0){
@@ -120,10 +114,8 @@ QList<place> Quoridor::find_near(place node, place p2){
 
 
     if(y+2 == opp_y && x == opp_x && board_copy_s[y+1][x] != 1){
-        down[0] = -1; down[1] = -1;
-        if(board_copy_s[y+3][x] != 1 && y < 14){
-            down[0] = y+4; down[1] = x;}
         if(board_copy_s[y+3][x] == 1 || y == 14){
+            down[0] = -1; down[1] = -1;
             if(board_copy_s[y+2][x+1] != 1 && x < 16){
                 jump_right[0] = y+2; jump_right[1] = x+2;}
             if(board_copy_s[y+2][x-1] != 1 && x > 0){
