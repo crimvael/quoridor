@@ -3,6 +3,7 @@
 
 
 // Find the next legal position
+// for 2 players mode
 void Quoridor::find_moves()
 {
     move_select = true;
