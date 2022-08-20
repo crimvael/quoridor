@@ -11,6 +11,11 @@ void Quoridor::shortest_path(place p1, place p2, int goal){
     distance = 999;
     final_pos[0] = 99; final_pos[1] = 99;
 
+    if((p1.y == 16 && goal == 16) || (p1.y == 0 && goal == 0)){
+        distance = 0;
+        final_pos[0] = p1.y; final_pos[1] = p1.x;
+    }
+
     QList<place> path;
     path.append(place(p1.y, p1.x));
 
@@ -87,7 +92,7 @@ QList<place> Quoridor::find_near(place node, place p2){
 
 
     if(y == opp_y && x-2 == opp_x && board_copy_s[y][x-1] != 1){
-        if(board_copy_s[y][x-3] == 1 || x == 2){
+        if(board_copy_s[y][x-3] == 1){
             left[0] = -1; left[1] = -1;
             if(board_copy_s[y-1][x-2] != 1 && y > 0){
                 jump_right[0] = y-2; jump_right[1] = x-2;}
@@ -96,7 +101,7 @@ QList<place> Quoridor::find_near(place node, place p2){
 
 
     if(y-2 == opp_y && x == opp_x && board_copy_s[y-1][x] != 1){
-        if(board_copy_s[y-3][x] == 1 || y == 2){
+        if(board_copy_s[y-3][x] == 1){
             up[0] = -1; up[1] = -1;
             if(board_copy_s[y-2][x+1] != 1 && x < 16){
                 jump_right[0] = y-2; jump_right[1] = x+2;}
@@ -105,7 +110,7 @@ QList<place> Quoridor::find_near(place node, place p2){
 
 
     if(y == opp_y && x+2 == opp_x && board_copy_s[y][x+1] != 1){
-        if(board_copy_s[y][x+3] == 1 || x == 14){
+        if(board_copy_s[y][x+3] == 1){
             right[0] = -1; right[1] = -1;
             if(board_copy_s[y+1][x+2] != 1 && y < 16){
                 jump_right[0] = y+2; jump_right[1] = x+2;}
@@ -114,7 +119,7 @@ QList<place> Quoridor::find_near(place node, place p2){
 
 
     if(y+2 == opp_y && x == opp_x && board_copy_s[y+1][x] != 1){
-        if(board_copy_s[y+3][x] == 1 || y == 14){
+        if(board_copy_s[y+3][x] == 1){
             down[0] = -1; down[1] = -1;
             if(board_copy_s[y+2][x+1] != 1 && x < 16){
                 jump_right[0] = y+2; jump_right[1] = x+2;}

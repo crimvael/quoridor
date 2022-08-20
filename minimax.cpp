@@ -12,7 +12,7 @@ void Quoridor::next_move(){
     ui->treeWidget->clear();
     ui->tableWidget_5->setRowCount(0);
 
-    snap curr(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x));
+    game_state curr(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x));
     curr.root_move = "init";
     curr.red_w = walls_red;
     curr.blue_w = walls_blue;
@@ -50,7 +50,7 @@ void Quoridor::next_move(){
 
 // Find all possible combinations of moves
 // and choose the best one
-void Quoridor::minimax(snap s, int depth, QTreeWidgetItem* item){
+void Quoridor::minimax(game_state s, int depth, QTreeWidgetItem* item){
 
     if(depth == ui->comboBox->currentText().toInt()){
 
@@ -133,8 +133,8 @@ void Quoridor::minimax(snap s, int depth, QTreeWidgetItem* item){
     QString move = "";
     QString wall = "";
 
-    snap m = best_move(s);
-    snap w = best_wall(s);
+    game_state m = best_move(s);
+    game_state w = best_wall(s);
 
     if(depth%2 != 0){move = "BLUE_move: " + m.current_move; wall = "BLUE_wall: " + w.current_move;}
     if(depth%2 == 0){move = "RED_move: " + m.current_move; wall = "RED_wall: " + w.current_move;}
@@ -169,7 +169,7 @@ void Quoridor::minimax(snap s, int depth, QTreeWidgetItem* item){
 }
 
 // Find the best next move position
-snap Quoridor::best_move(snap s){
+game_state Quoridor::best_move(game_state s){
 
     if(s.current_move == "e")
         return s;
@@ -295,7 +295,7 @@ snap Quoridor::best_move(snap s){
 
 
 
-    snap next(s.p2, place(yy, xx));
+    game_state next(s.p2, place(yy, xx));
 
     if(s.goal == 16)
         next.goal = 0;
@@ -319,13 +319,13 @@ snap Quoridor::best_move(snap s){
 }
 
 // Find the best next wall to place
-snap Quoridor::best_wall(snap s){
+game_state Quoridor::best_wall(game_state s){
 
     if(s.current_move == "e")
         return s;
 
     if((s.blue_w == 0 && s.goal == 0) || (s.red_w == 0 && s.goal == 16)){
-        snap no_wall(place(0,0), place(0,0));
+        game_state no_wall(place(0,0), place(0,0));
         no_wall.current_move = "e";
         return no_wall;
     }
@@ -438,7 +438,7 @@ snap Quoridor::best_wall(snap s){
 
     if(hv == "v"){
 
-        snap next(s.p1, s.p2);
+        game_state next(s.p1, s.p2);
 
         if(s.goal == 0){
             next.goal = 16; next.p1 = s.p2; next.p2 = s.p1; s.blue_w--;
@@ -486,7 +486,7 @@ snap Quoridor::best_wall(snap s){
 
     if(hv == "h"){
 
-        snap next(s.p1, s.p2);
+        game_state next(s.p1, s.p2);
         next.root_move = s.root_move;
 
         if(s.goal == 0){
@@ -532,7 +532,7 @@ snap Quoridor::best_wall(snap s){
         }
     }
 
-    snap next(s.p1, s.p2);
+    game_state next(s.p1, s.p2);
     next.root_move = s.root_move;
     next.current_move = "e";
 

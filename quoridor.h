@@ -15,7 +15,7 @@ struct place {
     place(int yy, int xx) : y(yy), x(xx) {}
 };
 
-struct snap {
+struct game_state {
     place p1;
     place p2;
     int goal;
@@ -25,7 +25,7 @@ struct snap {
     QString current_move;
     int board[17][17];
 
-    snap(place pp1, place pp2) : p1(pp1), p2(pp2) {}
+    game_state(place pp1, place pp2) : p1(pp1), p2(pp2) {}
 };
 
 extern bool window_expanded;
@@ -37,7 +37,7 @@ extern int walls_blue; extern int walls_red; extern bool move_select; extern boo
 extern QList<place> player_blue; extern QList<place> player_red; extern QList<place> vertical_walls; extern QList<place> horizontal_walls; extern QList<QString> moves;
 extern int board_matrix[17][17]; extern int board_copy_1[17][17]; extern int board_copy_2[17][17]; extern int board_copy_s[17][17];
 extern int distance; extern int final_pos[]; extern QString next_m;
-extern QList<snap> final_moves;
+extern QList<game_state> final_moves;
 
 class Quoridor : public QMainWindow
 {
@@ -54,11 +54,11 @@ private slots:
 
     void next_move();
 
-    snap best_move(snap s);
+    game_state best_move(game_state s);
 
-    snap best_wall(snap s);
+    game_state best_wall(game_state s);
 
-    void minimax(snap s, int n, QTreeWidgetItem*);
+    void minimax(game_state s, int n, QTreeWidgetItem*);
 
     bool check_wall_number();
 
