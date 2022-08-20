@@ -140,7 +140,7 @@ void Quoridor::minimax(snap s, int depth, QTreeWidgetItem* item){
     if(depth%2 == 0){move = "RED_move: " + m.current_move; wall = "RED_wall: " + w.current_move;}
 
     if(w.current_move == "e") wall = "No wall";
-    if(s.current_move == "e") move = "No move";
+    if(m.current_move == "e") move = "No move";
 
     QTreeWidgetItem *item_right = new QTreeWidgetItem(item);
     QTreeWidgetItem *item_left = new QTreeWidgetItem(item);
@@ -173,6 +173,11 @@ snap Quoridor::best_move(snap s){
 
     if(s.current_move == "e")
         return s;
+
+    if((s.goal == 16 && s.p2.y == 0) || (s.goal == 0 && s.p2.y == 16)){
+        s.current_move = "e";
+        return s;
+    }
 
     QList<place> near_nodes;
     int shortest = 999;
