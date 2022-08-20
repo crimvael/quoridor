@@ -137,140 +137,141 @@ void Quoridor::start_new_game(){
 // Coordinates the game
 void Quoridor::game_manager()
 {
+    if(start){
+        QString status = "";
+        QString walls_b = "<br><span style='color: blue'>BLUE</span> walls: ";
+        QString walls_r = "<br><span style='color: red'>RED</span> walls: ";
+        QString winner = "";
 
-    QString status = "";
-    QString walls_b = "<br><span style='color: blue'>BLUE</span> walls: ";
-    QString walls_r = "<br><span style='color: red'>RED</span> walls: ";
-    QString winner = "";
-
-    walls_b += QString(QString::number(walls_blue)) += "</br>";
-    walls_r += QString(QString::number(walls_red)) += "</br>";
-
-
-    if(BLUE){
-        curr_position[0] = player_blue.last().y;
-        curr_position[1] = player_blue.last().x;
-        status = "Current player: <span style='color: blue'>BLUE</span>";
-    }
-
-    if(RED){
-        curr_position[0] = player_red.last().y;
-        curr_position[1] = player_red.last().x;
-        status = "Current player: <span style='color: red'>RED</span>";
-    }
-
-    if(player_blue.last().y == 0){
-        winner = "<br><span style='color: blue'>BLUE</span> wins!</br>";
-        game_over();
-    }
-
-    if(player_red.last().y == 16){
-        winner = "<br><span style='color: red'>RED</span> wins!</br>";
-        game_over();
-    }
+        walls_b += QString(QString::number(walls_blue)) += "</br>";
+        walls_r += QString(QString::number(walls_red)) += "</br>";
 
 
-    ui->textBrowser->setText(status + walls_r + walls_b + winner);
-
-
-    if(RED && ai){
-
-        show_wall = false;
-        wall_unlocked = false;
-
-        next_move();
-
-        int y = next_m.split(QChar(' ')).at(1).toInt();
-        int x = next_m.split(QChar(' ')).at(2).toInt();
-
-        if(next_m.at(0) == 'm'){
-            remove_piece(curr_position[0], curr_position[1]);
-            set_players(y, x, 2);
-            moves.append("m 2");
-            player_red.append(place(y, x));
+        if(BLUE){
+            curr_position[0] = player_blue.last().y;
+            curr_position[1] = player_blue.last().x;
+            status = "Current player: <span style='color: blue'>BLUE</span>";
         }
 
-        if(next_m.at(0) == 'v' || next_m.at(0) == 'h'){
-            walls_red--;
-            ai_wall(next_m); moves.append(next_m); update();
+        if(RED){
+            curr_position[0] = player_red.last().y;
+            curr_position[1] = player_red.last().x;
+            status = "Current player: <span style='color: red'>RED</span>";
         }
 
-        RED = false; BLUE = true;
-        show_wall = true; wall_unlocked = true;
-        game_manager();
-
-    }
-
-    ui->label_7->setText(QString::number(curr_position[0]) + ", " + QString::number(curr_position[1]));
-
-    for (int y=0; y<17; y++) {
-        for (int x=0; x<17; x++) {
-            board_copy_s[y][x] = board_matrix[y][x];
+        if(player_blue.last().y == 0){
+            winner = "<br><span style='color: blue'>BLUE</span> wins!</br>";
+            game_over();
         }
-    }
 
-    shortest_path(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x),16);
-    ui->label_9->setText(QString::number(distance));
-
-    for (int y=0; y<17; y++) {
-        for (int x=0; x<17; x++) {
-            board_copy_s[y][x] = board_matrix[y][x];
+        if(player_red.last().y == 16){
+            winner = "<br><span style='color: red'>RED</span> wins!</br>";
+            game_over();
         }
-    }
 
-    shortest_path(place(player_blue.last().y, player_blue.last().x), place(player_red.last().y, player_red.last().x),0);
-    ui->label_10->setText(QString::number(distance));
 
-    ui->tableWidget_2->setRowCount(0);
-    for(int n=0; n < fmax(player_blue.size(), player_red.size()); n++){
-        ui->tableWidget_2->insertRow(ui->tableWidget_2->rowCount());
-        if(n < player_blue.size()){
-            QTableWidgetItem* item = new QTableWidgetItem(QString::number(player_blue[n].y) + ", " + QString::number(player_blue[n].x));
-            item->setTextAlignment(Qt::AlignCenter);
-            ui->tableWidget_2->setItem(n, 0, item);
-        }
-        if(n < player_red.size()){
-            QTableWidgetItem* item_2 = new QTableWidgetItem(QString::number(player_red[n].y) + ", " + QString::number(player_red[n].x));
-            item_2->setTextAlignment(Qt::AlignCenter);
-            ui->tableWidget_2->setItem(n, 1, item_2);
-        }
-    }
+        ui->textBrowser->setText(status + walls_r + walls_b + winner);
 
-    ui->tableWidget_3->setRowCount(0);
-    for(int n=0; n < fmax(vertical_walls.size(), horizontal_walls.size()); n++){
-        ui->tableWidget_3->insertRow(ui->tableWidget_3->rowCount());
-        if(n < vertical_walls.size()){
-            QTableWidgetItem* item = new QTableWidgetItem(QString::number(vertical_walls[n].y) + ", " + QString::number(vertical_walls[n].x));
-            item->setTextAlignment(Qt::AlignCenter);
-            ui->tableWidget_3->setItem(n, 0, item);
-        }
-        if(n < horizontal_walls.size()){
-            QTableWidgetItem* item_2 = new QTableWidgetItem(QString::number(horizontal_walls[n].y) + ", " + QString::number(horizontal_walls[n].x));
-            item_2->setTextAlignment(Qt::AlignCenter);
-            ui->tableWidget_3->setItem(n, 1, item_2);
-        }
-    }
 
-    ui->tableWidget_4->setRowCount(0);
-    for(int n=0; n < moves.size(); n++){
-        ui->tableWidget_4->insertRow(ui->tableWidget_4->rowCount());
+        if(RED && ai){
+
+            show_wall = false;
+            wall_unlocked = false;
+
+            next_move();
+
+            int y = next_m.split(QChar(' ')).at(1).toInt();
+            int x = next_m.split(QChar(' ')).at(2).toInt();
+
+            if(next_m.at(0) == 'm'){
+                remove_piece(curr_position[0], curr_position[1]);
+                set_players(y, x, 2);
+                moves.append("m 2");
+                player_red.append(place(y, x));
+            }
+
+            if(next_m.at(0) == 'v' || next_m.at(0) == 'h'){
+                walls_red--;
+                ai_wall(next_m); moves.append(next_m); update();
+            }
+
+            RED = false; BLUE = true;
+            show_wall = true; wall_unlocked = true;
+            game_manager();
+
+        }
+
+        ui->label_7->setText(QString::number(curr_position[0]) + ", " + QString::number(curr_position[1]));
+
+        for (int y=0; y<17; y++) {
+            for (int x=0; x<17; x++) {
+                board_copy_s[y][x] = board_matrix[y][x];
+            }
+        }
+
+        shortest_path(place(player_red.last().y, player_red.last().x), place(player_blue.last().y, player_blue.last().x),16);
+        ui->label_9->setText(QString::number(distance));
+
+        for (int y=0; y<17; y++) {
+            for (int x=0; x<17; x++) {
+                board_copy_s[y][x] = board_matrix[y][x];
+            }
+        }
+
+        shortest_path(place(player_blue.last().y, player_blue.last().x), place(player_red.last().y, player_red.last().x),0);
+        ui->label_10->setText(QString::number(distance));
+
+        ui->tableWidget_2->setRowCount(0);
+        for(int n=0; n < fmax(player_blue.size(), player_red.size()); n++){
+            ui->tableWidget_2->insertRow(ui->tableWidget_2->rowCount());
+            if(n < player_blue.size()){
+                QTableWidgetItem* item = new QTableWidgetItem(QString::number(player_blue[n].y) + ", " + QString::number(player_blue[n].x));
+                item->setTextAlignment(Qt::AlignCenter);
+                ui->tableWidget_2->setItem(n, 0, item);
+            }
+            if(n < player_red.size()){
+                QTableWidgetItem* item_2 = new QTableWidgetItem(QString::number(player_red[n].y) + ", " + QString::number(player_red[n].x));
+                item_2->setTextAlignment(Qt::AlignCenter);
+                ui->tableWidget_2->setItem(n, 1, item_2);
+            }
+        }
+
+        ui->tableWidget_3->setRowCount(0);
+        for(int n=0; n < fmax(vertical_walls.size(), horizontal_walls.size()); n++){
+            ui->tableWidget_3->insertRow(ui->tableWidget_3->rowCount());
+            if(n < vertical_walls.size()){
+                QTableWidgetItem* item = new QTableWidgetItem(QString::number(vertical_walls[n].y) + ", " + QString::number(vertical_walls[n].x));
+                item->setTextAlignment(Qt::AlignCenter);
+                ui->tableWidget_3->setItem(n, 0, item);
+            }
+            if(n < horizontal_walls.size()){
+                QTableWidgetItem* item_2 = new QTableWidgetItem(QString::number(horizontal_walls[n].y) + ", " + QString::number(horizontal_walls[n].x));
+                item_2->setTextAlignment(Qt::AlignCenter);
+                ui->tableWidget_3->setItem(n, 1, item_2);
+            }
+        }
+
+        ui->tableWidget_4->setRowCount(0);
+        for(int n=0; n < moves.size(); n++){
+            ui->tableWidget_4->insertRow(ui->tableWidget_4->rowCount());
             QTableWidgetItem* item = new QTableWidgetItem(moves[n]);
             item->setTextAlignment(Qt::AlignCenter);
             ui->tableWidget_4->setItem(n, 0, item);
-    }
+        }
 
-    ui->tableWidget_2->resizeColumnsToContents();
-    ui->tableWidget_2->resizeRowsToContents();
-    ui->tableWidget_3->resizeColumnsToContents();
-    ui->tableWidget_3->resizeRowsToContents();
-    ui->tableWidget_4->resizeColumnsToContents();
-    ui->tableWidget_4->resizeRowsToContents();
+        ui->tableWidget_2->resizeColumnsToContents();
+        ui->tableWidget_2->resizeRowsToContents();
+        ui->tableWidget_3->resizeColumnsToContents();
+        ui->tableWidget_3->resizeRowsToContents();
+        ui->tableWidget_4->resizeColumnsToContents();
+        ui->tableWidget_4->resizeRowsToContents();
+    }
 
 }
 
 // Game Over
 void Quoridor::game_over(){
-
+    start = false;
 }
 
 // Place a wall at (y, x) and
@@ -343,19 +344,18 @@ void Quoridor::paintEvent(QPaintEvent *){
 
     QPainter paint(this);
 
-    if(start){
-        if(show_wall){
-            if(wall_position[2] == 0){
-                paint.drawRect(wall_position[0],wall_position[1],11,111);}
+    if(show_wall && start){
+        if(wall_position[2] == 0){
+            paint.drawRect(wall_position[0],wall_position[1],11,111);}
 
-            if(wall_position[2] == 1){
-                paint.drawRect(wall_position[0],wall_position[1],111,11);}}
+        if(wall_position[2] == 1){
+            paint.drawRect(wall_position[0],wall_position[1],111,11);}}
 
-        for (int i=0; i<vertical_walls.size(); i++ ) {
-            paint.fillRect(QRect(vertical_walls[i].y, vertical_walls[i].x, 11, 111), Qt::SolidPattern);}
+    for (int i=0; i<vertical_walls.size(); i++ ) {
+        paint.fillRect(QRect(vertical_walls[i].y, vertical_walls[i].x, 11, 111), Qt::SolidPattern);}
 
-        for (int i=0; i<horizontal_walls.size(); i++ ) {
-            paint.fillRect(QRect(horizontal_walls[i].y, horizontal_walls[i].x, 111, 11), Qt::SolidPattern);}}
+    for (int i=0; i<horizontal_walls.size(); i++ ) {
+        paint.fillRect(QRect(horizontal_walls[i].y, horizontal_walls[i].x, 111, 11), Qt::SolidPattern);}
 
 }
 

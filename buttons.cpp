@@ -6,7 +6,7 @@
 // Each button move the player to the next legal position
 void Quoridor::on_pushButton_0000_clicked()
 {
-    if(curr_position[0] == 0 && curr_position[1] == 0 && !move_select){
+    if(curr_position[0] == 0 && curr_position[1] == 0 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -30,7 +30,7 @@ void Quoridor::on_pushButton_0000_clicked()
 
 void Quoridor::on_pushButton_0002_clicked()
 {
-    if(curr_position[0] == 0 && curr_position[1] == 2 && !move_select){
+    if(curr_position[0] == 0 && curr_position[1] == 2 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -54,7 +54,7 @@ void Quoridor::on_pushButton_0002_clicked()
 
 void Quoridor::on_pushButton_0004_clicked()
 {
-    if(curr_position[0] == 0 && curr_position[1] == 4 && !move_select){
+    if(curr_position[0] == 0 && curr_position[1] == 4 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -78,7 +78,7 @@ void Quoridor::on_pushButton_0004_clicked()
 
 void Quoridor::on_pushButton_0006_clicked()
 {
-    if(curr_position[0] == 0 && curr_position[1] == 6 && !move_select){
+    if(curr_position[0] == 0 && curr_position[1] == 6 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -102,7 +102,7 @@ void Quoridor::on_pushButton_0006_clicked()
 
 void Quoridor::on_pushButton_0008_clicked()
 {
-    if(curr_position[0] == 0 && curr_position[1] == 8 && !move_select){
+    if(curr_position[0] == 0 && curr_position[1] == 8 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -126,7 +126,7 @@ void Quoridor::on_pushButton_0008_clicked()
 
 void Quoridor::on_pushButton_0010_clicked()
 {
-    if(curr_position[0] == 0 && curr_position[1] == 10 && !move_select){
+    if(curr_position[0] == 0 && curr_position[1] == 10 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -150,7 +150,7 @@ void Quoridor::on_pushButton_0010_clicked()
 
 void Quoridor::on_pushButton_0012_clicked()
 {
-    if(curr_position[0] == 0 && curr_position[1] == 12 && !move_select){
+    if(curr_position[0] == 0 && curr_position[1] == 12 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -174,7 +174,7 @@ void Quoridor::on_pushButton_0012_clicked()
 
 void Quoridor::on_pushButton_0014_clicked()
 {
-    if(curr_position[0] == 0 && curr_position[1] == 14 && !move_select){
+    if(curr_position[0] == 0 && curr_position[1] == 14 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -198,7 +198,7 @@ void Quoridor::on_pushButton_0014_clicked()
 
 void Quoridor::on_pushButton_0016_clicked()
 {
-    if(curr_position[0] == 0 && curr_position[1] == 16 && !move_select){
+    if(curr_position[0] == 0 && curr_position[1] == 16 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -222,7 +222,7 @@ void Quoridor::on_pushButton_0016_clicked()
 
 void Quoridor::on_pushButton_0200_clicked()
 {
-    if(curr_position[0] == 2 && curr_position[1] == 0 && !move_select){
+    if(curr_position[0] == 2 && curr_position[1] == 0 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -246,7 +246,7 @@ void Quoridor::on_pushButton_0200_clicked()
 
 void Quoridor::on_pushButton_0202_clicked()
 {
-    if(curr_position[0] == 2 && curr_position[1] == 2 && !move_select){
+    if(curr_position[0] == 2 && curr_position[1] == 2 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -270,7 +270,7 @@ void Quoridor::on_pushButton_0202_clicked()
 
 void Quoridor::on_pushButton_0204_clicked()
 {
-    if(curr_position[0] == 2 && curr_position[1] == 4 && !move_select){
+    if(curr_position[0] == 2 && curr_position[1] == 4 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -294,7 +294,7 @@ void Quoridor::on_pushButton_0204_clicked()
 
 void Quoridor::on_pushButton_0206_clicked()
 {
-    if(curr_position[0] == 2 && curr_position[1] == 6 && !move_select){
+    if(curr_position[0] == 2 && curr_position[1] == 6 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -318,7 +318,7 @@ void Quoridor::on_pushButton_0206_clicked()
 
 void Quoridor::on_pushButton_0208_clicked()
 {
-    if(curr_position[0] == 2 && curr_position[1] == 8 && !move_select){
+    if(curr_position[0] == 2 && curr_position[1] == 8 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -342,7 +342,7 @@ void Quoridor::on_pushButton_0208_clicked()
 
 void Quoridor::on_pushButton_0210_clicked()
 {
-    if(curr_position[0] == 2 && curr_position[1] == 10 && !move_select){
+    if(curr_position[0] == 2 && curr_position[1] == 10 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -366,7 +366,7 @@ void Quoridor::on_pushButton_0210_clicked()
 
 void Quoridor::on_pushButton_0212_clicked()
 {
-    if(curr_position[0] == 2 && curr_position[1] == 12 && !move_select){
+    if(curr_position[0] == 2 && curr_position[1] == 12 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -390,7 +390,7 @@ void Quoridor::on_pushButton_0212_clicked()
 
 void Quoridor::on_pushButton_0214_clicked()
 {
-    if(curr_position[0] == 2 && curr_position[1] == 14 && !move_select){
+    if(curr_position[0] == 2 && curr_position[1] == 14 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -414,7 +414,7 @@ void Quoridor::on_pushButton_0214_clicked()
 
 void Quoridor::on_pushButton_0216_clicked()
 {
-    if(curr_position[0] == 2 && curr_position[1] == 16 && !move_select){
+    if(curr_position[0] == 2 && curr_position[1] == 16 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -438,7 +438,7 @@ void Quoridor::on_pushButton_0216_clicked()
 
 void Quoridor::on_pushButton_0400_clicked()
 {
-    if(curr_position[0] == 4 && curr_position[1] == 0 && !move_select){
+    if(curr_position[0] == 4 && curr_position[1] == 0 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -462,7 +462,7 @@ void Quoridor::on_pushButton_0400_clicked()
 
 void Quoridor::on_pushButton_0402_clicked()
 {
-    if(curr_position[0] == 4 && curr_position[1] == 2 && !move_select){
+    if(curr_position[0] == 4 && curr_position[1] == 2 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -486,7 +486,7 @@ void Quoridor::on_pushButton_0402_clicked()
 
 void Quoridor::on_pushButton_0404_clicked()
 {
-    if(curr_position[0] == 4 && curr_position[1] == 4 && !move_select){
+    if(curr_position[0] == 4 && curr_position[1] == 4 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -510,7 +510,7 @@ void Quoridor::on_pushButton_0404_clicked()
 
 void Quoridor::on_pushButton_0406_clicked()
 {
-    if(curr_position[0] == 4 && curr_position[1] == 6 && !move_select){
+    if(curr_position[0] == 4 && curr_position[1] == 6 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -534,7 +534,7 @@ void Quoridor::on_pushButton_0406_clicked()
 
 void Quoridor::on_pushButton_0408_clicked()
 {
-    if(curr_position[0] == 4 && curr_position[1] == 8 && !move_select){
+    if(curr_position[0] == 4 && curr_position[1] == 8 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -558,7 +558,7 @@ void Quoridor::on_pushButton_0408_clicked()
 
 void Quoridor::on_pushButton_0410_clicked()
 {
-    if(curr_position[0] == 4 && curr_position[1] == 10 && !move_select){
+    if(curr_position[0] == 4 && curr_position[1] == 10 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -582,7 +582,7 @@ void Quoridor::on_pushButton_0410_clicked()
 
 void Quoridor::on_pushButton_0412_clicked()
 {
-    if(curr_position[0] == 4 && curr_position[1] == 12 && !move_select){
+    if(curr_position[0] == 4 && curr_position[1] == 12 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -606,7 +606,7 @@ void Quoridor::on_pushButton_0412_clicked()
 
 void Quoridor::on_pushButton_0414_clicked()
 {
-    if(curr_position[0] == 4 && curr_position[1] == 14 && !move_select){
+    if(curr_position[0] == 4 && curr_position[1] == 14 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -630,7 +630,7 @@ void Quoridor::on_pushButton_0414_clicked()
 
 void Quoridor::on_pushButton_0416_clicked()
 {
-    if(curr_position[0] == 4 && curr_position[1] == 16 && !move_select){
+    if(curr_position[0] == 4 && curr_position[1] == 16 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -654,7 +654,7 @@ void Quoridor::on_pushButton_0416_clicked()
 
 void Quoridor::on_pushButton_0600_clicked()
 {
-    if(curr_position[0] == 6 && curr_position[1] == 0 && !move_select){
+    if(curr_position[0] == 6 && curr_position[1] == 0 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -678,7 +678,7 @@ void Quoridor::on_pushButton_0600_clicked()
 
 void Quoridor::on_pushButton_0602_clicked()
 {
-    if(curr_position[0] == 6 && curr_position[1] == 2 && !move_select){
+    if(curr_position[0] == 6 && curr_position[1] == 2 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -702,7 +702,7 @@ void Quoridor::on_pushButton_0602_clicked()
 
 void Quoridor::on_pushButton_0604_clicked()
 {
-    if(curr_position[0] == 6 && curr_position[1] == 4 && !move_select){
+    if(curr_position[0] == 6 && curr_position[1] == 4 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -726,7 +726,7 @@ void Quoridor::on_pushButton_0604_clicked()
 
 void Quoridor::on_pushButton_0606_clicked()
 {
-    if(curr_position[0] == 6 && curr_position[1] == 6 && !move_select){
+    if(curr_position[0] == 6 && curr_position[1] == 6 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -750,7 +750,7 @@ void Quoridor::on_pushButton_0606_clicked()
 
 void Quoridor::on_pushButton_0608_clicked()
 {
-    if(curr_position[0] == 6 && curr_position[1] == 8 && !move_select){
+    if(curr_position[0] == 6 && curr_position[1] == 8 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -774,7 +774,7 @@ void Quoridor::on_pushButton_0608_clicked()
 
 void Quoridor::on_pushButton_0610_clicked()
 {
-    if(curr_position[0] == 6 && curr_position[1] == 10 && !move_select){
+    if(curr_position[0] == 6 && curr_position[1] == 10 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -798,7 +798,7 @@ void Quoridor::on_pushButton_0610_clicked()
 
 void Quoridor::on_pushButton_0612_clicked()
 {
-    if(curr_position[0] == 6 && curr_position[1] == 12 && !move_select){
+    if(curr_position[0] == 6 && curr_position[1] == 12 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -822,7 +822,7 @@ void Quoridor::on_pushButton_0612_clicked()
 
 void Quoridor::on_pushButton_0614_clicked()
 {
-    if(curr_position[0] == 6 && curr_position[1] == 14 && !move_select){
+    if(curr_position[0] == 6 && curr_position[1] == 14 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -846,7 +846,7 @@ void Quoridor::on_pushButton_0614_clicked()
 
 void Quoridor::on_pushButton_0616_clicked()
 {
-    if(curr_position[0] == 6 && curr_position[1] == 16 && !move_select){
+    if(curr_position[0] == 6 && curr_position[1] == 16 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -870,7 +870,7 @@ void Quoridor::on_pushButton_0616_clicked()
 
 void Quoridor::on_pushButton_0800_clicked()
 {
-    if(curr_position[0] == 8 && curr_position[1] == 0 && !move_select){
+    if(curr_position[0] == 8 && curr_position[1] == 0 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -894,7 +894,7 @@ void Quoridor::on_pushButton_0800_clicked()
 
 void Quoridor::on_pushButton_0802_clicked()
 {
-    if(curr_position[0] == 8 && curr_position[1] == 2 && !move_select){
+    if(curr_position[0] == 8 && curr_position[1] == 2 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -918,7 +918,7 @@ void Quoridor::on_pushButton_0802_clicked()
 
 void Quoridor::on_pushButton_0804_clicked()
 {
-    if(curr_position[0] == 8 && curr_position[1] == 4 && !move_select){
+    if(curr_position[0] == 8 && curr_position[1] == 4 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -942,7 +942,7 @@ void Quoridor::on_pushButton_0804_clicked()
 
 void Quoridor::on_pushButton_0806_clicked()
 {
-    if(curr_position[0] == 8 && curr_position[1] == 6 && !move_select){
+    if(curr_position[0] == 8 && curr_position[1] == 6 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -966,7 +966,7 @@ void Quoridor::on_pushButton_0806_clicked()
 
 void Quoridor::on_pushButton_0808_clicked()
 {
-    if(curr_position[0] == 8 && curr_position[1] == 8 && !move_select){
+    if(curr_position[0] == 8 && curr_position[1] == 8 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -990,7 +990,7 @@ void Quoridor::on_pushButton_0808_clicked()
 
 void Quoridor::on_pushButton_0810_clicked()
 {
-    if(curr_position[0] == 8 && curr_position[1] == 10 && !move_select){
+    if(curr_position[0] == 8 && curr_position[1] == 10 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1014,7 +1014,7 @@ void Quoridor::on_pushButton_0810_clicked()
 
 void Quoridor::on_pushButton_0812_clicked()
 {
-    if(curr_position[0] == 8 && curr_position[1] == 12 && !move_select){
+    if(curr_position[0] == 8 && curr_position[1] == 12 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1038,7 +1038,7 @@ void Quoridor::on_pushButton_0812_clicked()
 
 void Quoridor::on_pushButton_0814_clicked()
 {
-    if(curr_position[0] == 8 && curr_position[1] == 14 && !move_select){
+    if(curr_position[0] == 8 && curr_position[1] == 14 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1062,7 +1062,7 @@ void Quoridor::on_pushButton_0814_clicked()
 
 void Quoridor::on_pushButton_0816_clicked()
 {
-    if(curr_position[0] == 8 && curr_position[1] == 16 && !move_select){
+    if(curr_position[0] == 8 && curr_position[1] == 16 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1086,7 +1086,7 @@ void Quoridor::on_pushButton_0816_clicked()
 
 void Quoridor::on_pushButton_1000_clicked()
 {
-    if(curr_position[0] == 10 && curr_position[1] == 0 && !move_select){
+    if(curr_position[0] == 10 && curr_position[1] == 0 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1110,7 +1110,7 @@ void Quoridor::on_pushButton_1000_clicked()
 
 void Quoridor::on_pushButton_1002_clicked()
 {
-    if(curr_position[0] == 10 && curr_position[1] == 2 && !move_select){
+    if(curr_position[0] == 10 && curr_position[1] == 2 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1134,7 +1134,7 @@ void Quoridor::on_pushButton_1002_clicked()
 
 void Quoridor::on_pushButton_1004_clicked()
 {
-    if(curr_position[0] == 10 && curr_position[1] == 4 && !move_select){
+    if(curr_position[0] == 10 && curr_position[1] == 4 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1158,7 +1158,7 @@ void Quoridor::on_pushButton_1004_clicked()
 
 void Quoridor::on_pushButton_1006_clicked()
 {
-    if(curr_position[0] == 10 && curr_position[1] == 6 && !move_select){
+    if(curr_position[0] == 10 && curr_position[1] == 6 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1182,7 +1182,7 @@ void Quoridor::on_pushButton_1006_clicked()
 
 void Quoridor::on_pushButton_1008_clicked()
 {
-    if(curr_position[0] == 10 && curr_position[1] == 8 && !move_select){
+    if(curr_position[0] == 10 && curr_position[1] == 8 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1206,7 +1206,7 @@ void Quoridor::on_pushButton_1008_clicked()
 
 void Quoridor::on_pushButton_1010_clicked()
 {
-    if(curr_position[0] == 10 && curr_position[1] == 10 && !move_select){
+    if(curr_position[0] == 10 && curr_position[1] == 10 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1230,7 +1230,7 @@ void Quoridor::on_pushButton_1010_clicked()
 
 void Quoridor::on_pushButton_1012_clicked()
 {
-    if(curr_position[0] == 10 && curr_position[1] == 12 && !move_select){
+    if(curr_position[0] == 10 && curr_position[1] == 12 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1254,7 +1254,7 @@ void Quoridor::on_pushButton_1012_clicked()
 
 void Quoridor::on_pushButton_1014_clicked()
 {
-    if(curr_position[0] == 10 && curr_position[1] == 14 && !move_select){
+    if(curr_position[0] == 10 && curr_position[1] == 14 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1278,7 +1278,7 @@ void Quoridor::on_pushButton_1014_clicked()
 
 void Quoridor::on_pushButton_1016_clicked()
 {
-    if(curr_position[0] == 10 && curr_position[1] == 16 && !move_select){
+    if(curr_position[0] == 10 && curr_position[1] == 16 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1302,7 +1302,7 @@ void Quoridor::on_pushButton_1016_clicked()
 
 void Quoridor::on_pushButton_1200_clicked()
 {
-    if(curr_position[0] == 12 && curr_position[1] == 0 && !move_select){
+    if(curr_position[0] == 12 && curr_position[1] == 0 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1326,7 +1326,7 @@ void Quoridor::on_pushButton_1200_clicked()
 
 void Quoridor::on_pushButton_1202_clicked()
 {
-    if(curr_position[0] == 12 && curr_position[1] == 2 && !move_select){
+    if(curr_position[0] == 12 && curr_position[1] == 2 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1350,7 +1350,7 @@ void Quoridor::on_pushButton_1202_clicked()
 
 void Quoridor::on_pushButton_1204_clicked()
 {
-    if(curr_position[0] == 12 && curr_position[1] == 4 && !move_select){
+    if(curr_position[0] == 12 && curr_position[1] == 4 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1374,7 +1374,7 @@ void Quoridor::on_pushButton_1204_clicked()
 
 void Quoridor::on_pushButton_1206_clicked()
 {
-    if(curr_position[0] == 12 && curr_position[1] == 6 && !move_select){
+    if(curr_position[0] == 12 && curr_position[1] == 6 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1398,7 +1398,7 @@ void Quoridor::on_pushButton_1206_clicked()
 
 void Quoridor::on_pushButton_1208_clicked()
 {
-    if(curr_position[0] == 12 && curr_position[1] == 8 && !move_select){
+    if(curr_position[0] == 12 && curr_position[1] == 8 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1422,7 +1422,7 @@ void Quoridor::on_pushButton_1208_clicked()
 
 void Quoridor::on_pushButton_1210_clicked()
 {
-    if(curr_position[0] == 12 && curr_position[1] == 10 && !move_select){
+    if(curr_position[0] == 12 && curr_position[1] == 10 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1446,7 +1446,7 @@ void Quoridor::on_pushButton_1210_clicked()
 
 void Quoridor::on_pushButton_1212_clicked()
 {
-    if(curr_position[0] == 12 && curr_position[1] == 12 && !move_select){
+    if(curr_position[0] == 12 && curr_position[1] == 12 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1470,7 +1470,7 @@ void Quoridor::on_pushButton_1212_clicked()
 
 void Quoridor::on_pushButton_1214_clicked()
 {
-    if(curr_position[0] == 12 && curr_position[1] == 14 && !move_select){
+    if(curr_position[0] == 12 && curr_position[1] == 14 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1494,7 +1494,7 @@ void Quoridor::on_pushButton_1214_clicked()
 
 void Quoridor::on_pushButton_1216_clicked()
 {
-    if(curr_position[0] == 12 && curr_position[1] == 16 && !move_select){
+    if(curr_position[0] == 12 && curr_position[1] == 16 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1518,7 +1518,7 @@ void Quoridor::on_pushButton_1216_clicked()
 
 void Quoridor::on_pushButton_1400_clicked()
 {
-    if(curr_position[0] == 14 && curr_position[1] == 0 && !move_select){
+    if(curr_position[0] == 14 && curr_position[1] == 0 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1542,7 +1542,7 @@ void Quoridor::on_pushButton_1400_clicked()
 
 void Quoridor::on_pushButton_1402_clicked()
 {
-    if(curr_position[0] == 14 && curr_position[1] == 2 && !move_select){
+    if(curr_position[0] == 14 && curr_position[1] == 2 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1566,7 +1566,7 @@ void Quoridor::on_pushButton_1402_clicked()
 
 void Quoridor::on_pushButton_1404_clicked()
 {
-    if(curr_position[0] == 14 && curr_position[1] == 4 && !move_select){
+    if(curr_position[0] == 14 && curr_position[1] == 4 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1590,7 +1590,7 @@ void Quoridor::on_pushButton_1404_clicked()
 
 void Quoridor::on_pushButton_1406_clicked()
 {
-    if(curr_position[0] == 14 && curr_position[1] == 6 && !move_select){
+    if(curr_position[0] == 14 && curr_position[1] == 6 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1614,7 +1614,7 @@ void Quoridor::on_pushButton_1406_clicked()
 
 void Quoridor::on_pushButton_1408_clicked()
 {
-    if(curr_position[0] == 14 && curr_position[1] == 8 && !move_select){
+    if(curr_position[0] == 14 && curr_position[1] == 8 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1638,7 +1638,7 @@ void Quoridor::on_pushButton_1408_clicked()
 
 void Quoridor::on_pushButton_1410_clicked()
 {
-    if(curr_position[0] == 14 && curr_position[1] == 10 && !move_select){
+    if(curr_position[0] == 14 && curr_position[1] == 10 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1662,7 +1662,7 @@ void Quoridor::on_pushButton_1410_clicked()
 
 void Quoridor::on_pushButton_1412_clicked()
 {
-    if(curr_position[0] == 14 && curr_position[1] == 12 && !move_select){
+    if(curr_position[0] == 14 && curr_position[1] == 12 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1686,7 +1686,7 @@ void Quoridor::on_pushButton_1412_clicked()
 
 void Quoridor::on_pushButton_1414_clicked()
 {
-    if(curr_position[0] == 14 && curr_position[1] == 14 && !move_select){
+    if(curr_position[0] == 14 && curr_position[1] == 14 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1710,7 +1710,7 @@ void Quoridor::on_pushButton_1414_clicked()
 
 void Quoridor::on_pushButton_1416_clicked()
 {
-    if(curr_position[0] == 14 && curr_position[1] == 16 && !move_select){
+    if(curr_position[0] == 14 && curr_position[1] == 16 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1734,7 +1734,7 @@ void Quoridor::on_pushButton_1416_clicked()
 
 void Quoridor::on_pushButton_1600_clicked()
 {
-    if(curr_position[0] == 16 && curr_position[1] == 0 && !move_select){
+    if(curr_position[0] == 16 && curr_position[1] == 0 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1758,7 +1758,7 @@ void Quoridor::on_pushButton_1600_clicked()
 
 void Quoridor::on_pushButton_1602_clicked()
 {
-    if(curr_position[0] == 16 && curr_position[1] == 2 && !move_select){
+    if(curr_position[0] == 16 && curr_position[1] == 2 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1782,7 +1782,7 @@ void Quoridor::on_pushButton_1602_clicked()
 
 void Quoridor::on_pushButton_1604_clicked()
 {
-    if(curr_position[0] == 16 && curr_position[1] == 4 && !move_select){
+    if(curr_position[0] == 16 && curr_position[1] == 4 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1806,7 +1806,7 @@ void Quoridor::on_pushButton_1604_clicked()
 
 void Quoridor::on_pushButton_1606_clicked()
 {
-    if(curr_position[0] == 16 && curr_position[1] == 6 && !move_select){
+    if(curr_position[0] == 16 && curr_position[1] == 6 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1830,7 +1830,7 @@ void Quoridor::on_pushButton_1606_clicked()
 
 void Quoridor::on_pushButton_1608_clicked()
 {
-    if(curr_position[0] == 16 && curr_position[1] == 8 && !move_select){
+    if(curr_position[0] == 16 && curr_position[1] == 8 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1854,7 +1854,7 @@ void Quoridor::on_pushButton_1608_clicked()
 
 void Quoridor::on_pushButton_1610_clicked()
 {
-    if(curr_position[0] == 16 && curr_position[1] == 10 && !move_select){
+    if(curr_position[0] == 16 && curr_position[1] == 10 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1878,7 +1878,7 @@ void Quoridor::on_pushButton_1610_clicked()
 
 void Quoridor::on_pushButton_1612_clicked()
 {
-    if(curr_position[0] == 16 && curr_position[1] == 12 && !move_select){
+    if(curr_position[0] == 16 && curr_position[1] == 12 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1902,7 +1902,7 @@ void Quoridor::on_pushButton_1612_clicked()
 
 void Quoridor::on_pushButton_1614_clicked()
 {
-    if(curr_position[0] == 16 && curr_position[1] == 14 && !move_select){
+    if(curr_position[0] == 16 && curr_position[1] == 14 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
@@ -1926,7 +1926,7 @@ void Quoridor::on_pushButton_1614_clicked()
 
 void Quoridor::on_pushButton_1616_clicked()
 {
-    if(curr_position[0] == 16 && curr_position[1] == 16 && !move_select){
+    if(curr_position[0] == 16 && curr_position[1] == 16 && !move_select && start){
         find_moves(); ui->newGameButton->setEnabled(false); ui->undoButton->setEnabled(false);
         move_select = true; show_wall = false; wall_unlocked = false; update(); return;}
     if(move_select){
