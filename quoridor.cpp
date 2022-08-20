@@ -388,9 +388,9 @@ void Quoridor::undo_last_move()
         int x = moves.last().split(QChar(' ')).at(2).toInt();
         board_matrix[y][x] = 0; board_matrix[y+1][x] = 0; board_matrix[y+2][x] = 0;
         vertical_walls.removeLast(); update();
-        QTableWidgetItem* item = new QTableWidgetItem("0"); item->setTextAlignment(Qt::AlignCenter);
-        QTableWidgetItem* item2 = new QTableWidgetItem("0"); item2->setTextAlignment(Qt::AlignCenter);
-        QTableWidgetItem* item3 = new QTableWidgetItem("0"); item3->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item = new QTableWidgetItem("*"); item->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item2 = new QTableWidgetItem("*"); item2->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item3 = new QTableWidgetItem("*"); item3->setTextAlignment(Qt::AlignCenter);
         ui->tableWidget->setItem(y,x, item); ui->tableWidget->setItem(y+1,x, item2);ui->tableWidget->setItem(y+2,x, item3);
         if(BLUE){BLUE = false; RED = true; walls_red++; moves.removeLast(); return;}
         if(RED){BLUE = true; RED = false; walls_blue++; moves.removeLast(); return;}}
@@ -399,9 +399,9 @@ void Quoridor::undo_last_move()
         int x = moves.last().split(QChar(' ')).at(2).toInt();
         board_matrix[y][x] = 0; board_matrix[y][x+1] = 0; board_matrix[y][x+2] = 0;
         horizontal_walls.removeLast(); update();
-        QTableWidgetItem* item = new QTableWidgetItem("0"); item->setTextAlignment(Qt::AlignCenter);
-        QTableWidgetItem* item2 = new QTableWidgetItem("0"); item2->setTextAlignment(Qt::AlignCenter);
-        QTableWidgetItem* item3 = new QTableWidgetItem("0"); item3->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item = new QTableWidgetItem("*"); item->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item2 = new QTableWidgetItem("*"); item2->setTextAlignment(Qt::AlignCenter);
+        QTableWidgetItem* item3 = new QTableWidgetItem("*"); item3->setTextAlignment(Qt::AlignCenter);
         ui->tableWidget->setItem(y,x, item); ui->tableWidget->setItem(y,x+1, item2);ui->tableWidget->setItem(y,x+2, item3);
         if(BLUE){BLUE = false; RED = true; walls_red++; moves.removeLast(); return;}
         if(RED){BLUE = true; RED = false; walls_blue++; moves.removeLast(); return;}}
