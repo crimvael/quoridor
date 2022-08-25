@@ -173,7 +173,7 @@ void Quoridor::game_manager()
         ui->textBrowser->setText(status + walls_r + walls_b + winner);
 
 
-        if(RED && ai){
+        if(RED && ai && start){
 
             show_wall = false;
             wall_unlocked = false;
