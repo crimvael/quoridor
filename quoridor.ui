@@ -1531,7 +1531,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>690</y>
+      <y>700</y>
       <width>210</width>
       <height>30</height>
      </rect>
@@ -1552,7 +1552,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>690</y>
+      <y>700</y>
       <width>120</width>
       <height>30</height>
      </rect>
@@ -1573,7 +1573,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>605</y>
+      <y>615</y>
       <width>101</width>
       <height>30</height>
      </rect>
@@ -1592,7 +1592,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>645</y>
+      <y>655</y>
       <width>101</width>
       <height>30</height>
      </rect>
@@ -1611,7 +1611,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>605</y>
+      <y>615</y>
       <width>210</width>
       <height>75</height>
      </rect>
@@ -1634,7 +1634,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>690</y>
+      <y>700</y>
       <width>150</width>
       <height>30</height>
      </rect>
@@ -2541,7 +2541,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>620</y>
+      <y>630</y>
       <width>71</width>
       <height>41</height>
      </rect>
@@ -2566,7 +2566,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>630</y>
+      <y>640</y>
       <width>51</width>
       <height>31</height>
      </rect>
@@ -2580,7 +2580,7 @@ p, li { white-space: pre-wrap; }
      <bool>false</bool>
     </property>
     <property name="currentText">
-     <string>4</string>
+     <string>1</string>
     </property>
     <property name="maxCount">
      <number>10</number>
@@ -2637,17 +2637,6 @@ p, li { white-space: pre-wrap; }
     </item>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>600</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
